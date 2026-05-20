@@ -1,0 +1,26 @@
+# STANDARD — DUPLICATE DETECTION RULES
+
+VERSION: 1.0
+STATUS: ACTIVE_REFERENCE
+PIPELINE_SCOPE: B5
+IA_COMPATIBLE: TRUE
+IA_COMPATIBILITY_SCOPE: GENERALIZED
+NORMATIVE_SCOPE: UNIVERSAL_PIPELINE
+LINE_DEPENDENCY: FORBIDDEN
+RETEX_LOADING: ON_DEMAND_ONLY
+RETEX_NORMATIVE_STATUS: NON_NORMATIVE
+
+DEPENDENCY:
+- STD_B5_factory_quality_rules.md
+- STD_QA_status_rules.md
+- glossaire_documentaire_factory.md
+# SECTION — CHECK_DUPLICATES
+
+[RULE-DUP-001]
+Détecter les questions quasi-dupliquées.
+
+[RULE-DUP-002]
+Détecter les dérivations de formulations.
+
+[RULE-DUP-003]
+Détecter les variantes dont la similarité normalisée ≥0,90.

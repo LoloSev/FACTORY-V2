@@ -1,0 +1,278 @@
+{
+  "_doc": "État des gates pipeline par ligne. Géré automatiquement par gate_*.py et check_dashboard.py.",
+  "lignes": {
+    "CDM": {
+      "gates": {
+        "A4": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B2": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B3": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B5": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "EXPORT": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        }
+      }
+    },
+    "MAYENNE": {
+      "gates": {
+        "A4": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B2": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B3": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B5": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "EXPORT": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        }
+      }
+    },
+    "CINEMA": {
+      "gates": {
+        "A4": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B2": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B3": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B5": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "EXPORT": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        }
+      }
+    },
+    "INTERNET": {
+      "gates": {
+        "A4": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B2": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B3": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B5": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "EXPORT": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        }
+      }
+    },
+    "RAP": {
+      "gates": {
+        "A4": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B2": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B3": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B5": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "EXPORT": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        }
+      }
+    },
+    "ROCK": {
+      "gates": {
+        "A4": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B2": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B3": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B5": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "EXPORT": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        }
+      }
+    },
+    "SERIES": {
+      "gates": {
+        "A4": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B2": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B3": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "B5": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        },
+        "EXPORT": {
+          "status": "UNKNOWN",
+          "timestamp": null,
+          "fichier": null,
+          "fichier_mtime": null,
+          "fails": []
+        }
+      }
+    }
+  }
+}

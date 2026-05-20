@@ -1,0 +1,107 @@
+{
+  "version": "2.0.0",
+  "name": "factory-complete-skills",
+  "displayName": "FACTORY Complete Skills — A2-B6 Pipeline",
+  "description": "Complete FACTORY pipeline: A2-B6 + B3 distractors (3-pass) + universal token optimization. Rules-as-Data architecture, all themes supported.",
+  "author": "Laurent",
+  "type": "skills",
+  "skills": [
+    {
+      "name": "distractors-generator",
+      "path": "distractors-generator/SKILL.md",
+      "triggers": [
+        "generating distractors",
+        "create wrong answers",
+        "distractor generation"
+      ]
+    },
+    {
+      "name": "distractor-audit-statistics",
+      "path": "distractor-audit-statistics/SKILL.md",
+      "triggers": [
+        "auditing distractors",
+        "quality audit",
+        "distractor validation"
+      ]
+    },
+    {
+      "name": "distractor-optimizer",
+      "path": "distractor-optimizer/SKILL.md",
+      "triggers": [
+        "fixing distractors",
+        "optimizing distractors",
+        "distractor correction"
+      ]
+    },
+    {
+      "name": "token-optimization",
+      "path": "token-optimization/SKILL.md",
+      "triggers": [
+        "optimize tokens",
+        "compress context",
+        "reduce token usage",
+        "batch processing",
+        "token economy",
+        "save tokens"
+      ]
+    },
+    {
+      "name": "a2-bib-construction",
+      "path": "a2-bib-construction/SKILL.md",
+      "triggers": ["build BIB", "construct base items", "theme sourcing"]
+    },
+    {
+      "name": "a3-bib-processing",
+      "path": "a3-bib-processing/SKILL.md",
+      "triggers": ["process BIB", "normalize items", "bipregen"]
+    },
+    {
+      "name": "a4-pools-definition",
+      "path": "a4-pools-definition/SKILL.md",
+      "triggers": ["define pools", "pool architecture", "20 pools"]
+    },
+    {
+      "name": "b2-questions-generator",
+      "path": "b2-questions-generator/SKILL.md",
+      "triggers": ["generate questions", "raw questions", "b2 generation"]
+    },
+    {
+      "name": "b4-spreadsheet-implantation",
+      "path": "b4-spreadsheet-implantation/SKILL.md",
+      "triggers": ["implant spreadsheet", "fill xlsx", "b4 implantation"]
+    },
+    {
+      "name": "b5-audit-validator",
+      "path": "b5-audit-validator/SKILL.md",
+      "triggers": ["audit questions", "validate questions", "b5 audit"]
+    },
+    {
+      "name": "b6-rules-extractor",
+      "path": "b6-rules-extractor/SKILL.md",
+      "triggers": ["extract rules", "generalize patterns", "b6 rules"]
+    }
+  ],
+  "dependencies": {
+    "FACTORY_REGISTRY_CORE": [
+      "REGISTRY_RULES_DISTRACTORS.md",
+      "REGISTRY_DEFINITIONS_CDM.md",
+      "REGISTRY_VALIDATIONS_QUALITY.md",
+      "REGISTRY_AGENTS_DISTRACTOR.md"
+    ],
+    "glossaire": "glossaire_documentaire_factory.md",
+    "universal": ["None — token-optimization is context-agnostic"]
+  },
+  "documentation": {
+    "overview": "Suite complète FACTORY :\n1. Distractors B3 : Three-pass funnel (PASS 1/2/3) pour générer/auditer/optimiser 831 distracteurs\n2. Token Optimization : Skill universel pour compresser contexte dans TOUS contextes Claude (Code, Cowork, web, FACTORY)",
+    "usage": "Distractors: PASS 1 → PASS 2 → PASS 3. Token-Optimization: invoke quand contexte >5KB ou conversation >10 messages",
+    "registryPath": "C:\\Users\\Laurent\\Desktop\\site quiz\\TRAVAIL EN COURS\\quiz-core-lab\\_FACTORY\\_STANDARDS\\",
+    "principles": "Rules-as-Data (skills lisent STD, pas hardcoded) + Universal applicability (tous thèmes) + Aggressive token economy (impératif absolu)"
+  },
+  "metadata": {
+    "source": "MDE_B3_distracteurs.md + STD_B3_distractor_rules.md + glossaire_documentaire_factory.md",
+    "createdDate": "2026-05-17",
+    "lastUpdated": "2026-05-17",
+    "status": "ACTIVE",
+    "version": "v1.1"
+  }
+}

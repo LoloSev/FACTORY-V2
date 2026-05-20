@@ -1,0 +1,31 @@
+# STANDARD — HARD BLOCKERS RULES
+
+VERSION: 1.0
+STATUS: ACTIVE_REFERENCE
+PIPELINE_SCOPE: B6
+IA_COMPATIBLE: TRUE
+IA_COMPATIBILITY_SCOPE: GENERALIZED
+NORMATIVE_SCOPE: UNIVERSAL_PIPELINE
+LINE_DEPENDENCY: FORBIDDEN
+RETEX_LOADING: ON_DEMAND_ONLY
+RETEX_NORMATIVE_STATUS: NON_NORMATIVE
+
+DEPENDENCY:
+- STD_B6_rule_priority_matrix.md
+
+# SECTION — HARD_BLOCKERS
+
+[RULE-HB-001]
+Les collisions de pools bloquent immédiatement le pipeline.
+
+[RULE-HB-002]
+Les duplications bloquent immédiatement le pipeline.
+
+[RULE-HB-003]
+Les FAILURE_CASE CHECK_FACTORY_FORMAT bloquent immédiatement le pipeline.
+
+[RULE-HB-004]
+QA_STATUS=FAIL bloque immédiatement l'export.
+
+ACTION:
+- blocage immédiat

@@ -1,0 +1,142 @@
+
+# 13. Cinéma français
+1. Intouchables
+2. La Grande Vadrouille
+3. Les Visiteurs
+4. La Haine
+5. Le Fabuleux Destin d'Amélie Poulain
+6. Léon
+7. Les Choristes
+8. Le Cinquième Élément
+9. Nikita
+10. Le Dîner de cons
+
+# 14. Films d’action
+1. Die Hard
+2. Terminator 2
+3. Mad Max Fury Road
+4. John Wick
+5. Mission Impossible Fallout
+6. Gladiator
+7. Top Gun Maverick
+8. Rambo
+9. Speed
+10. Heat
+
+# 15. Comédies
+1. Les Visiteurs
+2. Le Dîner de cons
+3. Bienvenue chez les Ch'tis
+4. Very Bad Trip
+5. La Cité de la peur
+6. Ace Ventura
+7. Dumb and Dumber
+8. Les Bronzés font du ski
+9. Superbad
+10. Intouchables
+
+# 16. Films de science-fiction
+1. Star Wars
+2. Avatar
+3. Matrix
+4. Interstellar
+5. Terminator 2
+6. Alien
+7. Blade Runner
+8. Retour vers le futur
+9. Inception
+10. Dune
+
+# 17. Films d’horreur
+1. Ça
+2. L'Exorciste
+3. Scream
+4. Conjuring
+5. Halloween
+6. Psychose
+7. Shining
+8. Saw
+9. Freddy : Les Griffes de la nuit
+10. Massacre à la tronçonneuse
+
+# 18. Films fantastiques
+1. Harry Potter
+2. Le Seigneur des Anneaux
+3. Edward aux mains d'argent
+4. Beetlejuice
+5. Narnia
+6. Le Labyrinthe de Pan
+7. King Kong
+8. Dracula
+
+# 19. Films d’animation
+1. Le Roi Lion
+2. La Reine des Neiges
+3. Toy Story
+4. Shrek
+5. Le Monde de Nemo
+6. Ratatouille
+7. Aladdin
+8. Vice-Versa
+9. Mon voisin Totoro
+10. Coco
+11. Dragons
+12. Wall-E
+
+# 20. Scènes mythiques
+1. Le naufrage du Titanic
+2. Le bullet time de Matrix
+3. La douche dans Psychose
+4. La danse de Pulp Fiction
+5. Le débarquement dans Il faut sauver le soldat Ryan
+6. Le Here's Johnny de Shining
+7. Le T-Rex dans Jurassic Park
+8. Rocky dans les escaliers
+9. Le duel final du Bon, la Brute et le Truand
+10. Le snap dans Avengers Endgame
+
+# 21. Répliques cultes
+1. Je suis ton père
+2. Hasta la vista baby
+3. Que la Force soit avec toi
+4. La vie c'est comme une boîte de chocolats
+5. Here's Johnny
+6. Bond. James Bond.
+7. Mon précieux
+8. E.T. téléphone maison
+9. Why so serious ?
+10. Houston we have a problem
+
+# 22. Musiques de films
+1. My Heart Will Go On
+2. Star Wars Theme
+3. Hedwig's Theme
+4. Eye of the Tiger
+5. Pirates des Caraïbes Theme
+6. Ghostbusters
+7. Take My Breath Away
+8. Let It Go
+
+# 23. Studios de cinéma
+1. Disney
+2. Warner Bros.
+3. Universal Pictures
+4. Pixar
+5. Paramount Pictures
+6. Marvel Studios
+7. DreamWorks
+8. Studio Ghibli
+
+# 24. Records
+1. Avatar — plus gros box-office
+2. Titanic — 11 Oscars
+3. Ben-Hur — 11 Oscars
+4. Le Retour du roi — 11 Oscars
+5. Cléopâtre — budget colossal pour son époque
+6. Lawrence d’Arabie — tournage gigantesque
+7. Avengers Endgame — records d’entrées rapides
+8. Le Seigneur des Anneaux — tournage simultané trilogie
+9. Mad Max Fury Road — cascades réelles massives
+10. Pirates des Caraïbes 4 — budget énorme
+11. Gandhi — milliers de figurants
+12. Birdman — faux plan-séquence célèbre

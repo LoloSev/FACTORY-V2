@@ -1,0 +1,200 @@
+# 1. Joueurs
+
+1. Pelé — Brésil — 4 part. (1958, 1962, 1966, 1970) — 3 CDM (1958, 1962, 1970) — 12 buts — F
+2. Diego Maradona — Argentine — 4 part. (1982, 1986, 1990, 1994) — 1 CDM (1986) — 8 buts — F
+3. Lionel Messi — Argentine — 5 part. (2006, 2010, 2014, 2018, 2022) — 1 CDM (2022) — 13 buts — F
+4. Cristiano Ronaldo — Portugal — 5 part. (2006, 2010, 2014, 2018, 2022) — 0 CDM — 8 buts — F
+5. Johan Cruyff — Pays-Bas — 1 part. (1974) — 0 CDM — 3 buts — I
+6. Zinedine Zidane — France — 3 part. (1998, 2002, 2006) — 1 CDM (1998) — 5 buts — F
+7. Franz Beckenbauer — Allemagne — 3 part. (1966, 1970, 1974) — 1 CDM (1974) — 5 buts — I
+8. Ronaldo Nazário — Brésil — 4 part. (1994, 1998, 2002, 2006) — 2 CDM (1994, 2002) — 15 buts — F
+9. Michel Platini — France — 3 part. (1978, 1982, 1986) — 0 CDM — 5 buts — I
+10. Alfredo Di Stéfano — Argentine/Espagne — 0 part. — 0 CDM — 0 but — D
+11. Miroslav Klose — Allemagne — 4 part. (2002, 2006, 2010, 2014) — 1 CDM (2014) — 16 buts — I
+12. Just Fontaine — France — 1 part. (1958) — 0 CDM — 13 buts — I
+13. Paolo Rossi — Italie — 3 part. (1978, 1982, 1986) — 1 CDM (1982) — 9 buts — D
+14. Gerd Müller — Allemagne — 2 part. (1970, 1974) — 1 CDM (1974) — 14 buts — I
+15. Garrincha — Brésil — 3 part. (1958, 1962, 1966) — 2 CDM (1958, 1962) — 5 buts — D
+16. Bobby Charlton — Angleterre — 4 part. (1958, 1962, 1966, 1970) — 1 CDM (1966) — 4 buts — D
+17. Lothar Matthäus — Allemagne — 5 part. (1982, 1986, 1990, 1994, 1998) — 1 CDM (1990) — 6 buts — I
+18. Manuel Neuer — Allemagne — 4 part. (2010, 2014, 2018, 2022) — 1 CDM (2014) — 0 but — F
+19. Kylian Mbappé — France — 2 part. (2018, 2022) — 1 CDM (2018) — 12 buts — F
+20. Luka Modrić — Croatie — 4 part. (2006, 2014, 2018, 2022) — 0 CDM — 2 buts — F
+
+# 2. Stades
+
+1. Maracanã (Brésil) — finales : 1950 (~199 854 spectateurs), 2014 (~74 738) — F
+2. Estadio Azteca (Mexique) — finales : 1970 (~107 412), 1986 (~114 600) — I
+3. Wembley Stadium (Angleterre) — finale : 1966 (~96 924) — F
+4. Stade de France (France) — finale : 1998 (~80 000) — F
+5. Santiago Bernabéu Stadium (Espagne) — finale : 1982 (~90 000) — F
+6. Olympiastadion (Allemagne) — finale : 1974 (~75 200) — D
+7. Estadio Monumental (Argentine) — finale : 1978 (~71 500) — I
+
+# 3. Matchs
+
+1. Finale 1950 — Brésil vs Uruguay
+Le "Maracanazo", silence monumental au Maracanã après la victoire surprise de l'Uruguay. — I
+
+2. Finale 1966 — Angleterre vs Allemagne de l'Ouest
+Finale du but fantôme de Geoff Hurst à Wembley. — I
+
+3. Finale 1970 — Brésil vs Italie
+Apogée du Brésil de Pelé, considéré comme l'une des plus grandes équipes de l'histoire. — I
+
+4. Finale 1974 — Allemagne de l'Ouest vs Pays-Bas
+Affrontement entre le "football total" néerlandais et le réalisme allemand. — D
+
+5. Finale 1978 — Argentine vs Pays-Bas
+Premier sacre argentin dans une ambiance politique extrêmement tendue. — D
+
+6. Demi-finale 1982 — France vs Allemagne de l'Ouest
+"Séville 82", traumatisme français et premier grand match décidé aux tirs au but en demi-finale. — F
+
+7. Quart de finale 1986 — Argentine vs Angleterre
+Match de la "Main de Dieu" et du "But du siècle" de Maradona. — F
+
+8. Finale 1994 — Brésil vs Italie
+Première finale décidée aux tirs au but, avec le raté historique de Baggio. — I
+
+9. Finale 1998 — France vs Brésil
+Premier titre mondial de la France grâce au doublé de Zidane. — F
+
+10. Demi-finale 2002 — Allemagne vs Corée du Sud
+Fin de l'épopée historique sud-coréenne à domicile. — I
+
+11. Finale 2006 — Italie vs France
+Dernier match de Zidane marqué par son coup de tête sur Materazzi. — F
+
+12. Finale 2010 — Espagne vs Pays-Bas
+Consécration du tiki-taka espagnol avec le but d'Iniesta. — F
+
+13. Demi-finale 2014 — Brésil vs Allemagne
+Le légendaire "7-1", humiliation historique du Brésil à domicile. — F
+
+14. Finale 2018 — France vs Croatie
+Deuxième étoile française après un tournoi maîtrisé. — F
+
+15. Finale 2022 — Argentine vs France
+Duel mythique Messi–Mbappé, souvent considéré comme la plus grande finale de l'histoire. — F
+
+# 4. Buteurs (toutes éditions confondues)
+
+1. Miroslav Klose (Allemagne) — 16 buts
+2002 : 5 buts
+2006 : 5 buts
+2010 : 4 buts
+2014 : 2 buts — I
+
+2. Ronaldo (Brésil) — 15 buts
+1998 : 4 buts
+2002 : 8 buts
+2006 : 3 buts — F
+
+3. Gerd Müller (Allemagne de l'Ouest) — 14 buts
+1970 : 10 buts
+1974 : 4 buts — I
+
+4. Just Fontaine (France) — 13 buts
+1958 : 13 buts — I
+
+5. Lionel Messi (Argentine) — 13 buts
+2006 : 1 but
+2014 : 4 buts
+2018 : 1 but
+2022 : 7 buts — F
+
+6. Pelé (Brésil) — 12 buts
+1958 : 6 buts
+1962 : 1 but
+1970 : 5 buts — F
+
+7. Kylian Mbappé (France) — 12 buts
+2018 : 4 buts
+2022 : 8 buts — F
+
+8. Sándor Kocsis (Hongrie) — 11 buts
+1954 : 11 buts — D
+
+9. Jürgen Klinsmann (Allemagne) — 11 buts
+1990 : 3 buts
+1994 : 5 buts
+1998 : 3 buts — I
+
+10. Helmut Rahn (Allemagne de l'Ouest) — 10 buts
+1954 : 4 buts
+1958 : 6 buts — D
+
+# 5. Meilleurs Buteurs dans une seul édition
+
+1. Just Fontaine (France) — 13 buts — 1958 — I
+2. Sándor Kocsis (Hongrie) — 11 buts — 1954 — D
+3. Gerd Müller (Allemagne de l'Ouest) — 10 buts — 1970 — I
+4. Eusébio (Portugal) — 9 buts — 1966 — I
+5. Guillermo Stábile (Argentine) — 8 buts — 1930 — D
+6. Ademir (Brésil) — 8 buts — 1950 — D
+7. Ronaldo (Brésil) — 8 buts — 2002 — F
+8. Harry Kane (Angleterre) — 6 buts — 2018 — F
+9. Kylian Mbappé (France) — 8 buts — 2022 — F
+10. James Rodríguez (Colombie) — 6 buts — 2014 — F
+
+# 6. Finalistes
+
+1. Allemagne — 8 finales : 1954 (V), 1966 (D), 1974 (V), 1982 (D), 1986 (D), 1990 (V), 2002 (D), 2014 (V) — F
+2. Brésil — 7 finales : 1950 (D), 1958 (V), 1962 (V), 1970 (V), 1994 (V), 1998 (D), 2002 (V) — F
+3. Italie — 6 finales : 1934 (V), 1938 (V), 1970 (D), 1982 (V), 1994 (D), 2006 (V) — F
+4. Argentine — 6 finales : 1930 (D), 1978 (V), 1986 (V), 1990 (D), 2014 (D), 2022 (V) — F
+5. France — 4 finales : 1998 (V), 2006 (D), 2018 (V), 2022 (D) — F
+6. Pays-Bas — 3 finales : 1974 (D), 1978 (D), 2010 (D) — I
+7. Uruguay — 2 finales : 1930 (V), 1950 (V) — I
+8. Hongrie — 2 finales : 1938 (D), 1954 (D) — D
+9. Tchécoslovaquie — 2 finales : 1934 (D), 1962 (D) — D
+10. Angleterre — 1 finale : 1966 (V) — F
+
+# 7. Participations (22 éditions jouées)
+
+1. Brésil — 22 participations — F
+2. Allemagne — 20 participations — F
+3. Italie — 18 participations — I
+4. Argentine — 18 participations — I
+5. Mexique — 17 participations — I
+6. Espagne — 16 participations — F
+7. France — 16 participations — F
+8. Angleterre — 16 participations — F
+9. Belgique — 14 participations — I
+10. Uruguay — 14 participations — I
+11. Suisse — 12 participations — D
+12. Corée du Sud — 11 participations — I
+13. États-Unis — 11 participations — I
+14. Russie / URSS — 11 participations — D
+15. Pays-Bas — 11 participations — I
+
+# 8. Anecdotes / Polémiques
+
+1. 1950 — Le Brésil avait déjà préparé le discours du titre avant la finale perdue contre l'Uruguay au Maracanã. — I
+2. 1958 — Pelé remporte sa première Coupe du monde à seulement 17 ans. — F
+3. 1966 — Le trophée de la Coupe du monde est volé en Angleterre puis retrouvé par un chien nommé Pickles. — I
+4. 1966 — Le but accordé à Geoff Hurst en finale Angleterre–Allemagne reste l'une des plus grandes controverses de l'histoire. — I
+5. 1970 — Le Brésil conserve définitivement la Coupe Jules-Rimet après son troisième sacre mondial. — I
+6. 1978 — La France joue contre la Hongrie avec un improbable maillot vert et blanc emprunté au club argentin Kimberley. — D
+7. 1982 — Le "match de la honte" Allemagne de l'Ouest–Autriche voit les deux équipes quasiment arrêter de jouer pour éliminer l'Algérie. — I
+8. 1982 — Le cheikh Fahad Al-Ahmad descend sur la pelouse pendant France–Koweït pour faire annuler un but français. — D
+9. 1982 — Le gardien allemand Schumacher percute Battiston sans recevoir de carton, scandalisant le monde entier. — F
+10. 1986 — Maradona inscrit dans le même match la "Main de Dieu" et le "But du siècle" contre l'Angleterre. — F
+11. 1994 — Roberto Baggio rate le tir au but décisif lors de la première finale de Coupe du monde décidée aux penalties. — F
+12. 2002 — La Corée du Sud devient la première sélection asiatique à atteindre une demi-finale. — I
+13. 2006 — Zidane est expulsé en finale après son coup de tête sur Materazzi. — F
+14. 2010 — Paul le Poulpe devient une célébrité mondiale après avoir prédit tous les résultats de l'Allemagne. — F
+15. 2014 — Le Brésil subit à domicile la pire défaite de son histoire avec le 7-1 contre l'Allemagne. — F
+
+# 9. Autres records
+
+1. Plus grand nombre de matchs joués — Lothar Matthäus (Allemagne) — 25 matchs. — I
+2. Plus grand nombre de matchs gagnés en CdM — Miroslav Klose (Allemagne) — 17. — I
+3. Joueur le plus âgé — Essam El-Hadary (Égypte) — 45 ans en 2018. — D
+4. Plus jeune joueur — Norman Whiteside (Irlande du Nord) — 17 ans en 1982. — D
+5. Plus large victoire — Hongrie 10-1 Salvador — 1982. — D
+6. Match avec le plus de buts — Autriche 7-5 Suisse — 1954 (12 buts). — D
+7. Finale la plus prolifique — France 4-2 Croatie — 2018 (6 buts). — F
+8. Plus grande affluence — Brésil–Uruguay 1950 au Maracanã — ~199 854 spectateurs. — I
+9. But le plus rapide de l'histoire — Hakan Şükür (Turquie) contre la Corée du Sud — 2002 — 11 secondes. — I
