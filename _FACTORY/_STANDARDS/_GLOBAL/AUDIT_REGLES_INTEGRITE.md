@@ -132,9 +132,9 @@ RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_040
 
 | Règle source | Code | Criticalité | Action requise |
 |-------------|------|-------------|----------------|
-| R03 Checklist BIPREGEN | cas source BLOC 1 | **ABSOLU** | Ajouter à `STD_B5_factory_quality_rules.md` ou créer `STD_B2_generation_rules.md` |
+| R03 Checklist BIPREGEN | cas source BLOC 1 | **ABSOLU** | Ajouter à `FACTORY_QA_RULES.md` ou créer `STD_B2_generation_rules.md` |
 RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_041
-| R07 Triple Filtre Validation | cas source BLOC 2 | **ABSOLU** | Ajouter à `STD_B5_factory_quality_rules.md` ou créer `STD_B2_generation_rules.md` |
+| R07 Triple Filtre Validation | cas source BLOC 2 | **ABSOLU** | Ajouter à `FACTORY_QA_RULES.md` ou créer `STD_B2_generation_rules.md` |
 RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_042
 | R37 Collision réponse identique (B2) | cas source BLOC 2 | **ABSOLU** | Étendre `STD_GLOBAL_pool_collision_rules.md` — couvre actuellement B3 uniquement |
 RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_043
@@ -161,7 +161,7 @@ RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_049
 | RULE-HB-001 à 004 (hard blockers pipeline) | `STD_B6_hard_blockers_rules.md` | Non testé en COBAYE 78 (pas de pipeline B5 complet) |
 | RULE-B6-001/002 (matrice priorités) | `STD_B6_rule_priority_matrix.md` | Implicitement appliqué en cas source PASS 1/2/3 |
 RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_050
-| RULE-B5QA-001 à 005 (philosophie QA) | `STD_B5_factory_quality_rules.md` | Très minimal — insuffisant |
+| RULE-B5QA-001 à 005 (philosophie QA) | `FACTORY_QA_RULES.md` | Très minimal — insuffisant |
 | CHECK codes (format FACTORY) | `STD_B5_factory_format_rules.md` | Non testé |
 
 ---
@@ -182,7 +182,7 @@ RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_055
 
 | Règle | FAILURE_CASE |
 |-------|---------|
-| `STD_B5_factory_quality_rules.md` | Seulement 5 règles génériques — très insuffisant vs richesse cas source |
+| `FACTORY_QA_RULES.md` | Seulement 5 règles génériques — très insuffisant vs richesse cas source |
 RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_056
 | `STD_B6_rule_priority_matrix.md` | Seulement 2 règles + ordre priorité — incomplet |
 | `STD_B6_hard_blockers_rules.md` | 4 blockers très généraux — pas de détail procédural |
@@ -208,7 +208,7 @@ RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_058
 | 🔴 P0 | Créer STD_B2_recevabilite_pedagogique.md (LACUNE L01) | `_STANDARDS/_B2/STD_B2_recevabilite_pedagogique.md` (NOUVEAU) |
 RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_059
 | 🟡 P1 | Créer STD_B3_surqualification_methodology.md (LACUNE L02) | `_STANDARDS/STD_B3_surqualification_methodology.md` (NOUVEAU) |
-| 🟡 P1 | Enrichir STD_B5_factory_quality_rules.md | `_STANDARDS/_B5/STD_B5_factory_quality_rules.md` |
+| 🟡 P1 | Enrichir FACTORY_QA_RULES.md | `_STANDARDS/_B5/FACTORY_QA_RULES.md` |
 RETEX_REF: RETEX_AUDIT_REGLES_INTEGRITE_060
 | 🟢 P2 | Tester GEN_NOTES 001-007 sur thèmes variés | COBAYE Rock ou Rap |
 

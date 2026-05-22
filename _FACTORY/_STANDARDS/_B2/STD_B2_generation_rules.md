@@ -107,7 +107,7 @@ RETEX_ROLE: JUSTIFICATION
 [RULE-B2-SW-001]
 **Passe de cadrage pré-génération**
 Déclencher une passe de cadrage avant génération si le pool présente l'un des critères suivants :
-- Pool éditorial pur (pas de mapping direct ANGIPREGEN)
+- Pool éditorial pur (pas de mapping direct depuis feuille ANGLES)
 - Densité d'angles structurés < 1,2 angle valide par question cible
 - Part d'angles nécessitant mémoire collective/culture du domaine > 40 % du pool
 - Risque d'oubli majeur probable sans revue spécifique
@@ -117,7 +117,7 @@ La fiche de cadrage produit (sans générer de questions) :
 - Objets incontournables du pool
 - Absents majeurs possibles
 - Trajectoires transversales tombant entre plusieurs pools
-- Angles culturels et narratifs non couverts par ANGIPREGEN
+- Angles culturels et narratifs non couverts par la feuille ANGLES
 - Micro-faits à haut rendement de jeu
 - Risques liés à la cible audience
 - Arbitrages humains identifiés (3-5 max)

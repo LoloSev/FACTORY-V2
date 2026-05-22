@@ -37,7 +37,7 @@ token-optimization (ANY task/context)
 Build raw source items from research → A2_BIB structuré par sections thématiques.
 
 #### 2. a3-bib-processing (A3)
-Normalize A2_BIB → A3_BIPREGEN (items codés) + A3_ANGIPREGEN (angles/quotas).
+Traiter A2_BIB → feuilles ITEMS + ANGLES du xlsx (Pipeline V2).
 
 #### 3. a4-pools-definition (A4)
 Define 20 pools architecture (IF/QV, table dérivation positionnelle) avec assignations angles.
@@ -45,7 +45,7 @@ Define 20 pools architecture (IF/QV, table dérivation positionnelle) avec assig
 ### PHASE B — Production
 
 #### 4. b2-questions-generator (B2)
-Generate 277 raw questions (Q+R+TYPE+Difficulty) pool by pool from BIPREGEN.
+Générer questions brutes pool par pool depuis feuille POOLS du xlsx (Pipeline V2).
 
 #### 5. distractors-generator (PASS 1 — B3)
 
@@ -368,7 +368,7 @@ SKILLS/
 ├── a2-bib-construction/
 │   └── SKILL.md (A2 — build BIB)
 ├── a3-bib-processing/
-│   └── SKILL.md (A3 — normalize → BIPREGEN)
+│   └── SKILL.md (A3 — BIB → xlsx ITEMS/ANGLES)
 ├── a4-pools-definition/
 │   └── SKILL.md (A4 — define 20 pools)
 ├── b2-questions-generator/
