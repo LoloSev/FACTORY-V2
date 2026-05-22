@@ -1,74 +1,65 @@
 # ACTIVE_CONTEXT_MANIFEST
 
+STATUT: ACTIVE
+ROLE: point d'entrée session — règles de chargement runtime actives
+
 DEPENDENCY:
 - FACTORY_RUNTIME_LEXICON.md
 - TOKEN_ECONOMY_RUNTIME_PROTOCOL.md
 - MASTER_ARCHITECTURE.md
-- PIPELINE_V2.md
-- glossaire_documentaire_factory.md
-## Chargement par défaut
-
-Charger uniquement :
-- STD/MDE nécessaires à la phase en cours
-- règles globales minimales
-- dépendances explicitement citées
-
-Ne pas charger par défaut :
-- RETEX_INDEX
-- archives
-- retours historiques
-- fichiers de laboratoire
-
-## Règle
-
-Le RETEX est consulté uniquement en contexte :
-- audit
-- amélioration
-- anti-régression
-- résolution d'ambiguïté
-
 
 ---
 
-# PHASE_3_COMPRESSION_RULES
+## POLITIQUE DE CHARGEMENT
 
-STATUS: ACTIVE
+Référence : `TOKEN_ECONOMY_RUNTIME_PROTOCOL.md` — section COUCHES DE CHARGEMENT RUNTIME.
 
-RUNTIME_LOAD_POLICY:
-- LOAD: target MDE/STD
-- LOAD: direct DEPENDENCY only
-- DO_NOT_LOAD_DEFAULT: RETEX_LIBRARY
-- DO_NOT_LOAD_DEFAULT: ARCHIVES_TESTS
-- DO_NOT_LOAD_DEFAULT: _LIGNES production outputs
-- DO_NOT_LOAD_DEFAULT: historical reports
+Résumé opérationnel :
 
-ACTIVE_CONTEXT_COST_RULE:
-- duplicate validation block must resolve to referenced DEPENDENCY
-- repeated glossary term must resolve to glossaire_documentaire_factory.md
-- repeated QA status definition must resolve to STD_QA_status_rules.md
-- repeated B5 QA validation must resolve to FACTORY_QA_RULES.md
-- BIB positioning must resolve to STD_BIB_USAGE.md (do not redefine inline)
-- BIB operational usage must resolve to MDE_BIB_USAGE.md (do not redefine inline)
+```txt
+Nouvelle session                → L0 uniquement
+Tâche de production identifiée  → L0 + L1 (MDE + STD phase)
+Ambiguïté / conflit             → ajouter L2 (fichier ciblé)
+Audit / décision complexe       → ajouter L3 (sur demande humaine)
+Archives / CHANTIER             → L4 — ne jamais charger
+```
 
-ACCEPTANCE_CRITERIA:
-- each active STD/MDE/DOC has explicit DEPENDENCY block
-- RETEX loading remains ON_DEMAND_ONLY
-- no active file deletion during compression
-- ZIP file count >= Phase 2 file count
+---
 
-## TOKEN_ECONOMY_LOAD_POLICY
+## RÈGLES DE RÉSOLUTION DE CONTENU
 
-LOAD FIRST:
-- `_FACTORY/_STANDARDS/_GLOBAL/FACTORY_RUNTIME_LEXICON.md`
+En cas de duplication ou d'ambiguïté, résoudre vers la source unique :
 
-LOAD WHEN STRUCTURING/MIGRATING:
-- `_FACTORY/_STANDARDS/_GLOBAL/TOKEN_ECONOMY_RUNTIME_PROTOCOL.md`
+```txt
+terme runtime / taxonomie       → FACTORY_RUNTIME_LEXICON.md
+QA status                       → STD_QA_status_rules.md
+QA validation B5                → FACTORY_QA_RULES.md
+collision inter-pools           → STD_GLOBAL_pool_collision_rules.md
+terme documentaire              → glossaire_documentaire_factory.md
+usage BIB                       → STD_BIB_USAGE.md
+```
 
-DO_NOT_DUPLICATE:
-- taxonomies runtime
-- statuts machine
-- concepts gameplay transversaux
+---
 
-MAYENNE_STATUS:
-- prototype de refonte FACTORY
-- ne pas généraliser aux autres lignes avant validation
+## CONTRAINTES ACTIVES
+
+```txt
+DO_NOT_LOAD_DEFAULT: RETEX (tout fichier RETEX_*)
+DO_NOT_LOAD_DEFAULT: _LIGNES/ outputs de production
+DO_NOT_LOAD_DEFAULT: fichiers STATUS: ARCHIVED
+DO_NOT_LOAD_DEFAULT: CHANTIER MDE STD/
+DO_NOT_DUPLICATE: taxonomies runtime (→ FACTORY_RUNTIME_LEXICON.md)
+DO_NOT_DUPLICATE: machine states (→ FACTORY_RUNTIME_LEXICON.md)
+```
+
+---
+
+## ACCEPTANCE_CRITERIA
+
+- chaque STD/MDE actif a un bloc DEPENDENCY explicite
+- RETEX_LOADING: ON_DEMAND_ONLY dans tout fichier STD
+- aucun concept runtime redéfini hors FACTORY_RUNTIME_LEXICON.md
+
+---
+
+*ACTIVE_CONTEXT_MANIFEST.md — 2026-05-22*

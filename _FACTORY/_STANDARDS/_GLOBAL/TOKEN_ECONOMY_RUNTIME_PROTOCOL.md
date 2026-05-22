@@ -77,6 +77,143 @@ Ordre:
 3. ajuster gates
 4. généraliser aux autres lignes
 
+## COUCHES DE CHARGEMENT RUNTIME
+
+Règle fondamentale : charger le minimum suffisant pour exécuter la tâche.
+Ne jamais charger par défaut ce qui n'est pas requis par la tâche en cours.
+
+---
+
+### L0 — BOOTSTRAP (obligatoire, toujours, toute session)
+
+```txt
+RÔLE        : constantes projet + taxonomies machine + état git
+COÛT TOKENS : ~800 tokens
+```
+
+CONTENU_AUTORISÉ:
+- `MASTER_ARCHITECTURE.md` — constantes (277, 20 pools, catalogue)
+- `FACTORY_RUNTIME_LEXICON.md` — machine states, taxonomies fermées
+- `git log -1 --stat --oneline` + `git status --short` — état runtime
+
+CONTENU_INTERDIT:
+- STD détaillés
+- MDE
+- RETEX
+- contenu lignes
+
+CONDITION_CHARGEMENT: toute session sans exception
+CONDITION_NON_CHARGEMENT: aucune — L0 est incompressible
+
+---
+
+### L1 — PHASE RUNTIME (chargé selon phase active)
+
+```txt
+RÔLE        : règles et méthode de la phase en cours
+COÛT TOKENS : ~2 000–4 000 tokens
+HÉRITAGE    : L0 requis
+```
+
+CONTENU_AUTORISÉ:
+- MDE de la phase active (ex: `MDE_B2_generation.md`)
+- STD directs listés dans le bloc DEPENDENCY du MDE
+- `SKILL.md` si exécution via skill
+
+CONTENU_INTERDIT:
+- MDE des autres phases
+- STD non référencés par DEPENDENCY
+- glossaire complet
+- RETEX
+
+CONDITION_CHARGEMENT: phase identifiée + tâche de production active
+CONDITION_NON_CHARGEMENT: tâche documentaire / audit / navigation inter-phases
+
+SIGNAL_CHARGEMENT: "je travaille sur B2 pool X" / "générer les distracteurs de Y"
+
+---
+
+### L2 — RÉFÉRENCE TRANSVERSE (chargé sur signal explicite)
+
+```txt
+RÔLE        : résolution d'ambiguïté, conflit de règles, audit
+COÛT TOKENS : ~3 000–8 000 tokens selon fichier
+HÉRITAGE    : L0 + L1 requis
+```
+
+CONTENU_AUTORISÉ (charger uniquement le fichier nécessaire, pas l'ensemble):
+- `HIERARCHIE_REGLEMENTAIRE.md` — si conflit de règles
+- `FACTORY_QA_RULES.md` — si audit QA
+- `STD_GLOBAL_pool_collision_rules.md` — si collision détectée
+- `QUIZ_ASSEMBLY_RULES.md` — si questions d'assemblage final
+- `glossaire_documentaire_factory.md` — si ambiguïté sur un terme
+- `PIPELINE_V2.md` — si navigation inter-phases ou reprise de ligne
+
+CONTENU_INTERDIT:
+- charger tout L2 simultanément
+- RETEX
+- contenu lignes production
+
+CONDITION_CHARGEMENT: signal explicite de besoin (terme ambigu, conflit, audit)
+CONDITION_NON_CHARGEMENT: production courante sans ambiguïté
+
+SIGNAL_CHARGEMENT: "quelle règle s'applique ?" / "collision détectée" / "terme X = ?"
+
+---
+
+### L3 — DÉCISION / AUDIT (chargé sur demande humaine explicite)
+
+```txt
+RÔLE        : retours d'expérience, anti-régression, arbitrages complexes
+COÛT TOKENS : ~10 000+ tokens
+HÉRITAGE    : L0 + L1 + L2 selon contexte
+```
+
+CONTENU_AUTORISÉ:
+- `B6_RETOURS/B6_RETOURS_FACTORY.md`
+- RETEX spécifiques (`retex_mayenne_v_2_factory.md`, etc.)
+- `TOKEN_ECONOMY_AUDIT.md`
+- Fichiers SESSION_RESUME
+
+CONTENU_INTERDIT:
+- chargement automatique
+- chargement sans demande humaine
+- chargement en production courante
+
+CONDITION_CHARGEMENT: demande humaine explicite ("reprendre les retours", "anti-régression", "qu'avait-on décidé sur X ?")
+CONDITION_NON_CHARGEMENT: par défaut — toujours
+
+---
+
+### L4 — ARCHIVES (jamais en runtime)
+
+```txt
+RÔLE        : traçabilité historique uniquement
+COÛT TOKENS : ne pas charger
+```
+
+CONTENU:
+- fichiers `STATUS: ARCHIVED`
+- dossiers `_ARCHIVE_PRE_REFONTE/`
+- fichiers `_frozen`
+- `CHANTIER MDE STD/` (suivi chantier terminé)
+- outputs lignes production (`_LIGNES/` sauf gate requise)
+
+CONDITION_CHARGEMENT: aucune — L4 n'est jamais chargé en runtime
+
+---
+
+### RÈGLE DE DÉCISION RAPIDE
+
+```txt
+Nouvelle session                → L0
+Tâche de production identifiée  → L0 + L1
+Ambiguïté / conflit détecté     → L0 + L1 + L2 (fichier ciblé)
+Audit / décision complexe       → L0 + L2 + L3 (sur demande)
+```
+
+---
+
 ## SCHÉMAS CIBLES
 
 ### A2 ITEMS
