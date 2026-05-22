@@ -40,12 +40,14 @@ OUTPUT:
 
 ACCEPTANCE_CRITERIA:
 - POOL_COUNT = 20
-- IF_SF_COUNT = 2
-- IF_ROT_COUNT = 3
+- IF_COUNT = 5
 - QV_COUNT = 15
 - POSITION_QUIZ_UNIQUE_RATE = 100%
 - CIBLE_NIVEAU_POSITION_MATCH_RATE = 100%
 - STOCK_CIBLE ∈ {8,12,15}
+- IF_STOCK_Q1Q2 = 8
+- IF_STOCK_Q3Q5 = 12
+- QV_STOCK = 15
 - POOLS_WITH_ASSIGNED_ITEMS_RATE = 100%
 - POOLS_WITH_ASSIGNED_ANGLES_RATE = 100%
 - HARD_COLLISION_COUNT = 0
@@ -93,20 +95,23 @@ HUMAN_GATE:
 
 ## Règles de constitution
 
-**Pools IF-SF (2 pools) :**
+**Pools IF — Q1-Q2 (2 pools, stock=8) :**
 - Réservés aux incontournables absolus du thème
-- Angles exclusifs — interdits dans QV (RULE-IFS-001)
+- Angles exclusifs — interdits dans QV (RULE-IF-001)
 - Stock cible : 8 questions chacun
+- POOL_ID : IF-01, IF-02
 
-**Pools IF-ROT (3 pools) :**
+**Pools IF — Q3-Q5 (3 pools, stock=12) :**
 - Incontournables rotatifs — figures ou événements majeurs mais renouvelables
-- Angles interdits dans QV (RULE-IFR-001)
+- Angles interdits dans QV (RULE-IF-001)
 - Stock cible : 12 questions chacun
+- POOL_ID : IF-03, IF-04, IF-05
 
-**Pools QV (15 pools) :**
+**Pools QV — Q6-Q20 (15 pools, stock=15) :**
 - Questions variables — SUBTHEME_DISTINCT_COUNT >= 12 sur QV (RULE-QV-001)
 - ≥12 sous-thèmes distincts sur l'ensemble des QV (DEF-VAR-001)
 - Stock cible : 15 questions chacun
+- POOL_ID : QV-01 à QV-15
 
 ## Règle de fusion AGRÉGÉ (RULE-ARCH-005)
 
@@ -144,15 +149,15 @@ RETEX_REF: RETEX_MDE_A4_TABLEUR_POOLS_001
 
 | Colonne | Valeur |
 |---------|--------|
-| POOL_ID | QV-01 à QV-15 / IF-SF-01/02 / IF-ROT-01/02/03 |
-| TYPE | IF-SF / IF-ROT / QV |
+| POOL_ID | IF-01/IF-02 (Q1-Q2) / IF-03/IF-04/IF-05 (Q3-Q5) / QV-01 à QV-15 (Q6-Q20) |
+| TYPE | IF / QV |
 | POSITION_QUIZ | Q1 à Q20 |
 | CIBLE_NIVEAU | N1 / N2 / N3 (automatique via position) |
 | THEME_LABEL | label contrôlé du pool |
 | MODE | SIMPLE / AGRÉGÉ |
 | SOUS_THÈMES | liste des sous-thèmes (si AGRÉGÉ) |
 | ITEMS_ASSIGNÉS | liste des ITEM_ID assignés à ce pool |
-| STOCK_CIBLE | 8 (IF-SF) / 12 (IF-ROT) / 15 (QV) |
+| STOCK_CIBLE | 8 (IF Q1-Q2) / 12 (IF Q3-Q5) / 15 (QV) |
 | STOCK_ACTUEL | formule =COUNTIF(QUESTIONS[POOL_ID], POOL_ID) |
 
 ---
@@ -177,7 +182,7 @@ Avant validation :
 - VALIDER qu'aucun angle n'est assigné à deux pools différents
 - VALIDER qu'aucun item majeur n'appartient à deux pools
 - VALIDER conformité EXCLUDED_POOLS dans feuille ANGLES
-- VALIDER par critère mesurable que les angles IF-SF ne sont pas dans les QV, idem IF-ROT
+- VALIDER par critère mesurable que les angles IF ne sont pas dans les QV (RULE-IF-001)
 
 ---
 
@@ -188,7 +193,7 @@ Créer une feuille SOMMAIRE dans le xlsx :
 | Colonne | Contenu |
 |---------|---------|
 | POOL_ID | identifiant |
-| TYPE | IF-SF / IF-ROT / QV |
+| TYPE | IF / QV |
 | POSITION | Q1 à Q20 |
 | CIBLE_NIVEAU | N1 / N2 / N3 |
 | THÈME | intitulé |

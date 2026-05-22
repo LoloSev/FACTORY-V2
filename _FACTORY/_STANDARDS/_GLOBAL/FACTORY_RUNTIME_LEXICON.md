@@ -1,0 +1,124 @@
+# FACTORY_RUNTIME_LEXICON.md
+
+STATUT: ACTIVE
+ROLE: lexique runtime central machine-first
+OBJECTIF: réduire ambiguïté, prose flottante et duplications sémantiques.
+
+## RÈGLE D'USAGE
+
+Tout document FACTORY doit référencer ces IDs/taxonomies au lieu de réexpliquer les concepts.
+Un nouveau concept runtime doit être ajouté ici avant d'être propagé dans A2/A3/A4/B2/B3/B5.
+
+## MACHINE STATE
+
+```txt
+A1=OPTIONAL
+A2=ACTIVE|PENDING|RESET|LOCKED
+A3=ACTIVE|PENDING|RESET|LOCKED
+A4=ACTIVE|PENDING|RESET|LOCKED
+B2=ACTIVE|PENDING|RESET|LOCKED
+B3=ACTIVE|PENDING|RESET|LOCKED
+B5=ACTIVE|PENDING|RESET|LOCKED
+EXPORT=READY|PENDING|BLOCKED
+POOL_ENGINE=READY|PENDING|BLOCKED
+QA=PASS|WARN|FAIL
+```
+
+## RICHESSE
+
+```txt
+DENSE
+STANDARD
+LIGHT
+```
+
+## MODE POOL
+
+```txt
+SIMPLE
+AGREGE
+```
+
+## STATUT_B2
+
+```txt
+DRAFT
+READY_B3
+REWRITE
+```
+
+## FLAG_TYPE_B3
+
+```txt
+FORMAT
+LENGTH
+AMBIGUITY
+PLAUSIBILITY
+COLLISION
+SCHOOL_FEELING
+TOO_CLOSE
+WEAK_PAYOFF
+LEVEL_MISMATCH
+```
+
+## DECISION_RUNTIME_B5
+
+```txt
+READY_EXPORT
+REWRITE
+DROP
+```
+
+## PAYOFF_TYPE
+
+```txt
+COLLISION
+ORALITE
+DISPROPORTION
+FAUX_REFLEXE
+REVELATION
+```
+
+## RUNTIME_SIGNAL
+
+```txt
+KNOWN_NAME
+HIDDEN_ORIGIN
+LOCAL_COLLISION
+SCALE_SHIFT
+FALSE_OBVIOUS
+MEMORY_HOOK
+SCHOOL_RISK
+PATOIS_MARKER
+```
+
+## MECHANIC
+
+```txt
+IDENTIFY
+COMPARE
+LOCATE
+DATE
+CLASSIFY
+ELIMINATE
+LINK
+```
+
+## DENSITY
+
+```txt
+LOW
+MEDIUM
+HIGH
+```
+
+## RÈGLES ANTI-PROSE
+
+Remplacer les phrases de pilotage par tags fermés.
+
+Exemples:
+```txt
+éviter trop de patois trop tôt -> PATOIS_DENSITY=LOW
+surprise culturelle -> PAYOFF_TYPE=REVELATION
+anti scolaire -> SCHOOL_FEELING=LOW
+```

@@ -53,10 +53,15 @@ def update_gate(ligne, etape, fichier, mtime, verdict, fails,
     lignes = state.setdefault("lignes", {})
     gates  = lignes.setdefault(ligne, {}).setdefault("gates", {})
 
+    try:
+        fichier_ref = str(Path(fichier).resolve().relative_to(ROOT.resolve()))
+    except Exception:
+        fichier_ref = str(fichier)
+
     gates[etape] = {
         "status":        verdict,
         "timestamp":     datetime.now().isoformat(timespec="seconds"),
-        "fichier":       str(fichier),
+        "fichier":       fichier_ref,
         "fichier_mtime": mtime,
         "fails":         fails,
     }
@@ -146,5 +151,5 @@ def check_required_fields(rows, fields, label=""):
         missing = [f for f in fields if not r.get(f)]
         if missing:
             id_val = r.get("Q_ID") or r.get("POOL_ID") or "?"
-            fails.append(f"{label}champs manquants {missing} sur {id_val}")
+            fails.append(f"{label}champs manquants {missing} — {id_val}")
     return fails

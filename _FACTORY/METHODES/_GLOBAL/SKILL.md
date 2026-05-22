@@ -59,7 +59,7 @@ CONFIG / ITEMS / ANGLES / POOLS / QUESTIONS / DISTRACTEURS / QA
 
 ## Règles universelles (tous quiz)
 
-- Questions courtes : 10 mots max, lisibles sur mobile
+- Questions courtes : cible 6–9 mots, FAIL ≥16 mots (RULE-B2-HB-000 — STD_B2_generation_rules.md)
 - Format QCM : 4 choix (A/B/C/D), 1 seule bonne réponse incontestable
 - Jamais de formulation négative complexe
 - Jamais de réponse dans l'énoncé
@@ -156,7 +156,7 @@ TYPE_Q : [1-5]
 **Métriques vérifiées :**
 - Hard collisions (distractor = réponse correcte ailleurs) → seuil = 0, BLOCKER
 - Format homogénéité → ≥99%, WARNING
-- Distribution difficulté N1/N2/N3 → 30/40/30 ±5%, WARNING
+- Distribution difficulté N1/N2/N3 → 25/50/25 ±5%, WARNING
 - Distribution TYPE_Q → chaque TYPE >10%, WARNING
 - Taux réutilisation inter-questions → <5%, WARNING
 - Plausibilité TYPE 1/5 → ≥80%, WARNING

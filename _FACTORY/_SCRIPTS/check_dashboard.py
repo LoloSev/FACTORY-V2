@@ -19,23 +19,23 @@ LIGNES_DIR = ROOT / "_LIGNES"
 # Mapping étape → script gate + pattern fichier
 GATE_MAP = {
     "A4": {
-        "script":  ROOT / "gate_a4.py",
+        "script":  ROOT / "_SCRIPTS" / "gate_a4.py",
         "pattern": "A4_POOLS/A4_*.xlsx",
     },
     "B2": {
-        "script":  ROOT / "gate_b2.py",
+        "script":  ROOT / "_SCRIPTS" / "gate_b2.py",
         "pattern": "B2_GENERATION/B2_*.xlsx",
     },
     "B3": {
-        "script":  ROOT / "gate_b3.py",
+        "script":  ROOT / "_SCRIPTS" / "gate_b3.py",
         "pattern": "B3_DISTRACTEURS/B3_*.xlsx",
     },
     "B5": {
-        "script":  ROOT / "gate_b5.py",
+        "script":  ROOT / "_SCRIPTS" / "gate_b5.py",
         "pattern": "B5_AUDIT/B5_*.xlsx",
     },
     "EXPORT": {
-        "script":  ROOT / "gate_export.py",
+        "script":  ROOT / "_SCRIPTS" / "gate_export.py",
         "pattern": "EXPORT/QUIZ_*_EXPORT.xlsx",
     },
 }
@@ -72,7 +72,11 @@ def scan_and_run_gates():
     gate_triggered = False
 
     for ligne_dir in sorted(LIGNES_DIR.iterdir()):
-        if not ligne_dir.is_dir() or ligne_dir.name.startswith("_"):
+        if not ligne_dir.is_dir():
+            continue
+        # Les lignes factory sont nommées avec un préfixe "_" (_CDM, _MAYENNE, etc.).
+        # Ne pas les ignorer, sinon les gates ne tournent jamais.
+        if ligne_dir.name.upper() in {"_TEMPLATE", "_ARCHIVE"} or ligne_dir.name.startswith("."):
             continue
         ligne = ligne_dir.name.lstrip("_").upper()
 

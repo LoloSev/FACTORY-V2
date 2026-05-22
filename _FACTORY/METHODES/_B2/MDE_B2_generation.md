@@ -48,7 +48,7 @@ ACCEPTANCE_CRITERIA:
 - QUESTIONS_WITH_ANGLE_ID_RATE = 100%
 - QUESTIONS_WITH_CIBLE_NIVEAU_RATE = 100%
 - CIBLE_NIVEAU_POOL_MATCH_RATE = 100%
-- LIBELLE_WORD_COUNT_MAX = 10 unless JUSTIFICATION_FLAG exists
+- LIBELLE_WORD_COUNT_MAX = 15 (RULE-B2-HB-000 — STD_B2_generation_rules.md)
 - ANSWER_UNIQUE_RATE = 100%
 - PED_BLOCKER_COUNT = 0
 - HARD_COLLISION_COUNT = 0
@@ -140,7 +140,7 @@ Résumé opérationnel :
 
 **HARD BLOCKERS — arrêt immédiat si violation :**
 - Zéro filler (RULE-B2-HB-001)
-- 8 filtres rédaction (RULE-B2-HB-002) : court/direct / 1 info centrale / pas contexte inutile / pas Wikipédique / pas qualificatif descriptif / pas anglicisme / réponse univoque / cadre quiz omis si implicite
+- 8 filtres rédaction (RULE-B2-HB-002) → STD_B2_generation_rules.md
 - Corrections repassent les 8 filtres (RULE-B2-HB-003)
 - Triple filtre angle (RULE-B2-HB-004) : disponibilité → collision → signal GAME_VALUE_FLAG = TRUE
 - Séquence soumission (RULE-B2-HB-005) : angle → anti-collision → conformité → HUMAN_GATE

@@ -404,3 +404,13 @@ Narratives > 50 words = refactor to table/list.
 *Version 1.0 — 2026-05-17*
 *Status: ACTIVE — Universal Skill*
 *Applicable to: Code, Cowork, FACTORY, Web, all Claude contexts*
+
+
+# FACTORY V2 — EXTENSION MACHINE-FIRST
+
+Pour FACTORY, appliquer en priorité:
+- lexique central: `_FACTORY/_STANDARDS/_GLOBAL/FACTORY_RUNTIME_LEXICON.md`
+- protocole: `_FACTORY/_STANDARDS/_GLOBAL/TOKEN_ECONOMY_RUNTIME_PROTOCOL.md`
+- audit: `python _FACTORY/_SCRIPTS/audit_token_economy.py`
+
+Objectif: MINIMUM TOKENS + MINIMUM AMBIGUITY + MAXIMUM RUNTIME STABILITY.

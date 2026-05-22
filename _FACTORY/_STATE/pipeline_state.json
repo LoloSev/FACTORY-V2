@@ -1,276 +1,43 @@
 {
-  "_doc": "État des gates pipeline par ligne. Géré automatiquement par gate_*.py et check_dashboard.py.",
   "lignes": {
-    "CDM": {
-      "gates": {
-        "A4": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B2": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B3": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B5": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "EXPORT": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        }
-      }
-    },
     "MAYENNE": {
       "gates": {
         "A4": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
+          "status": "GO",
+          "timestamp": "2026-05-21T10:40:55",
+          "fichier": "/sessions/quirky-tender-clarke/mnt/quiz-core-lab/_FACTORY/_LIGNES/_MAYENNE/A4_POOLS/A4_MAYENNE_POOL_ENGINE_V2.xlsx",
+          "fichier_mtime": 1779326739.9813056,
           "fails": []
         },
         "B2": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
+          "status": "GO",
+          "timestamp": "2026-05-21T13:08:53",
+          "fichier": "_LIGNES/_MAYENNE/B2_GENERATION/B2_THEME.xlsx",
+          "fichier_mtime": 1779368933.0,
           "fails": []
         },
         "B3": {
           "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
+          "timestamp": "2026-05-21T10:40:55",
+          "fichier": "_LIGNES/_MAYENNE/B3_DISTRACTEURS/B3_THEME.xlsx",
+          "fichier_mtime": 1779360054.0,
           "fails": []
         },
         "B5": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
+          "status": "GO",
+          "timestamp": "2026-05-21T10:40:56",
+          "fichier": "_LIGNES/_MAYENNE/B5_AUDIT/B5_THEME.xlsx",
+          "fichier_mtime": 1779360054.0,
           "fails": []
         },
         "EXPORT": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        }
-      }
-    },
-    "CINEMA": {
-      "gates": {
-        "A4": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B2": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B3": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B5": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "EXPORT": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        }
-      }
-    },
-    "INTERNET": {
-      "gates": {
-        "A4": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B2": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B3": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B5": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "EXPORT": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        }
-      }
-    },
-    "RAP": {
-      "gates": {
-        "A4": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B2": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B3": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B5": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "EXPORT": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        }
-      }
-    },
-    "ROCK": {
-      "gates": {
-        "A4": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B2": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B3": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B5": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "EXPORT": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        }
-      }
-    },
-    "SERIES": {
-      "gates": {
-        "A4": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B2": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B3": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "B5": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
-        },
-        "EXPORT": {
-          "status": "UNKNOWN",
-          "timestamp": null,
-          "fichier": null,
-          "fichier_mtime": null,
-          "fails": []
+          "status": "NO_GO",
+          "timestamp": "2026-05-21T10:40:56",
+          "fichier": "_LIGNES/_MAYENNE/EXPORT/QUIZ_THEME_EXPORT.xlsx",
+          "fichier_mtime": 1779360054.0,
+          "fails": [
+            "EXP-4 stock insuffisant : 1/277 questions"
+          ]
         }
       }
     }

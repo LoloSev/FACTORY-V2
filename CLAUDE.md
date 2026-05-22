@@ -5,24 +5,35 @@
 À chaque ouverture de session, exécuter dans l'ordre :
 
 ```bash
-# 1. Sync glossaire
-python _FACTORY/_SCRIPTS/sync_glossaire.py --lignes
-
-# 2. Check dashboards
-python _FACTORY/_SCRIPTS/check_dashboard.py
+# 0. Contexte Git — source de vérité runtime minimale
+git log -1 --stat --oneline
+git branch --show-current
+git status --short
 ```
 
 **Règles de réponse :**
 
 | Résultat | Action |
 |----------|--------|
-| `OK GLOSSAIRE SYNC -- no-op` | Silencieux |
-| `SYNC GLOSSAIRE -- glossaire modifié` | Signaler : "Glossaire synchronisé sur N xlsx" |
-| `NO_OP` (dashboards) | Silencieux |
-| `REFRESH_NEEDED` (dashboards) | Exécuter `python _FACTORY/_SCRIPTS/generate_dashboards.py` puis appeler update_artifact sur factory-dashboard avec le fichier `_FACTORY/_STATE/.dashboard_factory_main.html` |
 | Erreur quelconque | Signaler et continuer |
+| Git : fichiers modifiés détectés | Lire les fichiers listés avant toute analyse ou action |
+| Git : commits récents détectés | Signaler le dernier commit et ses fichiers modifiés |
+
+> `sync_glossaire.py` — désactivé du hook. Appel manuel si glossaire modifié.
+> `check_dashboard.py` — désactivé du hook. `generate_dashboards.py` en déclenchement manuel uniquement.
 
 Ce hook ne bloque jamais le démarrage. Temps estimé : < 5 secondes si no-op.
+
+## HOOK GIT — TÂCHES SENSIBLES
+
+Avant toute tâche de type : refactor / migration / réparation / synchronisation / génération structure / reprise de session — exécuter :
+
+```bash
+git log -1 --stat --oneline
+git status --short
+```
+
+Contraintes : sortie compacte uniquement. Jamais de log long. Jamais de diff complet.
 
 ---
 
@@ -45,3 +56,12 @@ Retours d'expérience : _FACTORY/B6_RETOURS/B6_RETOURS_FACTORY.md
 - Toute difficulté ou friction détectée → consigner dans B6_RETOURS_FACTORY.md
 - Gate humaine obligatoire entre chaque étape du pipeline
 - Planifier avant d'agir si la planification n'est pas fournie
+
+## TOKEN ECONOMY — RÈGLE ACTIVE
+
+- Lexique runtime central : `_FACTORY/_STANDARDS/_GLOBAL/FACTORY_RUNTIME_LEXICON.md`
+- Protocole machine-first : `_FACTORY/_STANDARDS/_GLOBAL/TOKEN_ECONOMY_RUNTIME_PROTOCOL.md`
+- Audit : `python _FACTORY/_SCRIPTS/audit_token_economy.py`
+
+Règle: ne pas dupliquer les taxonomies runtime hors lexique. Préférer tags fermés, états machine, colonnes courtes.
+MAYENNE est la ligne prototype pour remodeler les étapes FACTORY.

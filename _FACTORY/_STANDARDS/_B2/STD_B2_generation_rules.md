@@ -25,6 +25,12 @@ DATE_CONSOLIDATION: 2026-05-18
 
 # SECTION — HARD_BLOCKERS (ABSOLU)
 
+[RULE-B2-HB-000]
+**Longueur libellé — seuil unique**
+FAIL si libellé > 15 mots.
+SOURCE_DE_VERITE: ce fichier — MDE_B2 et SKILL.md pointent vers cette règle.
+TARGET_EDITORIAL: 6–9 mots. ACCEPTABLE: 10–14 mots. FAIL: ≥16 mots.
+
 [RULE-B2-HB-001]
 **Zéro filler**
 Si un pool ne peut pas atteindre son TARGET avec des angles valides :
@@ -186,20 +192,29 @@ RETEX_ROLE: JUSTIFICATION
 
 [RULE-B2-OPT-003]
 **Appellations culturelles**
-Utiliser une appellation culturelle (Calcio, Seleção, Albiceleste...) seulement si :
+Utiliser une appellation culturelle ([DENOMINATION_CULTURELLE]) seulement si :
 - Reconnue par la cible
 - Apporte quelque chose à la question
 - Ne réduit pas l'accessibilité
 RETEX_REF: RETEX_STD_B2_GENERATION_RULES_019
 RETEX_ROLE: JUSTIFICATION
 
+[EXEMPLE-B2-OPT-003 — cas source]
+Application sur la ligne cas source (football) :
+→ DENOMINATION_CULTURELLE = Calcio, Seleção, Albiceleste…
+
 [RULE-B2-OPT-004]
-**Numéros de maillot emblématiques**
-Un numéro de maillot est un angle valable uniquement si :
+**[IDENTIFIANT_SYMBOLIQUE] emblématique**
+Un [IDENTIFIANT_SYMBOLIQUE] est un angle valable uniquement si :
 - Stable dans la mémoire collective
 - Ajoute au moins une relation interrogeable absente d'une fiche standard : cause, conséquence, comparaison, exception, chronologie ou attribution
 RETEX_REF: RETEX_STD_B2_GENERATION_RULES_020
 RETEX_ROLE: JUSTIFICATION
+
+[EXEMPLE-B2-OPT-004 — cas source]
+Application sur la ligne cas source (football) :
+→ IDENTIFIANT_SYMBOLIQUE = numéro de maillot
+→ Transposer : numéro de catalogue (musique), numéro de saison (séries), etc.
 
 ---
 

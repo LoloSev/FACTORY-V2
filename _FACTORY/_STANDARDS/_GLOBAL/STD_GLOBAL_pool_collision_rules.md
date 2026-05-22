@@ -23,7 +23,7 @@ DEPENDENCY:
 Un item documentaire majeur ne peut appartenir qu'à un seul pool principal.
 
 [RULE-PCOLL-002]
-Une finale IF-SF ne doit pas réapparaître en QV.
+Un angle IF ne peut pas être réassigné à un pool QV (RULE-IF-001).
 
 [RULE-PCOLL-003]
 Les pools peuvent définir :

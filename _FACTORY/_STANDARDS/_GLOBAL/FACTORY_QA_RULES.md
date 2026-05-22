@@ -6,6 +6,7 @@ RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 
 DEPENDENCY:
+- STD_GLOBAL_pool_collision_rules.md
 - MASTER_ARCHITECTURE.md
 - glossaire_documentaire_factory.md
 # FACTORY_QA_RULES

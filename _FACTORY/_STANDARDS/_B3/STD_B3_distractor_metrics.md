@@ -44,9 +44,9 @@ Thresholds de QA_STATUS et métriques pour audit PASS 2.
 
 ## DIFFICULTY DISTRIBUTION
 
-**Target :** 30% N1 / 40% N2 / 30% N3
+**Target :** 25% N1 / 50% N2 / 25% N3
 
-### Global (all 831 distractors)
+### Global (all [STOCK_CIBLE × 3] distractors)
 
 | Level | Target | Green | Yellow | Red |
 |-------|--------|-------|--------|-----|
@@ -56,9 +56,14 @@ Thresholds de QA_STATUS et métriques pour audit PASS 2.
 
 **Calculation :**
 ```
+TOTAL_DISTRACTORS = STOCK_CIBLE × 3
 N1_COUNT = count(distractors where difficulty == N1)
-N1_PERCENT = (N1_COUNT / 831) * 100
+N1_PERCENT = (N1_COUNT / TOTAL_DISTRACTORS) * 100
 ```
+
+[EXEMPLE-METRICS-001 — cas source]
+Application sur la ligne cas source (STOCK_CIBLE = 277) :
+→ TOTAL_DISTRACTORS = 831 (277 × 3)
 
 **Green decision :** All three levels within ±5%  
 **Yellow decision :** At least one level ±5-10%  
@@ -70,15 +75,15 @@ N1_PERCENT = (N1_COUNT / 831) * 100
 
 | TYPE | Distribution | Status | Action |
 |------|--------------|--------|--------|
-| TYPE 1 | N1: 30%, N2: 40%, N3: 30% | Target | If off ±10%, flag |
-| TYPE 2 | N1: 30%, N2: 40%, N3: 30% | Target | If off ±10%, flag |
-| TYPE 3 | N1: 30%, N2: 40%, N3: 30% | Target | If off ±10%, flag |
-| TYPE 4 | N1: 30%, N2: 40%, N3: 30% | Target | If off ±10%, flag |
-| TYPE 5 | N1: 30%, N2: 40%, N3: 30% | Target | If off ±10%, flag |
+| TYPE 1 | N1: 25%, N2: 50%, N3: 25% | Target | If off ±10%, flag |
+| TYPE 2 | N1: 25%, N2: 50%, N3: 25% | Target | If off ±10%, flag |
+| TYPE 3 | N1: 25%, N2: 50%, N3: 25% | Target | If off ±10%, flag |
+| TYPE 4 | N1: 25%, N2: 50%, N3: 25% | Target | If off ±10%, flag |
+| TYPE 5 | N1: 25%, N2: 50%, N3: 25% | Target | If off ±10%, flag |
 
 **Example :**
-- TYPE 4 has N1: 20%, N2: 50%, N3: 30%
-- Deviation: N1 is -10% (vs global 30%), N2 is +10%
+- TYPE 4 has N1: 20%, N2: 55%, N3: 25%
+- Deviation: N1 is -5% (vs global 25%), N2 is +5%
 - Status: YELLOW (at boundary, monitor)
 - Action: Flag for PASS 3 if many similar
 
@@ -152,7 +157,7 @@ with different or similar context
 
 **Reuse rate definition :**
 ```
-count(distractors appearing > 1 time) / 831 * 100
+count(distractors appearing > 1 time) / TOTAL_DISTRACTORS * 100
 ```
 
 ---
@@ -173,7 +178,7 @@ count(distractors appearing > 1 time) / 831 * 100
 **Example RED :**
 ```
 Source "Ronaldo" appears 25+ times across distractors
-25 / 831 = 3.0%
+25 / TOTAL_DISTRACTORS = X% (ex: 25/831 = 3.0% pour cas source)
 → Over-representation, flag for PASS 3 diversity fix
 ```
 
@@ -290,14 +295,14 @@ DISTRACTOR AUDIT REPORT
 ═══════════════════════════════════════════════════
 
 SUMMARY
-├── Total Distractors: 831
+├── Total Distractors: [STOCK_CIBLE × 3]  ← ex: 831 pour cas source
 ├── Questions: 277
 ├── Status: ⚠️ CONDITIONAL_GO
 
 HARD_BLOCKERS
 ├── Hard collisions: 2 ✗ (Q042, Q156)
 ├── Format issues: 1 ✗ (Q203)
-└── QA_STATUS: 831 PASS ✓
+└── QA_STATUS: [TOTAL_DISTRACTORS] PASS ✓
 
 DISTRIBUTION
 ├── N1: 252 (30.3%) ✓

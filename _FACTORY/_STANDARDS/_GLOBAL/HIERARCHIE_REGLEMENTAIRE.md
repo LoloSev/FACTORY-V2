@@ -91,8 +91,8 @@ Source : SKILL.md RULE-UNIV-Q-001
 > Chaque loi cite sa règle constitutionnelle parente.
 
 [L-001] **Architecture des 20 pools** → C-002
-2 IF-SF + 3 IF-ROT + 15 QV.
-Source : STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-001/002
+5 IF (Q1-Q5 : 2×IF stock=8, 3×IF stock=12) + 15 QV (Q6-Q20, stock=15).
+Table de dérivation positionnelle — voir STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-006
 
 [L-002] **Crescendo N1/N2/N3** → C-005
 Q1-Q5 = N1 / Q6-Q15 = N2 / Q16-Q20 = N3. Ordre immuable.
@@ -157,7 +157,7 @@ RETEX_REF: RETEX_HIERARCHIE_REGLEMENTAIRE_001
 | Règle | Énoncé condensé | Parent N2 |
 |-------|-----------------|-----------|
 | RULE-ARCH-001 | 20 pools obligatoires | L-001 |
-| RULE-ARCH-002 | 2 IF-SF + 3 IF-ROT + 15 QV | L-001 |
+| RULE-ARCH-006 | 5 IF (table dérivation positionnelle) + 15 QV | L-001 |
 | RULE-ARCH-003 | Stock cible 277 questions | C-003 |
 | RULE-ARCH-004 | Q1-5=N1 / Q6-15=N2 / Q16-20=N3 | L-002 |
 | RULE-ARCH-005 | Pool peut agréger sous-thèmes faibles | L-004 |
@@ -167,7 +167,7 @@ RETEX_REF: RETEX_HIERARCHIE_REGLEMENTAIRE_001
 | Règle | Énoncé condensé | Parent N2 |
 |-------|-----------------|-----------|
 | RULE-PCOLL-001 | Item majeur = 1 seul pool | L-009 |
-| RULE-PCOLL-002 | Finale IF-SF ≠ QV | L-009 + L-001 |
+| RULE-PCOLL-002 | IF ≠ QV (exclusivité angles) | L-009 + L-001 |
 | RULE-PCOLL-003 | Pools peuvent définir EXCLUDED/RESERVED/FORBIDDEN | L-009 |
 | RULE-PCOLL-004 | Anti-collision inter-pool = HARD BLOCKER / intra-pool = limité | L-009 + C-002 |
 | RULE-PCOLL-005 | Collision détectée → rouvrir avant de continuer | L-009 |

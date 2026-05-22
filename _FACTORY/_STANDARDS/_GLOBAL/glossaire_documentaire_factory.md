@@ -390,43 +390,30 @@ PARAMETRES_FIXES:
   DRAW_PER_POOL: 1
 
 POOL_TYPES:
-  IF_SF: 2
-  IF_ROT: 3
+  IF: 5
   QV: 15
 
 → Règles opérationnelles : voir `STD_GLOBAL_quiz_architecture_rules.md`
 
 ---
 
-# SECTION — IF_SF
+# SECTION — IF
 
-[DEF-IFS-001]
-IF_SF:
-Pool d'incontournables semi-fixes.
+[DEF-IF-001]
+IF:
+Pool Incontournable. TYPE et STOCK_CIBLE dérivés automatiquement depuis POSITION_QUIZ.
 
-PARAMETRES:
-- 2 pools
-- 8 questions par pool
-- rotation lente
+TABLE DE DÉRIVATION:
+| POSITION_QUIZ | POOL_ID | STOCK_CIBLE | CIBLE_NIVEAU |
+|---------------|---------|-------------|--------------|
+| Q1            | IF-01   | 8           | N1           |
+| Q2            | IF-02   | 8           | N1           |
+| Q3            | IF-03   | 12          | N1           |
+| Q4            | IF-04   | 12          | N1           |
+| Q5            | IF-05   | 12          | N1           |
 
-[RULE-IFS-001]
-Les angles IF-SF ne peuvent pas être réutilisés dans les QV.
-
----
-
-# SECTION — IF_ROT
-
-[DEF-IFR-001]
-IF_ROT:
-Pool d'incontournables rotatifs.
-
-PARAMETRES:
-- 3 pools
-- 12 questions par pool
-- ROTATION: MEDIUM
-
-[RULE-IFR-001]
-Les angles IF-ROT sont interdits dans les QV.
+[RULE-IF-001]
+Les angles IF ne peuvent pas être réutilisés dans les QV.
 
 ---
 
@@ -833,9 +820,10 @@ ANGIPREGEN guide la sélection items pour chaque pool en B2.
 
 [DEF-POOLS-ARCH-001]
 POOLS_ARCHITECTURE:
-Définition des 20 pools opérationnels (IF-SF, IF-ROT, QV) avec assignations angles et quotas.
+Définition des 20 pools opérationnels (IF, QV) avec assignations angles et quotas.
+TYPE et STOCK_CIBLE dérivés depuis POSITION_QUIZ (voir DEF-IF-001 et DEF-QV-001).
 
-BLOCS: IF-SF (2 pools, 8Q, rotation très lente) + IF-ROT (3 pools, 12Q, lente) + QV (15 pools, 15Q, rapide).
+BLOCS: IF (5 pools : 2×8Q + 3×12Q) + QV (15 pools, 15Q chacun).
 
 [RULE-POOLS-ARCH-001]
 Exactement 20 pools obligatoire. Tous angles ANGIPREGEN assignés.
@@ -1088,7 +1076,7 @@ Niveau de difficulté confirmé après audit des distracteurs (étape B3).
 
 VALEURS_AUTORISEES: N1 / N2 / N3
 
-DISTRIBUTION_CIBLE: 30% N1 / 40% N2 / 30% N3 (±10%)
+DISTRIBUTION_CIBLE: 25% N1 / 50% N2 / 25% N3 (±10%)
 GATE: gate_b3.py — champ obligatoire (B3-2) ; déséquilibre → warning B3-8.
 
 [RULE-NIV-001]

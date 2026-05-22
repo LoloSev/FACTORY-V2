@@ -138,7 +138,7 @@ Tout ÉCART_CIBLE ≠ OK → tenter correction distracteurs avant de signaler à
 |----------|-------|--------|
 | Hard collisions (distractor = réponse correcte ailleurs) | = 0 | BLOCKER |
 | Format homogénéité | ≥ 99% | WARNING |
-| Distribution difficulté distracteurs N1/N2/N3 | 30/40/30 ±5% | WARNING |
+| Distribution difficulté distracteurs N1/N2/N3 | 25/50/25 ±5% | WARNING |
 | Distribution TYPE_Q | chaque TYPE > 10% | WARNING |
 | Taux réutilisation inter-questions | < 5% | WARNING |
 | Plausibilité TYPE 1 & 5 | ≥ 80% | WARNING |

@@ -23,98 +23,103 @@ Garantir qu'une partie finale de 20 questions soit :
 
 ## Structure fixe
 
-Chaque quiz final contient :
-
-- 2 IF-SF
-- 3 IF-ROT
-- 15 QV
-
-Ordre recommandé :
+Chaque quiz final contient 20 questions dans l'ordre immuable suivant :
 
 ```txt
-IF-SF
-QV
-QV
-IF-ROT
-QV
-QV
-QV
-IF-SF
-QV
-QV
-IF-ROT
-QV
-QV
-QV
-QV
-IF-ROT
-QV
-QV
-QV
-QV
+Q1  → IF  — N1
+Q2  → IF  — N1
+Q3  → IF  — N1
+Q4  → IF  — N1
+Q5  → IF  — N1
+Q6  → QV  — N2
+Q7  → QV  — N2
+Q8  → QV  — N2
+Q9  → QV  — N2
+Q10 → QV  — N2
+Q11 → QV  — N2
+Q12 → QV  — N2
+Q13 → QV  — N2
+Q14 → QV  — N2
+Q15 → QV  — N2
+Q16 → QV  — N3
+Q17 → QV  — N3
+Q18 → QV  — N3
+Q19 → QV  — N3
+Q20 → QV  — N3
 ```
+
+TYPE et CIBLE_NIVEAU sont dérivés automatiquement depuis POSITION_QUIZ — immuables.
 
 ---
 
 ## Règles d'équilibrage
 
-### Joueurs
+### [ENTITE_PRIMAIRE]
 
-- Maximum 2 occurrences du même joueur majeur par partie
-- Aucun joueur dans 2 questions consécutives
-- Une question IF-SF sur un joueur interdit un QV immédiat sur le même joueur
+- Maximum 2 occurrences de la même [ENTITE_PRIMAIRE] majeure par partie
+- Aucune [ENTITE_PRIMAIRE] dans 2 questions consécutives
+- Une question IF sur une [ENTITE_PRIMAIRE] interdit un QV immédiat sur la même [ENTITE_PRIMAIRE]
+
+[EXEMPLE-ASSEMBLY-001 — cas source]
+Application sur la ligne cas source (football) :
+→ Maximum 2 occurrences du même joueur majeur par partie
+→ Aucun joueur dans 2 questions consécutives
+→ Une question IF sur un joueur interdit un QV immédiat sur le même joueur
 
 ---
 
-### Finales / matchs
+### [CONTEXTE_EDITION]
 
-- Pas de deux finales consécutives
-- Maximum 3 questions liées à une même édition cas source
+- Pas de deux [CONTEXTE_EDITION] consécutifs
+- Maximum 3 questions liées à un même [CONTEXTE_EDITION] du [CORPUS_ACTIF]
 RETEX_REF: RETEX_QUIZ_ASSEMBLY_RULES_001
-- Une finale IF-SF interdit sa réutilisation dans les QV
+- Une réponse d'un pool IF interdit sa réutilisation dans les QV
+
+[EXEMPLE-ASSEMBLY-002 — cas source]
+Application sur la ligne cas source (football) :
+→ Pas de deux finales consécutives
+→ Maximum 3 questions liées à une même édition
+→ Une finale IF interdit sa réutilisation dans les QV
 
 ---
 
-### Nations
+### [CATEGORIE_GEOGRAPHIQUE]
 
-- Éviter plus de 3 questions d'affilée sur une même nation
-- Répartir les grandes nations sur toute la partie
+- Éviter plus de 3 questions d'affilée sur une même [CATEGORIE_GEOGRAPHIQUE]
+- Répartir les [ENTITES_GEOGRAPHIQUES] majeures sur toute la partie
+
+[EXEMPLE-ASSEMBLY-003 — cas source]
+Application sur la ligne cas source (football) :
+→ Éviter plus de 3 questions d'affilée sur une même nation
+→ Répartir les grandes nations sur toute la partie
 
 ---
 
 ### Difficulty
 
-Canonical distribution for 20 player-facing questions:
+Distribution : → STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-006
 
-| Level | Volume | Ratio | Runtime role |
-|---|---:|---:|---|
-| N1 | 5 | 25% | onboarding_and_confidence |
-| N2 | 10 | 50% | discovery_core |
-| N3 | 5 | 25% | stimulating_final_elevation |
-
-Rules:
-- no more than 2 consecutive N3 questions
-- accessible opening sequence
-- progressive difficulty curve
-- this distribution overrides any legacy 40/40/20 reference
+Règles d'assemblage :
+- pas plus de 2 questions N3 consécutives
+- ouverture accessible (N1 en premier)
+- courbe de difficulté progressive
 
 ---
 
 ## Règles anti-monotonie
 
 Interdits :
-- 3 questions biographies d'àffilée
-- 3 scores/matchs d'àffilée
-- 3 records d'àffilée
+- 3 questions [CATEGORIE_1] d'àffilée
+- 3 questions [CATEGORIE_2] d'àffilée
 - répétition immédiate de formulation
 
-Alterner :
-- joueurs
-- matchs
-- records
-- anecdotes
-- nations
-- époques
+[EXEMPLE-ASSEMBLY-004 — cas source]
+Application sur la ligne cas source (football) :
+→ 3 questions biographies d'affilée
+→ 3 scores/matchs d'affilée
+→ 3 records d'affilée
+
+Alterner les types d'angles disponibles dans le corpus actif.
 
 ---
 
@@ -124,11 +129,11 @@ Avant export final :
 
 ```txt
 CHECK_DUPLICATES
-CHECK_PLAYER_DENSITY
+CHECK_ENTITY_DENSITY
 CHECK_DIFFICULTY_CURVE
 CHECK_THEME_BALANCE
 CHECK_POOL_COLLISIONS
-CHECK_REPEAT_EDITIONS
+CHECK_REPEAT_CONTEXTS
 ```
 
 ---
@@ -142,5 +147,4 @@ Mais surtout :
 - d'un bon rythme
 - d'une bonne alternance
 - d'une variété documentaire maîtrisée
-
 

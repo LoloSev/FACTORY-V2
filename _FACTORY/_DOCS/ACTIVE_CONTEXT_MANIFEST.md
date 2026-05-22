@@ -1,6 +1,8 @@
 # ACTIVE_CONTEXT_MANIFEST
 
 DEPENDENCY:
+- FACTORY_RUNTIME_LEXICON.md
+- TOKEN_ECONOMY_RUNTIME_PROTOCOL.md
 - MASTER_ARCHITECTURE.md
 - PIPELINE_V2.md
 - glossaire_documentaire_factory.md
@@ -53,3 +55,20 @@ ACCEPTANCE_CRITERIA:
 - RETEX loading remains ON_DEMAND_ONLY
 - no active file deletion during compression
 - ZIP file count >= Phase 2 file count
+
+## TOKEN_ECONOMY_LOAD_POLICY
+
+LOAD FIRST:
+- `_FACTORY/_STANDARDS/_GLOBAL/FACTORY_RUNTIME_LEXICON.md`
+
+LOAD WHEN STRUCTURING/MIGRATING:
+- `_FACTORY/_STANDARDS/_GLOBAL/TOKEN_ECONOMY_RUNTIME_PROTOCOL.md`
+
+DO_NOT_DUPLICATE:
+- taxonomies runtime
+- statuts machine
+- concepts gameplay transversaux
+
+MAYENNE_STATUS:
+- prototype de refonte FACTORY
+- ne pas généraliser aux autres lignes avant validation

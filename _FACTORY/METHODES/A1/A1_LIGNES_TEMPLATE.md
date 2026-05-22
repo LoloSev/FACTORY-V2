@@ -77,10 +77,11 @@ QUESTION_LENGTH_POLICY:
     - 6_to_9_words
 
   ACCEPTABLE:
-    - 10_to_13_words
+    - 10_to_14_words
 
   FAIL:
-    - >14_words
+    - >15_words
+    - SOURCE: RULE-B2-HB-000 (STD_B2_generation_rules.md)
 
 SUCCESS_CRITERIA:
   - player_feels_time_well_spent

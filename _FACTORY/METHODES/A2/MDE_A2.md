@@ -4,6 +4,8 @@ STATUS: ACTIVE
 MODE: MACHINE_FIRST
 PHASE: A2
 PURPOSE: CULTURAL_MATTER_EXTRACTION
+DEPENDENCY:
+- STD_BIB_USAGE.md (politique et règles d'usage du BIB — source unique)
 
 ---
 
@@ -251,15 +253,13 @@ A3 does not receive:
 
 # RUNTIME_ALIGNMENT
 
-QUIZ_ARCHITECTURE:
-- N1: 5
-- N2: 10
-- N3: 5
+QUIZ_ARCHITECTURE: → STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-006
 
 QUESTION_LENGTH_POLICY:
 - target: 6_to_9_words
-- acceptable: 10_to_13_words
-- fail: >14_words
+- acceptable: 10_to_14_words
+- fail: >15_words
+- SOURCE: RULE-B2-HB-000 (STD_B2_generation_rules.md)
 
 RUNTIME_OBJECTIVE:
 A2 must increase:

@@ -17,13 +17,20 @@ DEPENDENCY:
 # SECTION — CHECK_REPEAT_DENSITY
 
 [RULE-DENS-001]
-Détecter les surreprésentations joueur.
+Détecter les surreprésentations [ENTITE_PRIMAIRE].
 
 [RULE-DENS-002]
-Détecter les surreprésentations nation.
+Détecter les surreprésentations [CATEGORIE_GEOGRAPHIQUE].
 
 [RULE-DENS-003]
-Détecter les surreprésentations époque.
+Détecter les surreprésentations [PERIODE].
 
 [RULE-DENS-004]
-Détecter les surreprésentations édition.
+Détecter les surreprésentations [CONTEXTE_EDITION].
+
+[EXEMPLE-DENS-001 — cas source]
+Application sur la ligne cas source (football) :
+→ ENTITE_PRIMAIRE = joueur
+→ CATEGORIE_GEOGRAPHIQUE = nation
+→ PERIODE = époque
+→ CONTEXTE_EDITION = édition (Coupe du Monde)

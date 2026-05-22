@@ -10,6 +10,7 @@ RETEX_LOADING: ON_DEMAND_ONLY
 RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 PIPELINE_SCOPE: B3
 DEPENDENCY:
+  - STD_GLOBAL_pool_collision_rules.md
   - STD_B6_hard_blockers_rules.md
   - STD_B6_soft_warnings_rules.md
   - STD_B6_optional_optimizer_rules.md
@@ -37,6 +38,7 @@ OPTIONAL         → PASS 2 signal → PASS 3 optimize si possible
 [RULE-HB-DIST-001]
 **Collision avec réponse correcte**
 - Distractor = correct answer ailleurs → BLOCKER immédiat
+- Application B3 de RULE-PCOLL-004 (périmètre inter-pool HARD BLOCKER)
 - Détection: PASS 2 (anti-collision check)
 - Correction: PASS 3 (remplacer par entité différente)
 
@@ -129,14 +131,15 @@ Sous-règles (migrées depuis MDE_A3 — consolidation 2026-05-18) :
 
 # SECTION — NOTE_DIFFICULTÉ
 
-⚠️ **Deux niveaux de difficulté distincts — ne pas confondre :**
+Distribution distracteurs alignée sur distribution questions (décision 2026-05-22) :
 
-| Niveau | Périmètre | Règle |
-|--------|-----------|-------|
-| Distribution **distracteurs** (B3) | 30% N1 / 40% N2 / 30% N3 ±5% | Ce document (VAL-DIFF-001) |
-| Difficulté **pools** par position quiz | Q1-5=N1 / Q6-15=N2 / Q16-20=N3 | STD_GLOBAL_quiz_architecture_rules.md |
+| Niveau | Questions (pools) | Distracteurs (B3) |
+|--------|------------------|-------------------|
+| N1 | 25% (Q1-Q5) | 25% ±5% |
+| N2 | 50% (Q6-Q15) | 50% ±5% |
+| N3 | 25% (Q16-Q20) | 25% ±5% |
 
-Ces deux règles coexistent à des échelles différentes et ne se contredisent pas.
+Source pools : STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-006
 RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_001
 RETEX_ROLE: JUSTIFICATION
 
@@ -147,9 +150,14 @@ RETEX_ROLE: JUSTIFICATION
 ## TYPE 1 — IDENTIFICATION
 
 [RULE-T1-001] **Selection**
-- Puiser dans base cas source : joueurs/équipes célèbres, multi-éditions
+- Puiser dans [CORPUS_ACTIF] : [ENTITES] célèbres, multi-[CONTEXTE]
+- Même catégorie : [CATEGORIE] → [CATEGORIE], pas mélange
 RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_002
-- Même catégorie : attaquant → attaquant, pas mélange
+
+[EXEMPLE-T1-001 — cas source]
+Application sur la ligne cas source (football) :
+→ Puiser dans base football : joueurs/équipes célèbres, multi-éditions
+→ Même catégorie : attaquant → attaquant, pas mélange
 
 [RULE-T1-002] **CONSISTENCY**
 - Partager ≥1 propriété : même nationalité OU même époque OU même rôle
@@ -202,10 +210,15 @@ RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_004
 ## TYPE 3 — YEARS/EDITIONS
 
 [RULE-T3-001] **Selection**
-- SEULEMENT années cas source réelles (23 années maximum)
+- SEULEMENT [EDITIONS] réelles du [CORPUS_ACTIF] ([N_EDITIONS] maximum)
+- Jamais [EDITION] fictive ou hors-[CORPUS_ACTIF]
 RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_005
-- Jamais année fictive ou hors-cas source
 RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_006
+
+[EXEMPLE-T3-001 — cas source]
+Application sur la ligne cas source (football / Coupe du Monde) :
+→ SEULEMENT années réelles CdM (23 éditions maximum, 1930–2022)
+→ Transposer : remplacer [N_EDITIONS] et [CORPUS_ACTIF] par l'équivalent du thème actif
 
 [RULE-T3-002] **CONSISTENCY**
 - Année autorisée seulement si présente dans le corpus actif
@@ -227,10 +240,16 @@ RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_006
 ## TYPE 4 — LOCATION
 
 [RULE-T4-001] **Selection**
-- Pays hôtes cas source réels SEULEMENT
-RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_007
-- Pour villes : villes hôtes même édition ou proche
+- [LIEUX] réels du [CORPUS_ACTIF] SEULEMENT
+- Pour sous-localisation : [SOUS_LIEUX] de la même [EDITION] ou proche
 - Jamais inventer lieu
+RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_007
+
+[EXEMPLE-T4-001 — cas source]
+Application sur la ligne cas source (football / Coupe du Monde) :
+→ Pays hôtes CdM réels SEULEMENT
+→ Pour villes : villes hôtes même édition ou proche
+→ Transposer : remplacer [LIEUX] par l'équivalent géographique du corpus actif
 
 [RULE-T4-002] **CONSISTENCY**
 - Pays → distractors pays (pas villes mélangées)
@@ -284,7 +303,8 @@ RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_007
 # SECTION — TRANSVERSE_RULES
 
 [RULE-TRANS-001] **Anti-collision obligatoire**
-- Tous types : VALIDER vs 277 correct answers avant assignation
+- Tous types : VALIDER vs [STOCK_CIBLE] correct answers avant assignation
+- Application B3 de RULE-PCOLL-004 — SOURCE_DE_VERITE: STD_GLOBAL_pool_collision_rules.md
 
 [RULE-TRANS-002] **Format homogeneous**
 - Dans question : 1 answer + 3 distractors = même format
