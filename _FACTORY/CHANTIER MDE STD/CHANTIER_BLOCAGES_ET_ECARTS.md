@@ -14,18 +14,13 @@ DATE_MAJ: 2026-05-22
 |-------|--------|-------------|
 | Phase 1 | ✅ TERMINÉE | D-14, D-01, D-02, D-03 |
 | Phase 2 | ✅ TERMINÉE | D-04, D-05, D-06, D-07, D-08 (ANT-01) |
-| Phase 3 | ⏳ EN ATTENTE | D-09, D-10, D-11, D-12, D-16 |
-| Phase 4 | ⏳ EN ATTENTE | D-13, D-15 |
+| Phase 3 | ✅ TERMINÉE | D-09, D-10, D-11, D-12, D-16 |
+| Phase 4 | ✅ TERMINÉE | D-13, D-15 |
 
-**DÉCISION HUMAINE REQUISE avant Phase 3 :**
+**DÉCISION INC-01 : ✅ TRANCHÉE (2026-05-22)**
 
-> **INC-01 (D-07)** — Seuil anti-collision B5 ambigu :
-> - RULE-PCOLL-001 (global) interdit un fait dans plus d'un pool
-> - RULE-PCOLL-B5-001 (audit B5) bloque (FAIL) seulement à partir de 3 pools
-> - Un fait présent dans 2 pools viole la règle globale mais ne déclenche pas le FAIL B5
->
-> **Option A** — Aligner B5 : seuil FAIL = 2 pools (cohérence stricte avec global)
-> **Option B** — Documenter intentionnellement : 2 pools = WARNING / 3 pools = FAIL (tolérance B5 assumée)
+> Option B retenue : 2 pools = WARNING / 3 pools = FAIL (tolérance B5 assumée et documentée).
+> Fichiers mis à jour : STD_B5_pool_collision_rules.md / STD_GLOBAL_pool_collision_rules.md.
 
 ---
 
@@ -41,6 +36,14 @@ RAISON: commande `rm` non autorisée sur le dossier workspace par l'environnemen
 SOLUTION_APPLIQUEE: archivage avec STATUS: ARCHIVED + ARCHIVED_REASON.
 ACTION_MANUELLE_REQUISE: supprimer physiquement les fichiers suivants :
 - `_FACTORY/METHODES/_A2/MDE_BIB_USAGE.md`
+- `_FACTORY/_STANDARDS/_B5/STD_B5_density_rules.md` (D-09)
+- `_FACTORY/_STANDARDS/_B5/STD_B5_difficulty_curve_rules.md` (D-09)
+- `_FACTORY/_STANDARDS/_B5/STD_B5_distractor_quality_rules.md` (D-09)
+- `_FACTORY/_STANDARDS/_B5/STD_B5_factory_quality_rules.md` (D-09)
+- `_FACTORY/_STANDARDS/_B6/STD_B6_hard_blockers_rules.md` (D-09)
+- `_FACTORY/_STANDARDS/_B6/STD_B6_soft_warnings_rules.md` (D-09)
+- `_FACTORY/_STANDARDS/_B6/STD_B6_optional_optimizer_rules.md` (D-09)
+- `_FACTORY/METHODES/A2/` (dossier vide — D-13)
 
 ---
 
@@ -83,9 +86,9 @@ STATUT_D08: CLOS — plus de divergence à documenter.
 DATE: 2026-05-22
 DETECTE_LORS: D-07
 NATURE: RULE-PCOLL-001 (global) dit "un seul pool principal". RULE-PCOLL-B5-001 (B5) dit "≥ 3 pools → FAIL". Un fait présent dans 2 pools viole PCOLL-001 mais ne déclenche pas PCOLL-B5-001.
-OPTIONS: (a) aligner PCOLL-B5-001 sur seuil = 2 / (b) documenter intentionnellement que B5 tolère 2 pools (WARNING) et bloque à 3 (FAIL).
-ACTION_REQUISE: décision humaine.
-FICHIERS: STD_B5_pool_collision_rules.md / STD_GLOBAL_pool_collision_rules.md
+DECISION: Option B — 2 pools = WARNING / 3 pools = FAIL (tolérance B5 assumée et documentée).
+STATUT: ✅ CLOS — 2026-05-22
+FICHIERS_MIS_A_JOUR: STD_B5_pool_collision_rules.md / STD_GLOBAL_pool_collision_rules.md
 
 ---
 

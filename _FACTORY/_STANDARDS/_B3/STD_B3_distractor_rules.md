@@ -11,9 +11,7 @@ RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 PIPELINE_SCOPE: B3
 DEPENDENCY:
   - STD_GLOBAL_pool_collision_rules.md
-  - STD_B6_hard_blockers_rules.md
-  - STD_B6_soft_warnings_rules.md
-  - STD_B6_optional_optimizer_rules.md
+  - FACTORY_QA_RULES.md
   - glossaire_documentaire_factory.md
 ---
 
@@ -327,36 +325,4 @@ Application sur la ligne cas source (football / Coupe du Monde) :
 - [ ] Type identifié (1-5)
 - [ ] Règles TYPE-spécifiques chargées
 - [ ] 10-15 candidats générés (sources réelles cas source)
-RETEX_REF: RETEX_STD_B3_DISTRACTOR_RULES_008
-- [ ] CONSISTENCY appliquée (RÈGLE X.2)
-- [ ] Difficulté filtrée (N1/N2/N3)
-- [ ] Format validé (RÈGLE X.6)
-- [ ] 3 distractors sélectionnés
-- [ ] Soft anti-collision check (no obvious duplicates)
-
-## PASS 2 (Audit)
-- [ ] Hard collisions detectedcount = 0
-- [ ] Format homogeneity ≥99%
-- [ ] Difficulty distribution within ±5%
-- [ ] Type distribution all >10%
-- [ ] Reuse rate <5%
-- [ ] Plausibility ≥80% (TYPE 1/5)
-- [ ] Bias patterns identified
-- [ ] QA_STATUS assigned (PASS/WARNING/FAIL)
-
-## PASS 3 (Optimizer)
-- [ ] Flags understood (root cause clear)
-- [ ] Context loaded (question, rules)
-- [ ] 3-5 replacements generated
-- [ ] Best selected (solves + maintains quality)
-- [ ] No new collisions introduced
-- [ ] Changes documented with rationale
-- [ ] Output ready for B4 or re-audit
-
----
-
-*STD_B3_distractor_rules.md*  
-*Version 1.0 — 2026-05-17*  
-*Status: ACTIVE_REFERENCE*
-
-
+RETEX_REF: RETEX_STD_B3

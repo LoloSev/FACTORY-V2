@@ -58,7 +58,7 @@ A2_APPRO_STATS.md
 
 | Fichier | Pattern | Règle |
 |---------|---------|-------|
-| Artefact unique | `QUIZ_[THEME].xlsx` | Colonne vertébrale — 7 feuilles standards |
+| Artefact unique | `QUIZ_[THEME].xlsx` | Colonne vertébrale — 8 feuilles standards |
 | Log décisions | `PROCESS_[THEME].md` | Léger — arbitrages humains uniquement |
 
 Exemples :

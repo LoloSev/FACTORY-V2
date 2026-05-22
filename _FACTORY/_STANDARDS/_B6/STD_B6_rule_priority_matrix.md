@@ -12,7 +12,7 @@ RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 DEPENDENCY:
 - MASTER_ARCHITECTURE.md
-- STD_B5_factory_quality_rules.md
+- FACTORY_QA_RULES.md
 - STD_QA_status_rules.md
 
 ---

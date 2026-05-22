@@ -46,7 +46,7 @@ ACTIVE_CONTEXT_COST_RULE:
 - duplicate validation block must resolve to referenced DEPENDENCY
 - repeated glossary term must resolve to glossaire_documentaire_factory.md
 - repeated QA status definition must resolve to STD_QA_status_rules.md
-- repeated B5 QA validation must resolve to STD_B5_factory_quality_rules.md
+- repeated B5 QA validation must resolve to FACTORY_QA_RULES.md
 - BIB positioning must resolve to STD_BIB_USAGE.md (do not redefine inline)
 - BIB operational usage must resolve to MDE_BIB_USAGE.md (do not redefine inline)
 

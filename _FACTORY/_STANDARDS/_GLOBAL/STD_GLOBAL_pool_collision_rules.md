@@ -21,6 +21,7 @@ DEPENDENCY:
 
 [RULE-PCOLL-001]
 Un item documentaire majeur ne peut appartenir qu'à un seul pool principal.
+NOTE_B5: L'application B5 de cette règle est graduée (INC-01 / 2026-05-22) : 2 pools = WARNING, ≥ 3 pools = FAIL. Voir STD_B5_pool_collision_rules.md RULE-PCOLL-B5-001.
 
 [RULE-PCOLL-002]
 Un angle IF ne peut pas être réassigné à un pool QV (RULE-IF-001).

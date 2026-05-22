@@ -64,7 +64,7 @@ FINDINGS_COUNT: 68
 - {'type': 'FLOATING_WORDS', 'file': '_FACTORY/_LIGNES/_CDM/B3_DISTRACTEURS/PASS_1_GENERATION/IF-ROT/IF-ROT-03_Anecdotes_DISTRACTORS.md', 'hits': ['poétique']}
 - {'type': 'FLOATING_WORDS', 'file': '_FACTORY/_LIGNES/_CDM/B3_DISTRACTEURS/PASS_1_GENERATION/QV/QV-04_Finales_matchs_historiques_DISTRACTORS.md', 'hits': ['culture']}
 - {'type': 'FLOATING_WORDS', 'file': '_FACTORY/METHODES/A1/A1_LIGNES_TEMPLATE.md', 'hits': ['emotion']}
-- {'type': 'FLOATING_WORDS', 'file': '_FACTORY/METHODES/A2/MDE_A2.md', 'hits': ['anti-school', 'emotion']}
+- {'type': 'FLOATING_WORDS', 'file': '_FACTORY/METHODES/_A2/MDE_A2.md', 'hits': ['anti-school', 'emotion']}
 - {'type': 'FLOATING_WORDS', 'file': '_FACTORY/METHODES/_A2/MDE_BIB_USAGE.md', 'hits': ['anti-school', 'emotion']}
 - {'type': 'LEXICON_DUPLICATION_RISK', 'file': '_FACTORY/METHODES/_A3/MDE_A3_traitement.md', 'concepts': ['RICHESSE']}
 - {'type': 'FLOATING_WORDS', 'file': '_FACTORY/METHODES/_A4/MDE_A4_tableur_pools.md', 'hits': ['culture']}

@@ -32,11 +32,11 @@ PROCESS:
 2. appliquer VALIDATIONS QA calculables
 3. écrire décision et QA_STATUS immédiatement
 4. bloquer export si FAIL existe
-5. produire FICHE_MONITORING depuis flags VEILLE
+5. produire FICHE_VEILLE depuis flags VEILLE
 
 OUTPUT:
 - feuille QA peuplée
-- FICHE_MONITORING produite
+- FICHE_VEILLE produite
 - export autorisé uniquement si BLOCK_EXPORT = FALSE
 
 ACCEPTANCE_CRITERIA:
@@ -61,7 +61,7 @@ FAILURE_CASES:
 
 Audit HUMAN_GATE final question par question.
 Peupler la feuille QA du xlsx.
-Produire la FICHE_MONITORING avant export.
+Produire la FICHE_VEILLE avant export.
 
 ---
 
@@ -71,7 +71,7 @@ Produire la FICHE_MONITORING avant export.
 |---|---|
 | FROM | B3 — feuille DISTRACTEURS validée (DECISION_GATE = GO) |
 | INPUT | QUIZ_[THEME].xlsx complet (CONFIG + ITEMS + ANGLES + POOLS + QUESTIONS + DISTRACTEURS) |
-| OUTPUT | feuille QA peuplée + FICHE_MONITORING |
+| OUTPUT | feuille QA peuplée + FICHE_VEILLE |
 | HUMAN_VALIDATION | required; one QA row per question |
 | BLOCK_EXPORT | QA_STATUS = FAIL sur ≥1 question |
 
@@ -179,9 +179,9 @@ Si détecté → FLAG VEILLE + TYPE-[1/2/3/4/5] dans feuille QA → QA_STATUS = 
 
 ---
 
-## PRODUCTION FICHE_MONITORING
+## PRODUCTION FICHE_VEILLE
 
-En fin d'audit B5, produire la FICHE_MONITORING (RULE-OBS-010) :
+En fin d'audit B5, produire la FICHE_VEILLE (RULE-OBS-010) :
 
 ```
 QUIZ_ID: [identifiant]
@@ -198,7 +198,7 @@ DECLENCHEURS_SURVEILLES:
 RESPONSABLE_MAJ: [à définir]
 ```
 
-La FICHE_MONITORING est conservée avec le quiz. Elle ne bloque pas l'export.
+La FICHE_VEILLE est conservée avec le quiz. Elle ne bloque pas l'export.
 
 ---
 
@@ -207,7 +207,7 @@ La FICHE_MONITORING est conservée avec le quiz. Elle ne bloque pas l'export.
 Export impossible si :
 - [ ] QA_STATUS = FAIL sur ≥1 question non remplacée
 - [ ] ÉCART_CIBLE ≠ OK non résolu sur ≥1 question
-- [ ] FICHE_MONITORING absente
+- [ ] FICHE_VEILLE absente
 - [ ] STOCK_ACTUEL < STOCK_CIBLE sur ≥1 pool (feuille SOMMAIRE)
 
 ---
@@ -225,7 +225,7 @@ Mise à jour feuille QA immédiate
     ↓
 Question suivante
     ↓ (fin du stock)
-Production FICHE_MONITORING
+Production FICHE_VEILLE
     ↓
 Vérification blocages export
     ↓

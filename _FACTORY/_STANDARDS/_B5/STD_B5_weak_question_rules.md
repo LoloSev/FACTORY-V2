@@ -11,7 +11,7 @@ RETEX_LOADING: ON_DEMAND_ONLY
 RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 DEPENDENCY:
-- STD_B5_factory_quality_rules.md
+- FACTORY_QA_RULES.md
 - STD_QA_status_rules.md
 - glossaire_documentaire_factory.md
 # SECTION — CHECK_WEAK_QUESTIONS

@@ -16,9 +16,9 @@ DEPENDENCY:
 - _STANDARDS/_GLOBAL/STD_GLOBAL_quiz_architecture_rules.md
 - _STANDARDS/_GLOBAL/STD_GLOBAL_pool_collision_rules.md
 - _STANDARDS/_GLOBAL/STD_GLOBAL_factory_arborescence_rules.md
-- _STANDARDS/_B5/STD_B5_factory_quality_rules.md
+- _STANDARDS/_GLOBAL/FACTORY_QA_RULES.md
 - _STANDARDS/_GLOBAL/STD_QA_status_rules.md
-- _STANDARDS/STD_ASM_quiz_assembly_rules.md
+- QUIZ_ASSEMBLY_RULES.md
 
 ---
 
@@ -1184,7 +1184,7 @@ Mode d'assemblage regroupant les questions de plusieurs pools pour constituer un
 CONTEXTE: Étape EXPORT — 20 pools × 1 question tirée par pool = 20 questions par partie.
 CONTRAINTE: CONSISTENCY thématique et équilibre niveaux vérifiés à l'assemblage.
 
-→ Règles opérationnelles : voir STD_ASM_quiz_assembly_rules.md
+→ Règles opérationnelles : voir QUIZ_ASSEMBLY_RULES.md
 
 
 ---

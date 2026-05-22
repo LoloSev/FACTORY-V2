@@ -93,6 +93,10 @@ Source : SKILL.md RULE-UNIV-Q-001
 [L-001] **Architecture des 20 pools** → C-002
 5 IF (Q1-Q5 : 2×IF stock=8, 3×IF stock=12) + 15 QV (Q6-Q20, stock=15).
 Table de dérivation positionnelle — voir STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-006
+NOTE_STOCKS (D-15): Les valeurs 8, 12 et 15 sont un contrat applicatif (hors pipeline).
+Dérivation : STOCK_CIBLE = 277 = (2×8) + (3×12) + (15×15). La valeur 15 garantit la rejouabilité
+sur QV (pool tiré 1×/partie — 15 questions = 15 parties sans répétition). Les IF ont des stocks
+réduits (8/12) car leur rôle est ancré (Q1-Q5 fixes) et leur volumétrie nécessaire est moindre.
 
 [L-002] **Crescendo N1/N2/N3** → C-005
 Q1-Q5 = N1 / Q6-Q15 = N2 / Q16-Q20 = N3. Ordre immuable.

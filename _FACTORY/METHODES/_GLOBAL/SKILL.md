@@ -52,7 +52,7 @@ Elle est signalée et traitée avant toute autre action.
 - L'IA génère POUR atteindre ce niveau — elle ne l'assigne pas depuis l'item
 - Les items ont une RICHESSE (DENSE/STANDARD/LIGHT), pas un niveau
 
-**Artefact unique : QUIZ_[THEME].xlsx** — 7 feuilles enrichies progressivement :
+**Artefact unique : QUIZ_[THEME].xlsx** — 8 feuilles enrichies progressivement :
 CONFIG / ITEMS / ANGLES / POOLS / QUESTIONS / DISTRACTEURS / QA
 
 ---
@@ -342,6 +342,4 @@ Localisation : racine `TRAVAIL EN COURS`.
 - `STD_OBSOLESCENCE_WATCH_RULES.md` — 5 types déclencheurs, FICHE_VEILLE
 
 **Glossaire :**
-- `glossaire_documentaire_factory.md` — Définitions RICHESSE, CIBLE_NIVEAU, ÉCART_CIBLE, QA_STATUS…
-
-
+- `glossaire_documentaire_factory.md` — Définitions RICH

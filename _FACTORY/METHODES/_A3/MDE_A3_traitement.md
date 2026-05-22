@@ -128,8 +128,8 @@ Ils ne déterminent pas la RICHESSE — ils sont de la documentation source.
 
 # ÉTAPE 3 — CRÉATION DU XLSX ET FEUILLE CONFIG
 
-Créer QUIZ_[THEME].xlsx avec les 7 feuilles standards :
-CONFIG / ITEMS / ANGLES / POOLS / QUESTIONS / DISTRACTEURS / QA
+Créer QUIZ_[THEME].xlsx avec les 8 feuilles standards :
+CONFIG / ITEMS / ANGLES / POOLS / QUESTIONS / DISTRACTEURS / QA / SOMMAIRE
 
 Peupler la feuille CONFIG :
 
