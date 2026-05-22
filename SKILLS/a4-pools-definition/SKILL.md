@@ -1,41 +1,47 @@
 ---
 name: a4-pools-definition
-description: Définir 20 pools opérationnels (IF-SF, IF-ROT, QV) avec assignations angles/quotas
-version: 1.0
+description: Définir 20 pools opérationnels (IF/QV) avec assignations angles/quotas dans feuille POOLS du xlsx
+version: 2.0
 status: ACTIVE
 ---
 
 # A4 — POOLS DEFINITION
 
-**Input:** A3_ANGIPREGEN  
-**Output:** A4_POOLS_[THEME].txt (20 pools structurés)
+**Input:** QUIZ_[THEME].xlsx (feuilles ITEMS + ANGLES validées — gate A3)
+**Output:** feuille POOLS peuplée + feuille SOMMAIRE calculée
 
-## POOLS ARCHITECTURE
+## POOLS ARCHITECTURE — TABLE DE DÉRIVATION POSITIONNELLE
 
-| Bloc | Type | Pools | Questions | Rotation | Role |
-|------|------|-------|-----------|----------|------|
-| 1 | IF-SF | 2 | 8 total | Très lente | Identité quiz |
-| 2 | IF-ROT | 3 | 12 total | Lente | Onboarding fluide |
-| 3 | QV | 15 | 15 total | Rapide | Variété maximale |
-| **TOTAL** | — | **20** | **20/partie** | — | 1 Q/pool |
+| POSITION_QUIZ | TYPE | POOLS | STOCK_CIBLE | CIBLE_NIVEAU |
+|---------------|------|-------|-------------|--------------|
+| Q1–Q2 | IF | 2 | 8 | N1 |
+| Q3–Q5 | IF | 3 | 12 | N1 |
+| Q6–Q15 | QV | 10 | 15 | N2 |
+| Q16–Q20 | QV | 5 | 15 | N3 |
+| **TOTAL** | — | **20** | **277** | — |
+
+Vérification : (2×8) + (3×12) + (10×15) + (5×15) = 277 ✓
+Règle : les angles IF ne peuvent pas être assignés à un pool QV.
 
 ## PROCESS
 
 | Étape | Action |
 |-------|--------|
-| 1 | Décider stratégie bloc (IF-SF vs IF-ROT vs QV) |
-| 2 | Assigner angles ANGIPREGEN → pools |
-| 3 | Vérifier coverage (tous angles assignés) |
-| 4 | Définir quotas (questions/pool) |
-| 5 | Output A4_POOLS_[THEME].txt |
+| 1 | Lire feuille ANGLES (POOL_CIBLE à assigner) |
+| 2 | Créer 20 pools selon table de dérivation positionnelle |
+| 3 | Assigner angles → pools (POOL_CIBLE + STATUT) |
+| 4 | Vérifier coverage (tous angles assignés, pas de collision inter-pools) |
+| 5 | Peupler feuille POOLS (POOL_ID, TYPE, POSITION_QUIZ, STOCK_CIBLE, CIBLE_NIVEAU) |
+| 6 | Calculer feuille SOMMAIRE |
 
 ## KEY RULES
 
 - [RULE-A4-001] Exactement 20 pools obligatoire
-- [RULE-A4-002] Tous angles ANGIPREGEN assignés
-- [RULE-A4-003] IF-SF = identité, IF-ROT = transition, QV = variété
-- [RULE-A4-004] Collisions inter-pools interdites
+- [RULE-A4-002] Tous angles feuille ANGLES assignés à un POOL_CIBLE
+- [RULE-A4-003] TYPE et STOCK_CIBLE dérivés automatiquement depuis POSITION_QUIZ — ne pas saisir manuellement
+- [RULE-A4-004] Collisions inter-pools interdites (voir STD_GLOBAL_pool_collision_rules.md)
+- [RULE-A4-005] Un angle IF ne peut pas être assigné à un pool QV
 
 ---
 
-*v1.0 — 2026-05-17*
+*v2.0 — 2026-05-22 — Pipeline V2 (remplace v1.0 : ANGIPREGEN/.txt/IF-SF/IF-ROT)*

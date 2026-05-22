@@ -40,7 +40,7 @@ Build raw source items from research → A2_BIB structuré par sections thémati
 Normalize A2_BIB → A3_BIPREGEN (items codés) + A3_ANGIPREGEN (angles/quotas).
 
 #### 3. a4-pools-definition (A4)
-Define 20 pools architecture (IF-SF/IF-ROT/QV) avec assignations angles.
+Define 20 pools architecture (IF/QV, table dérivation positionnelle) avec assignations angles.
 
 ### PHASE B — Production
 

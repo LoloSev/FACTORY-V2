@@ -2,7 +2,9 @@
 name: b6-rules-extractor
 description: Extraire règles généralisables depuis cobaye, alimenter glossaire FACTORY
 version: 1.0
-status: ACTIVE
+status: ARCHIVED
+archived_date: 2026-05-22
+archived_reason: Étape B6 supprimée en V2 — retours consignés dans B6_RETOURS_FACTORY.md (hors pipeline IA).
 ---
 
 # B6 — RULES EXTRACTOR

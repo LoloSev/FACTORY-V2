@@ -2,7 +2,9 @@
 name: b4-spreadsheet-implantation
 description: Implanter questions + distracteurs dans xlsx (A5 structure + B2 + B3 data)
 version: 1.0
-status: ACTIVE
+status: ARCHIVED
+archived_date: 2026-05-22
+archived_reason: Étape B4 supprimée en V2 — implantation intégrée dans QUIZ_[THEME].xlsx dès A3.
 ---
 
 # B4 — SPREADSHEET IMPLANTATION

@@ -157,7 +157,7 @@ If FORMAT_HOMOGENEITY < 99%:
 
 ### STEP 5: Measure Difficulty Distribution
 
-**Purpose:** Check if overall distribution matches target (N1: 30%, N2: 40%, N3: 30%).
+**Purpose:** Check if overall distribution matches target (N1: 25%, N2: 50%, N3: 25%).
 
 **Calculation:**
 ```
@@ -355,7 +355,7 @@ For each TYPE (1-5):
   TYPE_N2_PERCENT = ...
   TYPE_N3_PERCENT = ...
 
-Compare against global target (30/40/30):
+Compare against global target (25/50/25):
 - TYPE 1: N1=32%, N2=39%, N3=29% [±2-3% ✓ Good]
 - TYPE 2: N1=25%, N2=45%, N3=30% [±5% acceptable]
 - TYPE 3: N1=28%, N2=42%, N3=30% [within tolerance]
