@@ -112,6 +112,25 @@ MEDIUM
 HIGH
 ```
 
+## COLUMN_CONTRACT
+
+Colonnes clés partagées entre xlsx A4/B2/B3/B5. Format exact requis pour jointure IA sans contexte implicite.
+
+```txt
+Q_ID            : Q-[THEME_3CHARS]-[POOL_ID]-[NNN]   ex: Q-MAY-IF01-001
+POOL_ID         : IF[NN] | QV[NN]                      ex: IF01, QV03
+CIBLE_NIVEAU    : N1 | N2 | N3
+QA_STATUS       : PASS | WARN | FAIL
+LENGTH_STATUS   : OK | ACCEPTABLE | FAIL
+STATUT_B2       : DRAFT | READY_B3 | REWRITE
+DECISION_RUNTIME: READY_EXPORT | REWRITE | DROP
+SEVERITY        : HB | SW | OPT
+```
+
+RÈGLE: toute colonne partagée entre ≥2 xlsx doit être listée ici avec format exact.
+
+---
+
 ## RÈGLES ANTI-PROSE
 
 Remplacer les phrases de pilotage par tags fermés.
