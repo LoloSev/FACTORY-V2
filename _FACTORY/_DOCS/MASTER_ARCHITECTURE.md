@@ -101,7 +101,7 @@ Le LAB expérimente au-dessus du socle FACTORY, jamais en dessous. Toute règle 
 | QA rules | `_STANDARDS/_GLOBAL/FACTORY_QA_RULES.md` |
 | Assemblage quiz | `_STANDARDS/_GLOBAL/QUIZ_ASSEMBLY_RULES.md` |
 | Glossaire | `_STANDARDS/_GLOBAL/glossaire_documentaire_factory.md` |
-| Retours d'expérience | `B6_RETOURS/B6_RETOURS_FACTORY.md` |
+| Retours d'expérience | `_RETEX_LIBRARY/RETEX_INDEX.md` |
 | État site / déploiement | `_DOCS/DDT.md` |
 
 ---

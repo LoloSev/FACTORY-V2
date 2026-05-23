@@ -170,9 +170,8 @@ HÉRITAGE    : L0 + L1 + L2 selon contexte
 ```
 
 CONTENU_AUTORISÉ:
-- `B6_RETOURS/B6_RETOURS_FACTORY.md`
-- RETEX spécifiques (`retex_mayenne_v_2_factory.md`, etc.)
-- `TOKEN_ECONOMY_AUDIT.md`
+- `_RETEX_LIBRARY/RETEX_INDEX.md`
+- RETEX spécifiques (`_RETEX_LIBRARY/retex_mayenne_v_2_factory.md`, etc.)
 - Fichiers SESSION_RESUME
 
 CONTENU_INTERDIT:

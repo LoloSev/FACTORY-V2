@@ -1,0 +1,20 @@
+QUIZZZ FACTORY — BOOTSTRAP SESSION V2
+
+Lis dans l'ordre :
+1. _FACTORY/_DOCS/MASTER_ARCHITECTURE.md
+2. _FACTORY/_STANDARDS/_GLOBAL/FACTORY_RUNTIME_LEXICON.md
+
+Ensuite : exécute git log -1 --stat --oneline && git status --short
+Puis : attends les instructions.
+
+---
+
+Pour une tâche de production :
+- Précise la phase (A2 / A3 / A4 / B2 / B3 / B5)
+- Précise la ligne (_[THEME])
+- Précise le pool si applicable (ex: QV-03)
+
+Règle d'or : un pool, une phase, une sortie attendue.
+
+Référence workflow : _FACTORY/_DOCS/DDT_WORKFLOW.md
+Référence pipeline : _FACTORY/_DOCS/PIPELINE_V2.md

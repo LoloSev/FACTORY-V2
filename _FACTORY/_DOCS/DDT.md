@@ -99,10 +99,7 @@ Installé sur 6 fichiers HTML :
 
 ## 🏭 QUIZZZ FACTORY
 
-→ Voir `_FACTORY_V2/MASTER_ARCHITECTURE.md`
-
-Fichiers clés :
-- XLSX : `_FACTORY_V2/_LIGNES/_MAYENNE/06_PRODUITS_FINIS/quiz_mayenne_integral.xlsx`
+→ Voir `_FACTORY/_DOCS/MASTER_ARCHITECTURE.md`
 
 ---
 
