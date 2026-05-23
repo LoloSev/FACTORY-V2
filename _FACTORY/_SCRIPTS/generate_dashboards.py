@@ -13,6 +13,10 @@ PIPE_FILE  = ROOT / "_STATE" / "pipeline_state.json"
 STAMP_FILE = ROOT / "_STATE" / ".dashboard_stamp.json"
 OUT_MAIN   = ROOT / "_STATE" / ".dashboard_factory_main.html"
 
+if not STATE_FILE.exists():
+    print("NO_OP — DASHBOARD_STATE.json absent (aucune ligne active). Lancer une gate d'abord.")
+    raise SystemExit(0)
+
 state = json.loads(STATE_FILE.read_text(encoding="utf-8"))
 pipe  = json.loads(PIPE_FILE.read_text(encoding="utf-8")) if PIPE_FILE.exists() else {}
 
