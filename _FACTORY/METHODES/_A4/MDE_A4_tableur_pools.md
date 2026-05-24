@@ -5,15 +5,15 @@ RETEX_LOADING: ON_DEMAND_ONLY
 RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 
-# MDE A4 — CONSTITUTION DES POOLS → FEUILLE POOLS
+# MDE A4 — CONSTITUTION DES POOLS → POOLS.tsv
 
-Version : 3.0 (PIPELINE V2.1)
-Date : 2026-05-24
+Version : 3.1 (PIPELINE V2.1)
+Date : 2026-05-25
 Remplace : MDE_A4 v2.0 (pipeline V2 — CIBLE_NIVEAU fixe par pool)
 
 DEPENDENCY:
 - PIPELINE_V2.md
-- MDE_A3_traitement.md (v3.0)
+- MDE_A3_traitement.md (v4.1)
 - STD_GLOBAL_quiz_architecture_rules.md
 - STD_GLOBAL_pool_collision_rules.md
 
@@ -22,8 +22,8 @@ DEPENDENCY:
 ## MACHINE-FIRST EXECUTION CONTRACT
 
 INPUT:
-- QUIZ_[THEME].xlsx
-- feuilles ITEMS et ANGLES validées
+- ITEMS.tsv validé (gate A3)
+- ANGLES.tsv validé (gate A3)
 - 20 positions quiz disponibles
 
 PROCESS:
@@ -34,9 +34,9 @@ PROCESS:
 5. VALIDER stocks, couverture et collisions
 
 OUTPUT:
-- feuille POOLS peuplée
-- feuille ANGLES mise à jour avec POOL_CIBLE / STATUT
-- feuille SOMMAIRE calculée
+- POOLS.tsv peuplé
+- ANGLES.tsv mis à jour (POOL_CIBLE / STATUT)
+- SOMMAIRE généré via generate_sommaire.py
 
 ACCEPTANCE_CRITERIA:
 - POOL_COUNT = 20
@@ -63,21 +63,21 @@ FAILURE_CASES:
 ---
 # PRINCIPE GÉNÉRAL
 
-A4 constitue les 20 pools du quiz et peuple la feuille POOLS du xlsx.
+A4 constitue les 20 pools du quiz et peuple POOLS.tsv.
 Les pools sont purement thématiques — la difficulté n'est plus assignée au pool.
 A4 valide que chaque pool peut servir le niveau qu'exigera le moteur (COUVERTURE_NIVEAU).
 
-**Entrée :** QUIZ_[THEME].xlsx avec feuilles ITEMS + ANGLES validées (gate A3)
-**Sortie :** feuille POOLS peuplée, prête pour B2
+**Entrée :** ITEMS.tsv + ANGLES.tsv validés (gate A3)
+**Sortie :** POOLS.tsv peuplé, prêt pour B2
 
-A4 produit aussi une feuille SOMMAIRE dans le xlsx pour le suivi d'avancement.
+A4 déclenche aussi generate_sommaire.py pour le suivi d'avancement.
 
 ---
 
 # ÉTAPE 1 — LECTURE DES ANGLES ET RICHESSE
 
 Avant de constituer les pools :
-- Lister toutes les sections depuis feuille ITEMS (par CATÉGORIE)
+- Lister toutes les sections depuis ITEMS.tsv (par CLUSTER)
 - Identifier les sections DENSE, STANDARD, LIGHT
 - Lire NIVEAU_POTENTIEL par item (N1/N2/N3/MULTI)
 - Repérer les sections signalées candidats AGRÉGÉ par A3
@@ -155,7 +155,7 @@ NOTE : seuil 0.30 = valeur initiale à calibrer sur MAYENNE (RULE-GOV-002).
 
 ---
 
-# ÉTAPE 4 — PEUPLEMENT FEUILLE POOLS
+# ÉTAPE 4 — PEUPLEMENT POOLS.tsv
 
 RETEX_REF: RETEX_MDE_A4_TABLEUR_POOLS_001
 
@@ -166,8 +166,8 @@ RETEX_REF: RETEX_MDE_A4_TABLEUR_POOLS_001
 | POSITION_QUIZ | Q1 à Q20 |
 | THEME_LABEL | label contrôlé du pool |
 | MODE | SIMPLE / AGRÉGÉ |
-| SOUS_THÈMES | liste des sous-thèmes (si AGRÉGÉ) |
-| ITEMS_ASSIGNÉS | liste des ITEM_ID assignés à ce pool |
+| SOUS_THEMES | liste des sous-thèmes (si AGRÉGÉ) |
+| ITEMS_ASSIGNES | liste des ITEM_ID assignés à ce pool |
 | COUVERTURE_NIVEAU | OK / WARN / FAIL — calculé en Étape 3 |
 | STOCK_CIBLE | 8 (IF Q1-Q2) / 12 (IF Q3-Q5) / 15 (QV) |
 | STOCK_ACTUEL | formule =COUNTIF(QUESTIONS[POOL_ID], POOL_ID) |
@@ -176,7 +176,7 @@ RETEX_REF: RETEX_MDE_A4_TABLEUR_POOLS_001
 
 # ÉTAPE 5 — ASSIGNATION ANGLES AUX POOLS
 
-Mettre à jour la feuille ANGLES :
+Mettre à jour ANGLES.tsv :
 - Pour chaque angle, remplir POOL_CIBLE avec le POOL_ID correspondant
 - Mettre STATUT = RÉSERVÉ pour les angles déjà assignés
 - VALIDER que chaque pool a assez d'angles pour atteindre STOCK_CIBLE
@@ -198,27 +198,13 @@ Avant validation :
 
 ---
 
-# ÉTAPE 7 — CRÉATION FEUILLE SOMMAIRE
+# ÉTAPE 7 — GÉNÉRATION SOMMAIRE
 
-Créer une feuille SOMMAIRE dans le xlsx :
+Lancer : `python _FACTORY/_SCRIPTS/generate_sommaire.py _LIGNES/[THEME]`
 
-| Colonne | Contenu |
-|---------|---------|
-| POOL_ID | identifiant |
-| TYPE | IF / QV |
-| POSITION | Q1 à Q20 |
-| CIBLE_NIVEAU | N1 / N2 / N3 |
-| THÈME | intitulé |
-| MODE | SIMPLE / AGRÉGÉ |
-| STOCK_CIBLE | cible |
-| STOCK_ACTUEL | =COUNTIF dynamique |
-| Q_PASS | =COUNTIF(QA[QA_STATUS]="PASS", QA[POOL_ID]=...) |
-| Q_WARNING | idem WARNING |
-| Q_FAIL | idem FAIL |
-| Q_DRAFT | idem DRAFT |
-| % COMPLET | =STOCK_ACTUEL/STOCK_CIBLE |
+Calcule depuis les TSV : POOL_ID / TYPE / POSITION_QUIZ / THEME_LABEL / MODE / COUVERTURE_NIVEAU / STOCK_CIBLE / STOCK_ACTUEL / Q_PASS / Q_WARNING / Q_FAIL / PCT_COMPLET.
 
-Le SOMMAIRE est le cockpit de pilotage du quiz. Il se met à jour automatiquement à chaque ajout de question ou changement de QA_STATUS.
+Le SOMMAIRE est la vue de pilotage du quiz — regénéré à la demande, pas maintenu manuellement.
 
 ---
 
@@ -232,7 +218,7 @@ Avant de passer à B2 :
 - [ ] Angles assignés pour chaque pool
 - [ ] Stocks cibles atteignables
 - [ ] Anti-collision inter-pools vérifié
-- [ ] SOMMAIRE opérationnel
+- [ ] SOMMAIRE généré (generate_sommaire.py)
 
 Décisions humaines attendues :
 - Validation des 20 pools (ou reconfiguration)
@@ -253,7 +239,7 @@ A4 est valide si :
 ---
 
 *MDE_A4_tableur_pools.md*
-*Version 3.0 — 2026-05-24 — Pipeline V2.1*
-*Remplace : v2.0 — CIBLE_NIVEAU pool → COUVERTURE_NIVEAU / pools purement thématiques*
+*Version 3.1 — 2026-05-25 — Pipeline V2.1*
+*Remplace : v3.0 — OUTPUT TSV (POOLS.tsv / ANGLES.tsv) / SOMMAIRE via script / dépendance A3 v4.1*
 
 

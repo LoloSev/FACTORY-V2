@@ -1,7 +1,7 @@
 # MDE B2 — GÉNÉRATION DES QUESTIONS
 
-VERSION: 2.0 (PIPELINE V2)
-DATE: 2026-05-18
+VERSION: 2.1 (PIPELINE V2.1)
+DATE: 2026-05-25
 STATUS: ACTIVE_REFERENCE
 PIPELINE_SCOPE: B2
 IA_COMPATIBLE: TRUE
@@ -13,7 +13,8 @@ RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 DEPENDENCY:
 - PIPELINE_V2.md
-- QUIZ_[THEME].xlsx (feuilles POOLS + ANGLES validées)
+- POOLS.tsv validé (gate A4)
+- ANGLES.tsv validé (gate A3)
 - STD_B2_generation_rules.md
 - STD_B2_recevabilite_pedagogique.md
 - STD_GLOBAL_pool_collision_rules.md
@@ -24,9 +25,8 @@ DEPENDENCY:
 ## MACHINE-FIRST EXECUTION CONTRACT
 
 INPUT:
-- QUIZ_[THEME].xlsx
-- feuille POOLS validée
-- feuille ANGLES avec POOL_CIBLE renseigné
+- POOLS.tsv validé
+- ANGLES.tsv avec POOL_CIBLE renseigné
 - STD_B2_generation_rules.md
 - STD_B2_recevabilite_pedagogique.md
 
@@ -34,11 +34,11 @@ PROCESS:
 1. traiter un pool à la fois
 2. sélectionner angles DISPONIBLE du pool
 3. appliquer hard blockers avant écriture
-4. générer questions au CIBLE_NIVEAU hérité
+4. générer la question au NIVEAU_ANGLE de l'angle
 5. écrire uniquement les questions PASS
 
 OUTPUT:
-- feuille QUESTIONS peuplée
+- QUESTIONS.tsv peuplé
 - STATUT_B2 renseigné pour chaque question
 - flags bloquants explicités
 
@@ -46,8 +46,8 @@ ACCEPTANCE_CRITERIA:
 - QUESTIONS_WITH_Q_ID_RATE = 100%
 - QUESTIONS_WITH_POOL_ID_RATE = 100%
 - QUESTIONS_WITH_ANGLE_ID_RATE = 100%
-- QUESTIONS_WITH_CIBLE_NIVEAU_RATE = 100%
-- CIBLE_NIVEAU_POOL_MATCH_RATE = 100%
+- QUESTIONS_WITH_NIVEAU_QUESTION_RATE = 100%
+- NIVEAU_QUESTION_FROM_ANGLE_RATE = 100%
 - LIBELLE_WORD_COUNT_MAX = 15 (RULE-B2-HB-000 — STD_B2_generation_rules.md)
 - ANSWER_UNIQUE_RATE = 100%
 - PED_BLOCKER_COUNT = 0
@@ -55,16 +55,16 @@ ACCEPTANCE_CRITERIA:
 - FILLER_COUNT = 0
 
 FAILURE_CASES:
-- missing CIBLE_NIVEAU
+- missing NIVEAU_QUESTION
 - question without ANGLE_ID
-- CIBLE_NIVEAU edited manually
+- NIVEAU_QUESTION not derived from NIVEAU_ANGLE
 - answer ambiguous or revealed
 - filler or hard collision detected
 
 ---
 ## OBJECTIF
 
-Peupler la feuille QUESTIONS du xlsx, pool par pool, en ciblant le CIBLE_NIVEAU de chaque pool.
+Peupler QUESTIONS.tsv, pool par pool, en ciblant le NIVEAU_ANGLE de chaque angle.
 Produire des questions propres, recevables, non-fillers, prêtes pour B3.
 
 ---
@@ -73,35 +73,35 @@ Produire des questions propres, recevables, non-fillers, prêtes pour B3.
 
 | | |
 |---|---|
-| FROM | A4 — feuille POOLS validée |
-| INPUT | QUIZ_[THEME].xlsx (CONFIG + ITEMS + ANGLES + POOLS remplis) |
-| OUTPUT | feuille QUESTIONS peuplée (Q_ID / POOL_ID / ANGLE_ID / LIBELLÉ / RÉPONSE / CIBLE_NIVEAU / TYPE_Q / STATUT_B2) |
+| FROM | A4 — POOLS.tsv validé |
+| INPUT | POOLS.tsv + ANGLES.tsv |
+| OUTPUT | QUESTIONS.tsv peuplé (Q_ID / POOL_ID / ANGLE_ID / LIBELLE / REPONSE / NIVEAU_QUESTION / TYPE_Q / STATUT_B2) |
 | HUMAN_VALIDATION | required per pool; allowed statuses: APPROVE / REJECT / REWORK |
 | BLOCK_IF | filler, collision, angle sans signal GAME_VALUE_FLAG = TRUE, question irrecevable |
 
 ---
 
-## PRINCIPE FONDAMENTAL V2
+## PRINCIPE FONDAMENTAL V2.1
 
-**La difficulté n'est pas assignée par l'IA — elle est héritée du pool.**
+**La difficulté est évaluée à l'angle (NIVEAU_ANGLE en A3) et assignée à la question (NIVEAU_QUESTION en B2).**
 
 RETEX_REF: RETEX_MDE_B2_GENERATION_001
 
-L'IA génère pour atteindre ce niveau — pas pour s'y conformer après coup.
+Le pool ne porte plus de niveau fixe. NIVEAU_QUESTION = NIVEAU_ANGLE de l'angle source — assigné par l'IA, non hérité du pool.
 
 ---
 
 ## SÉQUENCE DE TRAVAIL (PAR POOL)
 
-1. Lire le pool dans la feuille POOLS (THEME_LABEL / MODE / SOUS_THÈMES / CIBLE_NIVEAU / ITEMS_ASSIGNÉS)
-2. Lire les angles disponibles dans la feuille ANGLES (POOL_CIBLE = ce pool / STATUT = DISPONIBLE)
+1. Lire le pool dans POOLS.tsv (THEME_LABEL / MODE / SOUS_THEMES / COUVERTURE_NIVEAU / ITEMS_ASSIGNES)
+2. Lire les angles disponibles dans ANGLES.tsv (POOL_CIBLE = ce pool / STATUT = DISPONIBLE)
 3. VALIDER si une passe de cadrage pré-génération est nécessaire (RULE-B2-SW-001)
 4. Proposer la répartition calculée du pool (angles × questions)
 5. Pour chaque question candidate :
    a. Triple filtre angle (RULE-B2-HB-004) : disponibilité → anti-collision → signal GAME_VALUE_FLAG = TRUE
    b. Checklist 8 filtres rédaction (RULE-B2-HB-002)
    c. VALIDATION recevabilité pédagogique (STD_B2_recevabilite_pedagogique.md)
-6. Remplir la feuille QUESTIONS pour les questions validées
+6. Remplir QUESTIONS.tsv pour les questions validées
 7. Marquer STATUT_B2 = SOUMIS
 8. Soumettre le pool à HUMAN_GATE
 9. Après validation : STATUT_B2 = VALIDÉ ou REJETÉ
@@ -114,10 +114,10 @@ L'IA génère pour atteindre ce niveau — pas pour s'y conformer après coup.
 |---------|-------|
 | Q_ID | [POOL_ID]-Q[NNN] — auto-généré séquentiellement |
 | POOL_ID | copié depuis POOLS |
-| ANGLE_ID | référence feuille ANGLES |
-| LIBELLÉ | texte de la question (filtres appliqués) |
-| RÉPONSE | réponse correcte |
-| CIBLE_NIVEAU | copié depuis POOLS (N1/N2/N3) — ne pas modifier |
+| ANGLE_ID | référence ANGLES.tsv |
+| LIBELLE | texte de la question (filtres appliqués) |
+| REPONSE | réponse correcte |
+| NIVEAU_QUESTION | = NIVEAU_ANGLE de l'angle source — ne pas modifier manuellement |
 | TYPE_Q | 1 / 2 / 3 / 4 / 5 (voir ci-dessous) |
 | STATUT_B2 | SOUMIS (puis VALIDÉ / REJETÉ après gate humaine) |
 
@@ -198,7 +198,7 @@ Après HUMAN_GATE :
 ---
 
 *MDE_B2_generation.md*
-*Version 2.0 — 2026-05-18 — Pipeline V2*
-*Remplace : v1.0 (A4_POOLS.txt + A5_TABLEUR_INIT.xlsx)*
+*Version 2.1 — 2026-05-25 — Pipeline V2.1*
+*Remplace : v2.0 — CIBLE_NIVEAU pool → NIVEAU_QUESTION par question (alignement C-010/C-011)*
 
 

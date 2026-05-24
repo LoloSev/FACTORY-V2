@@ -3,8 +3,8 @@
 DEPENDENCY:
 - MASTER_ARCHITECTURE.md
 - glossaire_documentaire_factory.md
-VERSION: 2.0
-DATE: 2026-05-18
+VERSION: 2.1
+DATE: 2026-05-25
 STATUS: ACTIVE_REFERENCE
 REMPLACE: pipeline implicite dans MASTER_ARCHITECTURE.md (A1→B6)
 IA_COMPATIBLE: TRUE
@@ -144,8 +144,8 @@ Remplace les fichiers B2_GENERATION/.
 | Q_ID | [POOL_ID]-Q[NNN] |
 | POOL_ID | Référence feuille POOLS |
 | ANGLE_ID | Référence feuille ANGLES |
-| LIBELLÉ | Texte de la question |
-| RÉPONSE | Réponse correcte |
+| LIBELLE | Texte de la question |
+| REPONSE | Réponse correcte |
 | NIVEAU_QUESTION | N1 / N2 / N3 — assigné en B2 depuis NIVEAU_ANGLE (non hérité du pool) |
 | TYPE_Q | 1-Identification / 2-Nombre / 3-Année / 4-Lieu / 5-Correspondance |
 | STATUT_B2 | EN_COURS / SOUMIS / VALIDÉ / REJETÉ |
@@ -162,11 +162,11 @@ Remplace les fichiers B3/.
 | D1 | Distracteur 1 |
 | D2 | Distracteur 2 |
 | D3 | Distracteur 3 |
-| NIVEAU_CONFIRMÉ | N1 / N2 / N3 — niveau réel après distracteurs |
-| ÉCART_CIBLE | OK / SURQUALIFIÉ / SOUS-QUALIFIÉ |
+| NIVEAU_CONFIRME | N1 / N2 / N3 — niveau réel après distracteurs |
+| ECART_CIBLE | OK / SURQUALIFIÉ / SOUS-QUALIFIÉ |
 | STATUT_B3 | EN_COURS / PASS / WARNING / FAIL |
 
-**NIVEAU_CONFIRMÉ vs NIVEAU_QUESTION :** si écart → signaler, corriger distracteurs ou reformuler question. NIVEAU_QUESTION peut être ajusté sur décision humaine (contrairement à l'ancien CIBLE_NIVEAU de pool qui était immuable).
+**NIVEAU_CONFIRME vs NIVEAU_QUESTION :** si écart → signaler, corriger distracteurs ou reformuler question. NIVEAU_QUESTION peut être ajusté sur décision humaine (contrairement à l'ancien CIBLE_NIVEAU de pool qui était immuable).
 
 ---
 
@@ -180,7 +180,7 @@ Audit final B5.
 | QA_STATUS | PASS / WARNING / FAIL |
 | FLAGS | VEILLE / IRRECEVABLE / COLLISION / FORMAT |
 | NOTES | Commentaire auditeur |
-| DÉCISION | CONSERVER / MODIFIER / REJETER / DÉPLACER |
+| DECISION | CONSERVER / MODIFIER / REJETER / DÉPLACER |
 
 ---
 
@@ -214,27 +214,27 @@ A1_THEME
 
 ---
 
-## A3 — INIT XLSX + ITEMS + ANGLES
+## A3 — INIT TSV + ITEMS + ANGLES
 **Entrée :** BIB_[THEME].txt  
-**Sortie :** QUIZ_[THEME].xlsx (feuilles CONFIG + ITEMS + ANGLES peuplées)
+**Sortie :** CONFIG.yaml + ITEMS.tsv + ANGLES.tsv peuplés
 
 Actions :
-1. Créer QUIZ_[THEME].xlsx
+1. Initialiser TSV depuis template _LIGNES/_TEMPLATE/ + remplir CONFIG.yaml
 2. Extraire sélectivement du BIB, filtrer, mettre en ligne unique
-3. Coder chaque item [THEME]-[CAT]-[N°] → feuille ITEMS
-4. Assigner RICHESSE (Dense/Standard/Light) par item → feuille ITEMS
-5. Cartographier les angles par item → feuille ANGLES
-6. Assigner NIVEAU_ANGLE (N1/N2/N3) par angle → feuille ANGLES (critères fermés — FACTORY_RUNTIME_LEXICON.md)
-7. Dériver NIVEAU_POTENTIEL par item depuis agrégation NIVEAU_ANGLE → feuille ITEMS
-8. Définir exclusions et quotas indicatifs → feuille ANGLES
+3. Coder chaque item [THEME]-[CAT]-[N°] → ITEMS.tsv
+4. Assigner RICHESSE (Dense/Standard/Light) par item → ITEMS.tsv
+5. Cartographier les angles par item → ANGLES.tsv
+6. Assigner NIVEAU_ANGLE (N1/N2/N3) par angle → ANGLES.tsv (critères fermés — FACTORY_RUNTIME_LEXICON.md)
+7. Dériver NIVEAU_POTENTIEL par item depuis agrégation NIVEAU_ANGLE → ITEMS.tsv
+8. Définir exclusions et quotas indicatifs → ANGLES.tsv
 
 **Gate humaine :** validation RICHESSE + NIVEAU_ANGLE + angles avant A4
 
 ---
 
 ## A4 — POOLS
-**Entrée :** QUIZ_[THEME].xlsx (ITEMS + ANGLES validés)  
-**Sortie :** feuille POOLS peuplée
+**Entrée :** ITEMS.tsv + ANGLES.tsv validés (gate A3)  
+**Sortie :** POOLS.tsv peuplé + ANGLES.tsv mis à jour
 
 Actions :
 1. Définir les 20 pools (éditorial — thématique uniquement)
@@ -246,19 +246,20 @@ Actions :
 7. VALIDATION anti-collision inter-pools
 
 **Gate humaine :** validation structure pools + COUVERTURE_NIVEAU avant B2
+**Vue :** `python generate_sommaire.py _LIGNES/[THEME]`
 
 ---
 
 ## B2 — GÉNÉRATION QUESTIONS
-**Entrée :** QUIZ_[THEME].xlsx (POOLS validés)  
-**Sortie :** feuille QUESTIONS peuplée
+**Entrée :** POOLS.tsv + ANGLES.tsv validés (gate A4)  
+**Sortie :** QUESTIONS.tsv peuplé
 
 Actions :
 1. Pour chaque angle assigné au pool, lire NIVEAU_ANGLE et générer la question à ce niveau
 2. Appliquer checklist 8 filtres (RULE-B2-HB-002)
 3. Appliquer VALIDATION recevabilité pédagogique (STD_B2_recevabilite_pedagogique.md)
 4. Anti-collision avant soumission humaine
-5. Remplir Q_ID / POOL_ID / ANGLE_ID / LIBELLÉ / RÉPONSE / NIVEAU_QUESTION / TYPE_Q
+5. Remplir Q_ID / POOL_ID / ANGLE_ID / LIBELLE / REPONSE / NIVEAU_QUESTION / TYPE_Q dans QUESTIONS.tsv
 6. Vérifier distribution NIVEAU_QUESTION par pool — WARNING si stock N_REQUIS < 5 questions
 
 **Gate humaine :** validation par pool (pas question par question au stade B2)
@@ -266,27 +267,27 @@ Actions :
 ---
 
 ## B3 — GÉNÉRATION DISTRACTEURS
-**Entrée :** QUIZ_[THEME].xlsx (QUESTIONS validées)  
-**Sortie :** feuille DISTRACTEURS peuplée
+**Entrée :** QUESTIONS.tsv validé (gate B2)  
+**Sortie :** DISTRACTEURS.tsv peuplé
 
 Actions :
-1. PASS 1 : générer 3 distracteurs par question en ciblant CIBLE_NIVEAU
+1. PASS 1 : générer 3 distracteurs par question en ciblant NIVEAU_QUESTION
 2. PASS 2 : audit anti-collision + format + distribution + biais
 3. PASS 3 : correction des flags
-4. Remplir D1/D2/D3 / NIVEAU_CONFIRMÉ / ÉCART_CIBLE / STATUT_B3
-5. Signaler tout ÉCART_CIBLE ≠ OK → décision humaine
+4. Remplir D1/D2/D3 / NIVEAU_CONFIRME / ECART_CIBLE / STATUT_B3 dans DISTRACTEURS.tsv
+5. Signaler tout ECART_CIBLE ≠ OK → décision humaine
 
 **Gate humaine :** validation DECISION_GATE (GO / CONDITIONAL_GO / NO_GO)
 
 ---
 
 ## B5 — AUDIT QA
-**Entrée :** QUIZ_[THEME].xlsx (QUESTIONS + DISTRACTEURS)  
-**Sortie :** feuille QA peuplée
+**Entrée :** QUESTIONS.tsv + DISTRACTEURS.tsv validés (gate B3)  
+**Sortie :** QA.tsv peuplé + FICHE_VEILLE
 
 Actions :
 1. Audit question par question
-2. Assigner QA_STATUS + FLAGS
+2. Assigner QA_STATUS + FLAGS dans QA.tsv
 3. Appliquer VALIDATION VEILLE (STD_OBSOLESCENCE_WATCH_RULES.md)
 4. Décisions CONSERVER / MODIFIER / REJETER / DÉPLACER
 5. Produire FICHE_VEILLE
@@ -303,12 +304,13 @@ Actions :
 ---
 
 ## EXPORT
-**Entrée :** QUIZ_[THEME].xlsx (QA_STATUS = PASS sur toutes questions)  
+**Entrée :** QA.tsv (QA_STATUS = PASS sur toutes questions)  
 **Sortie :** livrable quiz prêt à implantation
+**Vue :** `python generate_xlsx_view.py _LIGNES/[THEME]`
 
 Blocages export :
 - QA_STATUS = FAIL sur ≥1 question
-- ÉCART_CIBLE non résolu
+- ECART_CIBLE non résolu
 - FICHE_VEILLE absente
 
 ---

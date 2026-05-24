@@ -1,7 +1,7 @@
 # MDE B5 — AUDIT QA
 
-VERSION: 2.0 (PIPELINE V2)
-DATE: 2026-05-18
+VERSION: 2.1 (PIPELINE V2.1)
+DATE: 2026-05-25
 STATUS: ACTIVE_REFERENCE
 PIPELINE_SCOPE: B5
 IA_COMPATIBLE: TRUE
@@ -13,7 +13,8 @@ RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 DEPENDENCY:
 - PIPELINE_V2.md
-- QUIZ_[THEME].xlsx (feuilles QUESTIONS + DISTRACTEURS validées)
+- QUESTIONS.tsv validé (gate B2)
+- DISTRACTEURS.tsv validé (gate B3)
 - STD_B2_recevabilite_pedagogique.md
 - STD_OBSOLESCENCE_WATCH_RULES.md
 - STD_B3_distractor_rules.md
@@ -23,9 +24,8 @@ DEPENDENCY:
 ## MACHINE-FIRST EXECUTION CONTRACT
 
 INPUT:
-- QUIZ_[THEME].xlsx complet
-- QUESTIONS validées
-- DISTRACTEURS validés avec DECISION_GATE = GO
+- QUESTIONS.tsv validé
+- DISTRACTEURS.tsv validé (DECISION_GATE = GO)
 
 PROCESS:
 1. présenter une question à la fois
@@ -35,7 +35,7 @@ PROCESS:
 5. produire FICHE_VEILLE depuis flags VEILLE
 
 OUTPUT:
-- feuille QA peuplée
+- QA.tsv peuplé
 - FICHE_VEILLE produite
 - export autorisé uniquement si BLOCK_EXPORT = FALSE
 
@@ -60,7 +60,7 @@ FAILURE_CASES:
 ## OBJECTIF
 
 Audit HUMAN_GATE final question par question.
-Peupler la feuille QA du xlsx.
+Peupler QA.tsv.
 Produire la FICHE_VEILLE avant export.
 
 ---
@@ -69,9 +69,9 @@ Produire la FICHE_VEILLE avant export.
 
 | | |
 |---|---|
-| FROM | B3 — feuille DISTRACTEURS validée (DECISION_GATE = GO) |
-| INPUT | QUIZ_[THEME].xlsx complet (CONFIG + ITEMS + ANGLES + POOLS + QUESTIONS + DISTRACTEURS) |
-| OUTPUT | feuille QA peuplée + FICHE_VEILLE |
+| FROM | B3 — DISTRACTEURS.tsv validé (DECISION_GATE = GO) |
+| INPUT | QUESTIONS.tsv + DISTRACTEURS.tsv |
+| OUTPUT | QA.tsv peuplé + FICHE_VEILLE |
 | HUMAN_VALIDATION | required; one QA row per question |
 | BLOCK_EXPORT | QA_STATUS = FAIL sur ≥1 question |
 
@@ -80,7 +80,7 @@ Produire la FICHE_VEILLE avant export.
 ## PRINCIPE
 
 Une question à la fois. Décision humaine avant de passer à la suivante.
-Mise à jour feuille QA immédiate à chaque décision.
+Mise à jour QA.tsv immédiate à chaque décision.
 
 ---
 
@@ -89,7 +89,7 @@ Mise à jour feuille QA immédiate à chaque décision.
 ```
 Q_ID      : [identifiant]
 Pool      : [POOL_ID] — [THEME_LABEL]
-Position  : Q[N] — CIBLE_NIVEAU : N[1/2/3]
+Position  : Q[N] — NIVEAU_QUESTION : N[1/2/3]
 Type      : TYPE [1/2/3/4/5]
 
 Question  : [libellé]
@@ -111,7 +111,7 @@ Proposition : CONSERVER / MODIFIER / REJETER / DÉPLACER
 
 ---
 
-## LES 4 DÉCISIONS
+## LES 4 DECISIONS
 
 ### CONSERVER
 - QA_STATUS = PASS
@@ -132,7 +132,7 @@ RETEX_REF: RETEX_MDE_B5_AUDIT_001
 - Préciser le pool cible
 - Mettre à jour POOL_ID dans feuille QUESTIONS
 - QA_STATUS = PASS dans nouveau pool (si compatible)
-- Note dans feuille QA : "DÉPLACÉ depuis [pool source]"
+- Note dans QA.tsv : "DÉPLACÉ depuis [pool source]"
 
 ---
 
@@ -142,8 +142,8 @@ RETEX_REF: RETEX_MDE_B5_AUDIT_001
 |---------|--------|
 | Q_ID | référence |
 | QA_STATUS | PASS / WARNING / FAIL |
-| FLAGS | liste : VEILLE / IRRECEVABLE / COLLISION / FORMAT / ÉCART_CIBLE |
-| DÉCISION | CONSERVER / MODIFIER / REJETER / DÉPLACER |
+| FLAGS | liste : VEILLE / IRRECEVABLE / COLLISION / FORMAT / ECART_CIBLE |
+| DECISION | CONSERVER / MODIFIER / REJETER / DÉPLACER |
 | NOTES | commentaire auditeur (bref) |
 
 ---
@@ -153,10 +153,10 @@ RETEX_REF: RETEX_MDE_B5_AUDIT_001
 - LIBELLE_WORD_COUNT <= 10 sauf JUSTIFICATION_FLAG
 - Absence d'ambiguïté de réponse
 - DISTRACTOR_COUNT_PER_Q = 3 ; DUPLICATE_WITHIN_Q_COUNT = 0 ; FORMAT_MATCH_RATE >= 99%
-- CIBLE_NIVEAU respecté (ÉCART_CIBLE = OK)
+- NIVEAU_QUESTION respecté (ECART_CIBLE = OK)
 - Recevabilité pédagogique (4 types — STD_B2_recevabilite_pedagogique.md)
 - Absence de collision avec les autres questions du pool
-- CIBLE_NIVEAU_POSITION_MATCH = TRUE
+- NIVEAU_QUESTION_POSITION_MATCH = TRUE
 
 ---
 
@@ -169,13 +169,13 @@ Pour chaque question, VALIDER les 4 types :
 - TYPE-PED-3 : connaissance triviale ?
 - TYPE-PED-4 : ambiguïté de réponse ?
 
-Si OUI → FLAG IRRECEVABLE + TYPE-PED-[N] dans feuille QA → MODIFIER ou REJETER
+Si OUI → FLAG IRRECEVABLE + TYPE-PED-[N] dans QA.tsv → MODIFIER ou REJETER
 
 ### Veille obsolescence
 Détecter les marqueurs de risque (RULE-OBS-008) :
 "dernier", "jamais", "seul", "record", "plus grand/récent/de X", tout superlatif absolu
 
-Si détecté → FLAG VEILLE + TYPE-[1/2/3/4/5] dans feuille QA → QA_STATUS = WARNING (pas bloquant)
+Si détecté → FLAG VEILLE + TYPE-[1/2/3/4/5] dans QA.tsv → QA_STATUS = WARNING (pas bloquant)
 
 ---
 
@@ -206,9 +206,9 @@ La FICHE_VEILLE est conservée avec le quiz. Elle ne bloque pas l'export.
 
 Export impossible si :
 - [ ] QA_STATUS = FAIL sur ≥1 question non remplacée
-- [ ] ÉCART_CIBLE ≠ OK non résolu sur ≥1 question
+- [ ] ECART_CIBLE ≠ OK non résolu sur ≥1 question
 - [ ] FICHE_VEILLE absente
-- [ ] STOCK_ACTUEL < STOCK_CIBLE sur ≥1 pool (feuille SOMMAIRE)
+- [ ] STOCK_ACTUEL < STOCK_CIBLE sur ≥1 pool (generate_sommaire.py)
 
 ---
 
@@ -221,7 +221,7 @@ VALIDATIONS : recevabilité pédagogique + veille + distracteurs + niveau
     ↓
 Décision humaine : CONSERVER / MODIFIER / REJETER / DÉPLACER
     ↓
-Mise à jour feuille QA immédiate
+Mise à jour QA.tsv immédiate
     ↓
 Question suivante
     ↓ (fin du stock)
@@ -235,7 +235,7 @@ EXPORT
 ---
 
 *MDE_B5_audit.md*
-*Version 2.0 — 2026-05-18 — Pipeline V2*
-*Remplace : v1.0 (CSV + [POOL]_LISIBLE.md)*
+*Version 2.1 — 2026-05-25 — Pipeline V2.1*
+*Remplace : v2.0 — INPUT/OUTPUT TSV / CIBLE_NIVEAU → NIVEAU_QUESTION*
 
 

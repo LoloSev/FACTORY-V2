@@ -5,10 +5,10 @@ RETEX_LOADING: ON_DEMAND_ONLY
 RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 
-# MDE A3 — TRAITEMENT BIB → XLSX (ITEMS + ANGLES)
+# MDE A3 — TRAITEMENT BIB → TSV (ITEMS + ANGLES)
 
-Version : 4.0 (PIPELINE V2.1)
-Date : 2026-05-24
+Version : 4.1 (PIPELINE V2.1)
+Date : 2026-05-25
 Remplace : MDE_A3 v3.0 (pipeline V2 — sans NIVEAU_ANGLE)
 
 DEPENDENCY:
@@ -34,8 +34,9 @@ PROCESS:
 5. produire feuilles CONFIG / ITEMS / ANGLES
 
 OUTPUT:
-- QUIZ_[THEME].xlsx initialisé
-- feuilles CONFIG / ITEMS / ANGLES peuplées
+- CONFIG.yaml initialisé
+- ITEMS.tsv peuplé
+- ANGLES.tsv peuplé
 - FAILURE_CASE listées avec code flag
 
 ACCEPTANCE_CRITERIA:
@@ -69,7 +70,7 @@ A3 extrait sélectivement du BIB pour alimenter deux feuilles xlsx opérationnel
 - **ITEMS** : items codés avec leur richesse documentaire
 - **ANGLES** : angles interrogeables par item
 
-A3 crée également le fichier QUIZ_[THEME].xlsx et le peuple jusqu'à HUMAN_GATE.
+A3 initialise CONFIG.yaml et peuple ITEMS.tsv + ANGLES.tsv depuis le template _LIGNES/_TEMPLATE/.
 
 **Changement V2.1 fondamental :**
 Les items reçoivent une **RICHESSE** (DENSE / STANDARD / LIGHT) = combien de questions.
@@ -134,12 +135,12 @@ Ils ne déterminent pas la RICHESSE — ils sont de la documentation source.
 
 ---
 
-# ÉTAPE 3 — CRÉATION DU XLSX ET FEUILLE CONFIG
+# ÉTAPE 3 — INITIALISATION DES TSV ET CONFIG.yaml
 
-Créer QUIZ_[THEME].xlsx avec les 8 feuilles standards :
-CONFIG / ITEMS / ANGLES / POOLS / QUESTIONS / DISTRACTEURS / QA / SOMMAIRE
+Copier le template _LIGNES/_TEMPLATE/ dans _LIGNES/[THEME]/ (TSV + CONFIG.yaml).
+TSV initialisés : ITEMS.tsv / ANGLES.tsv / POOLS.tsv / QUESTIONS.tsv / DISTRACTEURS.tsv / QA.tsv
 
-Peupler la feuille CONFIG :
+Remplir CONFIG.yaml :
 
 | Champ | Valeur |
 |-------|--------|
@@ -238,7 +239,7 @@ Un angle = un aspect précis et non ambigu d'un item = une seule question possib
 | Colonne | Règle |
 |---------|-------|
 | ANGLE_ID | [ITEM_ID]-[A/B/C...] |
-| ITEM_ID | référence feuille ITEMS |
+| ITEM_ID | référence ITEMS.tsv |
 | ANGLE_COURT | description courte de l'angle (ex: "année du titre", "nombre de buts en finale") |
 | MECANIQUE | tag fermé : IDENTIFY / COMPARE / LOCATE / DATE / CLASSIFY / ELIMINATE / LINK |
 | NIVEAU_ANGLE | N1 / N2 / N3 — critères fermés ci-dessous |
@@ -267,7 +268,7 @@ DEFAULT_RULE : if N1/N2 ambiguous → N2 / if N2/N3 ambiguous → N2
 
 ## Étape 7b — Dérivation NIVEAU_POTENTIEL par item
 
-Après avoir rempli tous les NIVEAU_ANGLE de la feuille ANGLES, calculer par item :
+Après avoir rempli tous les NIVEAU_ANGLE de ANGLES.tsv, calculer par item :
 
 ```
 NIVEAU_POTENTIEL = N1    if all NIVEAU_ANGLE of item = N1
@@ -276,7 +277,7 @@ NIVEAU_POTENTIEL = N3    if all NIVEAU_ANGLE of item = N3
 NIVEAU_POTENTIEL = MULTI if NIVEAU_ANGLE spans ≥2 distinct values among {N1, N2, N3}
 ```
 
-Remplir la colonne NIVEAU_POTENTIEL de la feuille ITEMS depuis ce calcul.
+Remplir la colonne NIVEAU_POTENTIEL de ITEMS.tsv depuis ce calcul.
 Ne pas remplir NIVEAU_POTENTIEL manuellement — toujours dériver depuis NIVEAU_ANGLE.
 
 ## Règles de cartographie des angles
@@ -298,8 +299,8 @@ Ne pas remplir NIVEAU_POTENTIEL manuellement — toujours dériver depuis NIVEAU
 
 Avant de passer à A4, soumettre à validation :
 
-- [ ] Feuille ITEMS : codes uniques, RICHESSE ∈ {DENSE, STANDARD, LIGHT}, NIVEAU_POTENTIEL dérivé, libellés non vides
-- [ ] Feuille ANGLES : angles distincts, NIVEAU_ANGLE ∈ {N1, N2, N3}, exclusions documentées, quotas indicatifs
+- [ ] ITEMS.tsv : codes uniques, RICHESSE ∈ {DENSE, STANDARD, LIGHT}, NIVEAU_POTENTIEL dérivé, libellés non vides
+- [ ] ANGLES.tsv : angles distincts, NIVEAU_ANGLE ∈ {N1, N2, N3}, exclusions documentées, quotas indicatifs
 - [ ] Sections LIGHT identifiées et candidates AGRÉGÉ notées
 - [ ] Aucun angle fictif ou non vérifiable
 
@@ -329,7 +330,7 @@ Ce document est minimal — traçabilité des arbitrages, pas encyclopédie des 
 0. Archiver BIB original
 1. Auditer le fichier brut
 RETEX_REF: RETEX_MDE_A3_TRAITEMENT_007
-3. Créer QUIZ_[THEME].xlsx + CONFIG
+3. Initialiser TSV depuis template + remplir CONFIG.yaml
 4. Coder les items → feuille ITEMS avec RICHESSE
 5. Construire les statistiques de richesse
 6. Rééquilibrer si nécessaire (HUMAN_GATE)
@@ -354,7 +355,7 @@ A3 est valide si :
 ---
 
 *MDE_A3_traitement.md*
-*Version 4.0 — 2026-05-24 — Pipeline V2.1*
-*Remplace : v3.0 — ajout NIVEAU_ANGLE (Étape 7) + NIVEAU_POTENTIEL dérivé (Étape 7b)*
+*Version 4.1 — 2026-05-25 — Pipeline V2.1*
+*Remplace : v4.0 — OUTPUT TSV (ITEMS.tsv / ANGLES.tsv) au lieu de xlsx*
 
 

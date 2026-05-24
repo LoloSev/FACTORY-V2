@@ -164,8 +164,8 @@ HIGH
 Colonnes clés partagées entre xlsx A4/B2/B3/B5. Format exact requis pour jointure IA sans contexte implicite.
 
 ```txt
-Q_ID              : Q-[THEME_3CHARS]-[POOL_ID]-[NNN]   ex: Q-MAY-IF01-001
-POOL_ID           : IF[NN] | QV[NN]                      ex: IF01, QV03
+Q_ID              : Q-[THEME_3CHARS]-[POOL_ID]-[NNN]   ex: Q-MAY-IF-01-001
+POOL_ID           : IF-[NN] | QV-[NN]                    ex: IF-01, QV-03
 CLUSTER           : section thématique d'origine         — colonne ITEMS (C-013)
 SIGNAL_RUNTIME    : tag fermé depuis RUNTIME_SIGNAL      — colonnes ITEMS / POOLS
 ANGLE_COURT       : description courte de l'angle        — colonne ANGLES
