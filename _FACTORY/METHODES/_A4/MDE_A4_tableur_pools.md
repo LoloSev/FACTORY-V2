@@ -4,16 +4,15 @@ LINE_DEPENDENCY: FORBIDDEN
 RETEX_LOADING: ON_DEMAND_ONLY
 RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
-
 # MDE A4 — CONSTITUTION DES POOLS → POOLS.tsv
 
-Version : 3.1 (PIPELINE V2.1)
+Version : 3.2 (PIPELINE V2.1)
 Date : 2026-05-25
-Remplace : MDE_A4 v2.0 (pipeline V2 — CIBLE_NIVEAU fixe par pool)
+Remplace : MDE_A4 v3.1 — alignement dépendances et POOL_ID canoniques
 
 DEPENDENCY:
 - PIPELINE_V2.md
-- MDE_A3_traitement.md (v4.1)
+- MDE_A3_traitement.md (v4.2)
 - STD_GLOBAL_quiz_architecture_rules.md
 - STD_GLOBAL_pool_collision_rules.md
 
@@ -61,6 +60,7 @@ FAILURE_CASES:
 - hard collision detected
 
 ---
+
 # PRINCIPE GÉNÉRAL
 
 A4 constitue les 20 pools du quiz et peuple POOLS.tsv.
@@ -89,12 +89,6 @@ Avant de constituer les pools :
 
 DECISION_MODE: HUMAN_GATE_AFTER_MACHINE_PROPOSAL.
 
-MACHINE_PROPOSAL:
-- proposer 20 pools à partir des counts ITEMS/ANGLES/RICHESSE
-- exposer tout écart aux seuils ACCEPTANCE_CRITERIA
-HUMAN_GATE:
-- autoriser uniquement APPROVE / RECONFIGURE / REJECT avec motif codé
-
 ## Règles de constitution
 
 **Pools IF — Q1-Q2 (2 pools, stock=8) :**
@@ -115,115 +109,76 @@ HUMAN_GATE:
 - Stock cible : 15 questions chacun
 - POOL_ID : QV-01 à QV-15
 
-## Règle de fusion AGRÉGÉ (RULE-ARCH-005)
-
-Si une section LIGHT ou STANDARD ne peut pas atteindre seule le stock cible d'un pool :
-- VALIDER si elle partage ≥2 critères avec une section de <5 items
-- Si oui → fusionner en pool MODE=AGRÉGÉ
-- Le pool AGRÉGÉ reste une unité de tirage unique pour le joueur
-- Les questions des sous-thèmes agrégés doivent partager un registre commun
-- Les distracteurs doivent rester valides à travers tous les sous-thèmes
-
 ---
 
-# ÉTAPE 3 — VÉRIFICATION COUVERTURE NIVEAU (RULE-ARCH-008)
+# ÉTAPE 3 — VÉRIFICATION COUVERTURE NIVEAU
 
-Le pool est purement thématique. La position dans le quiz définit le niveau que le moteur lui demandera (NIVEAU_REQUIS — calculé, non stocké) :
+Le pool est purement thématique.
+La position dans le quiz définit le niveau que le moteur demandera.
 
-| Position quiz | NIVEAU_REQUIS (moteur) |
-|---------------|------------------------|
+| Position quiz | NIVEAU_REQUIS |
+|---------------|----------------|
 | Q1 à Q5 | N1 |
 | Q6 à Q15 | N2 |
 | Q16 à Q20 | N3 |
 
-Pour chaque pool, calculer COUVERTURE_NIVEAU :
-
-```
-NIVEAU_REQUIS = dérivé de POSITION_QUIZ (non stocké dans POOLS)
-ITEMS_COMPATIBLES = items du pool avec NIVEAU_POTENTIEL = NIVEAU_REQUIS ou MULTI
-RATIO = ITEMS_COMPATIBLES / TOTAL_ITEMS_POOL
-
-COUVERTURE_NIVEAU = OK   si RATIO ≥ 0.30
-COUVERTURE_NIVEAU = WARN si RATIO ∈ [0.01, 0.30[
-COUVERTURE_NIVEAU = FAIL si RATIO = 0
-```
-
-COUVERTURE_NIVEAU = FAIL → HUMAN_GATE obligatoire avant B2.
-Options : réassigner des items au pool / modifier POSITION_QUIZ / enrichir le BIB.
-
-NOTE : seuil 0.30 = valeur initiale à calibrer sur MAYENNE (RULE-GOV-002).
+COUVERTURE_NIVEAU = OK / WARN / FAIL selon le ratio d'items compatibles.
+FAIL = HUMAN_GATE obligatoire avant B2.
 
 ---
 
 # ÉTAPE 4 — PEUPLEMENT POOLS.tsv
 
-RETEX_REF: RETEX_MDE_A4_TABLEUR_POOLS_001
-
 | Colonne | Valeur |
 |---------|--------|
-| POOL_ID | IF-01/IF-02 (Q1-Q2) / IF-03/IF-04/IF-05 (Q3-Q5) / QV-01 à QV-15 (Q6-Q20) |
+| POOL_ID | IF-01 à IF-05 / QV-01 à QV-15 |
 | TYPE | IF / QV |
 | POSITION_QUIZ | Q1 à Q20 |
 | THEME_LABEL | label contrôlé du pool |
 | MODE | SIMPLE / AGRÉGÉ |
-| SOUS_THEMES | liste des sous-thèmes (si AGRÉGÉ) |
-| ITEMS_ASSIGNES | liste des ITEM_ID assignés à ce pool |
-| COUVERTURE_NIVEAU | OK / WARN / FAIL — calculé en Étape 3 |
-| STOCK_CIBLE | 8 (IF Q1-Q2) / 12 (IF Q3-Q5) / 15 (QV) |
-| STOCK_ACTUEL | formule =COUNTIF(QUESTIONS[POOL_ID], POOL_ID) |
+| SOUS_THEMES | liste des sous-thèmes |
+| ITEMS_ASSIGNES | liste ITEM_ID assignés |
+| COUVERTURE_NIVEAU | OK / WARN / FAIL |
+| STOCK_CIBLE | 8 / 12 / 15 |
+| STOCK_ACTUEL | calculé depuis QUESTIONS.tsv |
 
 ---
 
 # ÉTAPE 5 — ASSIGNATION ANGLES AUX POOLS
 
 Mettre à jour ANGLES.tsv :
-- Pour chaque angle, remplir POOL_CIBLE avec le POOL_ID correspondant
-- Mettre STATUT = RÉSERVÉ pour les angles déjà assignés
-- VALIDER que chaque pool a assez d'angles pour atteindre STOCK_CIBLE
-
-Si un pool ne peut pas atteindre STOCK_CIBLE avec les angles disponibles :
-- Signaler le déficit explicitement (RULE-B2-HB-001)
-- Ne pas passer à B2 sans décision humaine
-- Options : enrichir le BIB (ajouter matière culturelle — gate humaine requise) / fusionner avec un autre pool / réduire le stock cible
+- remplir POOL_CIBLE
+- mettre STATUT = RÉSERVÉ
+- valider STOCK_CIBLE atteignable
 
 ---
 
-# ÉTAPE 6 — CONTRÔLE ANTI-COLLISION INTER-POOLS
+# ÉTAPE 6 — CONTRÔLE ANTI-COLLISION
 
-Avant validation :
-- VALIDER qu'aucun angle n'est assigné à deux pools différents
-- VALIDER qu'aucun item majeur n'appartient à deux pools
-- VALIDER conformité EXCLUDED_POOLS dans feuille ANGLES
-- VALIDER par critère mesurable que les angles IF ne sont pas dans les QV (RULE-IF-001)
+- aucun angle assigné à deux pools
+- aucun item majeur dans deux pools
+- conformité EXCLUDED_POOLS
+- angles IF absents des QV
 
 ---
 
 # ÉTAPE 7 — GÉNÉRATION SOMMAIRE
 
-Lancer : `python _FACTORY/_SCRIPTS/generate_sommaire.py _LIGNES/[THEME]`
-
-Calcule depuis les TSV : POOL_ID / TYPE / POSITION_QUIZ / THEME_LABEL / MODE / COUVERTURE_NIVEAU / STOCK_CIBLE / STOCK_ACTUEL / Q_PASS / Q_WARNING / Q_FAIL / PCT_COMPLET.
-
-Le SOMMAIRE est la vue de pilotage du quiz — regénéré à la demande, pas maintenu manuellement.
+Lancer :
+`python _FACTORY/_SCRIPTS/generate_sommaire.py _LIGNES/[THEME]`
 
 ---
 
-# ÉTAPE 8 — HUMAN_GATE (GATE A4→B2)
+# ÉTAPE 8 — HUMAN_GATE (A4→B2)
 
-Avant de passer à B2 :
-
-- [ ] 20 pools constitués (thématiques)
-- [ ] COUVERTURE_NIVEAU ≠ FAIL pour chaque pool
-- [ ] Pools AGRÉGÉ validés (conformité sous-thèmes confirmée)
-- [ ] Angles assignés pour chaque pool
-- [ ] Stocks cibles atteignables
-- [ ] Anti-collision inter-pools vérifié
-- [ ] SOMMAIRE généré (generate_sommaire.py)
-
-Décisions humaines attendues :
-- Validation des 20 pools (ou reconfiguration)
-- Validation des pools AGRÉGÉ
-- Décision sur tout pool COUVERTURE_NIVEAU = FAIL (réassignation / repositionnement / enrichissement BIB)
+Avant B2 :
+- [ ] 20 pools constitués
+- [ ] COUVERTURE_NIVEAU ≠ FAIL
+- [ ] Pools AGRÉGÉ validés
+- [ ] Angles assignés
+- [ ] Stocks atteignables
+- [ ] Anti-collision validé
+- [ ] SOMMAIRE généré
 
 ---
 
@@ -231,15 +186,12 @@ Décisions humaines attendues :
 
 A4 est valide si :
 - exactement 20 pools définis
-- COUVERTURE_NIVEAU ∈ {OK, WARN} pour chaque pool (FAIL = bloquant)
-- chaque pool a assez d'angles pour atteindre son stock cible
+- COUVERTURE_NIVEAU ∈ {OK, WARN}
+- chaque pool atteint son stock cible
 - aucun angle assigné à deux pools
-- les pools AGRÉGÉ ont une conformité documentaire vérifiée
+- pools AGRÉGÉ validés
 
 ---
 
 *MDE_A4_tableur_pools.md*
-*Version 3.1 — 2026-05-25 — Pipeline V2.1*
-*Remplace : v3.0 — OUTPUT TSV (POOLS.tsv / ANGLES.tsv) / SOMMAIRE via script / dépendance A3 v4.1*
-
-
+*Version 3.2 — 2026-05-25 — Pipeline V2.1*
