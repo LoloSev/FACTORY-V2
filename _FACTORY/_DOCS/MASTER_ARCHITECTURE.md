@@ -1,10 +1,11 @@
 # QUIZZZ FACTORY — MASTER ARCHITECTURE
 
-VERSION: 6.0
-DATE: 2026-05-22
+VERSION: 6.1
+DATE: 2026-05-24
 STATUS: ACTIVE_REFERENCE — point d'entrée runtime
 
-> Pipeline V2 actif depuis 2026-05-18. Référence : `_FACTORY/_DOCS/PIPELINE_V2.md`
+> Pipeline V2.1 actif depuis 2026-05-24. Référence : `_FACTORY/_DOCS/PIPELINE_V2.md`
+> Principes fondateurs : IA_COMPATIBILITY (C-010) / MACHINE_FIRST (C-011) / TOKEN_ECONOMY (C-012) / RUNTIME_LANGUAGE (C-013)
 
 ---
 
@@ -28,7 +29,7 @@ STATUS: ACTIVE_REFERENCE — point d'entrée runtime
 
 | Outil | Rôle |
 |---|---|
-| Claude (Cowork) | Documentation, règles, workflow, génération questions, audit, distracteurs, HTML/CSS/JS/xlsx, déploiement Netlify |
+| Claude (Cowork) | Documentation, règles, workflow, génération questions, audit, distracteurs, HTML/CSS/JS, déploiement Netlify |
 | ChatGPT | Génération avatars/images (DALL-E) |
 
 ---
@@ -53,7 +54,7 @@ L'objectif est de produire un système capable de générer des quiz CONSISTENCY
 
 Rôle humain : architecte éditorial, valideur final, superviseur QA. Pas opérateur de saisie.
 
-Stratégie technique : Excel → Export JSON → Site.
+Stratégie technique : TSV (source de vérité) → Export JSON → Site. Vue xlsx générée à la demande par script.
 
 ---
 
@@ -92,12 +93,15 @@ Le LAB expérimente au-dessus du socle FACTORY, jamais en dessous. Toute règle 
 
 | Sujet | Fichier |
 |---|---|
-| Pipeline V2 | `_DOCS/PIPELINE_V2.md` |
-| Arborescence V2 | `_STANDARDS/_GLOBAL/STD_GLOBAL_factory_arborescence_rules.md` |
-| Nommage fichiers | `_STANDARDS/_GLOBAL/STD_NAMING_CONVENTIONS.md` |
+| Pipeline V2.1 | `_DOCS/PIPELINE_V2.md` |
 | Hiérarchie réglementaire | `_STANDARDS/_GLOBAL/HIERARCHIE_REGLEMENTAIRE.md` |
+| Lexique runtime | `_STANDARDS/_GLOBAL/FACTORY_RUNTIME_LEXICON.md` |
+| Token economy + schémas TSV | `_STANDARDS/_GLOBAL/TOKEN_ECONOMY_RUNTIME_PROTOCOL.md` |
+| Politique langue runtime/joueur | `_DOCS/RUNTIME_EN_FR_OUTPUT_POLICY.md` |
 | Architecture pools + stocks | `_STANDARDS/_GLOBAL/STD_GLOBAL_quiz_architecture_rules.md` |
 | Anti-collision | `_STANDARDS/_GLOBAL/STD_GLOBAL_pool_collision_rules.md` |
+| Arborescence | `_STANDARDS/_GLOBAL/STD_GLOBAL_factory_arborescence_rules.md` |
+| Nommage fichiers | `_STANDARDS/_GLOBAL/STD_NAMING_CONVENTIONS.md` |
 | QA rules | `_STANDARDS/_GLOBAL/FACTORY_QA_RULES.md` |
 | Assemblage quiz | `_STANDARDS/_GLOBAL/QUIZ_ASSEMBLY_RULES.md` |
 | Glossaire | `_STANDARDS/_GLOBAL/glossaire_documentaire_factory.md` |
@@ -106,5 +110,5 @@ Le LAB expérimente au-dessus du socle FACTORY, jamais en dessous. Toute règle 
 
 ---
 
-*MASTER_ARCHITECTURE.md — v6.0 — 2026-05-22*
-*Remplace v5.3 (637 lignes → allégé, duplications supprimées)*
+*MASTER_ARCHITECTURE.md — v6.1 — 2026-05-24*
+*Remplace v6.0 — Pipeline V2.1 : TSV source de vérité / C-010→C-013 inscrits / pointeurs mis à jour*

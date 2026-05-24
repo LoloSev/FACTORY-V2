@@ -1045,7 +1045,7 @@ STOCK_CIBLE:
 Nombre de questions validées cibles à atteindre par pool.
 
 CONTEXTE: Colonne STOCK_CIBLE dans feuille SUIVI_POOLS (étape B2).
-GATE: gate_b2.py vérifie STOCK_ACTUEL ≥ STOCK_CIBLE → fail si déficit.
+GATE: humaine — STOCK_ACTUEL ≥ STOCK_CIBLE vérifié avant validation B2.
 
 [RULE-STOCK-001]
 STOCK_ACTUEL < STOCK_CIBLE → NO_GO gate B2 (B2-8).
@@ -1064,7 +1064,7 @@ VALEURS_AUTORISEES:
 - N3 : difficile (expert)
 
 CONTEXTE: Colonne obligatoire feuille QUESTIONS (étape B2).
-GATE: gate_b2.py — champ obligatoire (B2-2).
+GATE: humaine — champ obligatoire avant validation B2.
 
 ---
 
@@ -1077,7 +1077,7 @@ Niveau de difficulté confirmé après audit des distracteurs (étape B3).
 VALEURS_AUTORISEES: N1 / N2 / N3
 
 DISTRIBUTION_CIBLE: 25% N1 / 50% N2 / 25% N3 (±10%)
-GATE: gate_b3.py — champ obligatoire (B3-2) ; déséquilibre → warning B3-8.
+GATE: humaine — champ obligatoire ; déséquilibre → warning B3.
 
 [RULE-NIV-001]
 NIVEAU_CONFIRME peut différer de CIBLE_NIVEAU après audit distracteurs.
@@ -1092,7 +1092,7 @@ Classification du type de question selon la taxonomie FACTORY.
 
 VALEURS_AUTORISEES: 1 / 2 / 3 / 4 / 5
 CONTEXTE: Colonne obligatoire feuille QUESTIONS (étape B2).
-GATE: gate_b2.py — valeur hors [1-5] → NO_GO (B2-6).
+GATE: humaine — valeur hors [1-5] → NO_GO B2.
 
 ---
 
@@ -1103,7 +1103,7 @@ ECART_CIBLE:
 Indicateur d'écart entre la difficulté cible d'une question et la difficulté perçue de ses distracteurs.
 
 CONTEXTE: Colonne obligatoire feuille DISTRACTEURS (étape B3).
-GATE: gate_b3.py — champ obligatoire (B3-6).
+GATE: humaine — champ obligatoire avant validation B3.
 
 OBJECTIF:
 Mesurer si les distracteurs sont calibrés au bon niveau par rapport à la réponse.
@@ -1120,7 +1120,7 @@ MARQUEURS_DETECTES:
 dernier, dernière, premier, première, jamais, seul, unique, record,
 plus grand, plus petit, plus rapide, meilleur, pire, à ce jour
 
-GATE: gate_b5.py — détection automatique → warning B5-8 (non bloquant).
+GATE: humaine — détection à l'audit B5 → warning non bloquant.
 
 [RULE-VEILLE-001]
 Une question FLAG_VEILLE doit être revue à chaque export.
@@ -1136,9 +1136,7 @@ RETEX_REF: RETEX_GLOSSAIRE_DOCUMENTAIRE_FACTORY_006
 RETEX_REF: RETEX_GLOSSAIRE_DOCUMENTAIRE_FACTORY_007
 PATTERN_RECHERCHE: *FICHE_VEILLE* / *VEILLE* / *veille*
 
-GATE:
-- gate_b5.py — absence → NO_GO (B5-7)
-- gate_export.py — absence → NO_GO (EXP-6)
+GATE: humaine — absence → NO_GO B5 et EXPORT.
 
 [RULE-VEILLE-002]
 FICHE_VEILLE obligatoire avant gate B5 et EXPORT.

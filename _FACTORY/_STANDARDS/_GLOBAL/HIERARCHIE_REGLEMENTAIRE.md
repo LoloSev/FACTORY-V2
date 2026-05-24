@@ -142,10 +142,12 @@ Un pool peut regrouper plusieurs sous-thèmes faibles pour atteindre son stock c
 Un pool = une unité de tirage, pas une unité thématique unique.
 Source : STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-005
 
-[L-005] **Xlsx colonne vertébrale** → C-006
-Un seul artefact vivant (xlsx) progressivement enrichi.
-Les fichiers intermédiaires (.txt) sont éliminés au profit des feuilles xlsx.
-Source : PIPELINE_V2.md
+[L-005] **TSV source de vérité — xlsx vue humaine** → C-006 + C-010 + C-012
+Un dossier par ligne, enrichi progressivement via fichiers TSV (source de vérité machine).
+Le xlsx est une vue générée à la demande par script — jamais la source de vérité.
+Structure : CONFIG.yaml / ITEMS.tsv / ANGLES.tsv / POOLS.tsv / QUESTIONS.tsv / DISTRACTEURS.tsv / QA.tsv
+Scripts : generate_xlsx_view.py / generate_sommaire.py
+Source : PIPELINE_V2.md v2.1
 
 [L-006] **Richesse et niveau potentiel des items** → L-003 + C-011
 Les items ont une RICHESSE documentaire (DENSE/STANDARD/LIGHT) = combien de questions.

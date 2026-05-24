@@ -171,10 +171,13 @@ Règles :
 |---------|-------|
 | ITEM_ID | [THEME]-[CAT]-[N°] |
 RETEX_REF: RETEX_MDE_A3_TRAITEMENT_005
-| CATÉGORIE | section thématique d'origine |
+| LIBELLE | texte de l'item, ligne unique |
+| CLUSTER | section thématique d'origine (C-013 — remplace CATÉGORIE) |
 | RICHESSE | DENSE / STANDARD / LIGHT (voir critères ci-dessous) |
 RETEX_REF: RETEX_MDE_A3_TRAITEMENT_006
 | NIVEAU_POTENTIEL | dérivé en Étape 7b — ne pas remplir manuellement |
+| SIGNAL_RUNTIME | tag fermé depuis FACTORY_RUNTIME_LEXICON.md / RUNTIME_SIGNAL |
+| SOURCE_BIB | référence ligne BIB originale |
 
 ## Critères RICHESSE
 
@@ -236,10 +239,11 @@ Un angle = un aspect précis et non ambigu d'un item = une seule question possib
 |---------|-------|
 | ANGLE_ID | [ITEM_ID]-[A/B/C...] |
 | ITEM_ID | référence feuille ITEMS |
-| ANGLE | description courte de l'angle (ex: "année du titre", "nombre de buts en finale") |
+| ANGLE_COURT | description courte de l'angle (ex: "année du titre", "nombre de buts en finale") |
+| MECANIQUE | tag fermé : IDENTIFY / COMPARE / LOCATE / DATE / CLASSIFY / ELIMINATE / LINK |
 | NIVEAU_ANGLE | N1 / N2 / N3 — critères fermés ci-dessous |
 | POOL_CIBLE | laisser vide à ce stade — rempli en A4 |
-| EXCLUSIONS | angles incompatibles avec celui-ci (anti-collision préventive) |
+| COLLISION_WITH | ANGLE_ID incompatibles (anti-collision préventive) |
 | QUOTA | nombre de questions cibles depuis cet angle (indicatif) |
 | STATUT | DISPONIBLE par défaut |
 

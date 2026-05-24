@@ -1,0 +1,8 @@
+# BIB_[THEME].txt — SOURCE IMMUABLE
+
+STATUS: TEMPLATE
+THEME: [THEME]
+DATE: [YYYY-MM-DD]
+RULE: Ce fichier ne doit jamais être modifié après archivage (L-005 / PIPELINE_V2.md).
+
+---

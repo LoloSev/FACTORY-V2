@@ -19,26 +19,23 @@ status: ACTIVE
 ```
 1. _FACTORY/_DOCS/MASTER_ARCHITECTURE.md       → contexte + constantes
 2. _FACTORY/_DOCS/PIPELINE_V2.md               → pipeline actif
-3. _FACTORY/_STATE/DASHBOARD_STATE.json        → état courant par ligne
+3. _FACTORY/_LIGNES/[THEME]/CONFIG.yaml        → statut ligne active
 ```
 
-**Lignes à scanner :**
+**Lignes à scanner — lire CONFIG.yaml de chaque dossier existant :**
 ```
-_FACTORY/_LIGNES/_CDM/
-_FACTORY/_LIGNES/_MAYENNE/
-_FACTORY/_LIGNES/_CINEMA/
-_FACTORY/_LIGNES/_RAP/      (si démarré)
+_FACTORY/_LIGNES/[THEME]/CONFIG.yaml   → STATUT: INIT|EN_COURS|VALIDE|EXPORTE
 ```
 
-**Mapping phase → preuve d'existence (V2) :**
+**Mapping phase → preuve d'existence (V2.1) :**
 ```
-A2 = A2_APPRO/A2_BIB_[THEME]_01.txt
-A3 = A3_TRAITEMENT/A3_01_PROCESS_BIB_[THEME].md
-A4 = A4_POOLS/ dans QUIZ_[THEME].xlsx (feuille POOLS peuplée)
-B2 = B2_GENERATION/ dans QUIZ_[THEME].xlsx (feuille QUESTIONS peuplée)
-B3 = B3_DISTRACTEURS/ dans QUIZ_[THEME].xlsx (feuille DISTRACTEURS peuplée)
-B5 = B5_AUDIT/ dans QUIZ_[THEME].xlsx (feuille QA peuplée)
-EXPORT = EXPORT/QUIZ_[THEME]_EXPORT.xlsx
+A2  = BIB_[THEME].txt
+A3  = ITEMS.tsv + ANGLES.tsv (lignes > 1)
+A4  = POOLS.tsv (lignes > 1)
+B2  = QUESTIONS.tsv (lignes > 1)
+B3  = DISTRACTEURS.tsv (lignes > 1)
+B5  = QA.tsv (lignes > 1)
+EXP = CONFIG.yaml STATUT = EXPORTE
 ```
 
 ---
@@ -108,8 +105,8 @@ Avant d'agir :
 ```
 [ ] MDE de la phase lu
 [ ] STD applicables lus
-[ ] Fichier output cible identifié (xlsx ou .md)
-[ ] Gate précédente passée (DASHBOARD_STATE.json)
+[ ] Fichier output cible identifié (TSV ou .md)
+[ ] Gate précédente validée (humaine)
 [ ] Log de traçabilité ouvert
 ```
 
@@ -145,14 +142,14 @@ PROCHAIN: [première action session suivante]
 | Phase | Skill | Invoquer si |
 |-------|-------|-------------|
 | A2 | `a2-bib-construction` | Nouvelle ligne à démarrer |
-| A3 | `a3-bib-processing` | BIB prête → xlsx ITEMS/ANGLES |
-| A4 | `a4-pools-definition` | ITEMS/ANGLES prêts → xlsx POOLS |
-| B2 | `b2-questions-generator` | POOLS prêts → xlsx QUESTIONS |
-| B3 | `distractors-generator` | B2 complet → xlsx DISTRACTEURS |
+| A3 | `a3-bib-processing` | BIB prête → ITEMS.tsv + ANGLES.tsv |
+| A4 | `a4-pools-definition` | ITEMS/ANGLES validés → POOLS.tsv |
+| B2 | `b2-questions-generator` | POOLS validés → QUESTIONS.tsv |
+| B3 | `distractors-generator` | B2 complet → DISTRACTEURS.tsv |
 | B3 | `distractor-audit-statistics` | PASS2 → métriques qualité |
 | B3 | `distractor-optimizer` | PASS3 → optimisation |
-| B5 | `b5-audit-validator` | xlsx complet → feuille QA |
+| B5 | `b5-audit-validator` | QUESTIONS+DISTRACTEURS → QA.tsv |
 
 ---
 
-*v2.0 — 2026-05-22 — Pipeline V2 (remplace v1.0 : A5/B4/B6 supprimés, BIPREGEN→xlsx, IF-SF/IF-ROT→IF/QV)*
+*v2.1 — 2026-05-24 — Pipeline V2.1 : TSV source de vérité, xlsx vue humaine, gates humaines*

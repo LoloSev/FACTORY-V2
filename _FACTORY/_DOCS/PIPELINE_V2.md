@@ -31,13 +31,25 @@ PRINCIPE: Légèreté + Discipline
 
 ---
 
-# ARTEFACTS V2
+# ARTEFACTS V2.1
 
 ```
-BIB_[THEME].txt           → source immuable (jamais modifiée)
-QUIZ_[THEME].xlsx         → colonne vertébrale unique, progressivement enrichie
-PROCESS_[THEME].md        → log minimal des décisions humaines uniquement
+_LIGNES/[THEME]/
+├── BIB_[THEME].txt          → source immuable A2 (jamais modifiée)
+├── CONFIG.yaml              → métadonnées du quiz (THEME, DATE, STATUT...)
+├── ITEMS.tsv                → source de vérité A3 — items
+├── ANGLES.tsv               → source de vérité A3 — angles
+├── POOLS.tsv                → source de vérité A4
+├── QUESTIONS.tsv            → source de vérité B2
+├── DISTRACTEURS.tsv         → source de vérité B3
+├── QA.tsv                   → source de vérité B5
+├── PROCESS_[THEME].md       → log minimal des décisions humaines uniquement
+└── FICHE_VEILLE_[THEME].md  → produit en B5
 ```
+
+TSV = source de vérité machine (C-010 / C-012 / TOKEN_ECONOMY RÈGLE 01).
+VIEW xlsx générée à la demande : `python generate_xlsx_view.py _LIGNES/[THEME]`
+SOMMAIRE calculé à la demande : `python generate_sommaire.py _LIGNES/[THEME]`
 
 ---
 
@@ -64,14 +76,17 @@ Remplace BIPREGEN.txt.
 | Colonne | Description |
 |---------|-------------|
 | ITEM_ID | [THEME]-[CAT]-[N°] |
-| LIBELLÉ | Texte de l'item (ligne unique) |
-| CATÉGORIE | Section thématique |
+| LIBELLE | Texte de l'item (ligne unique) |
+| CLUSTER | Section / catégorie thématique d'origine |
 | RICHESSE | DENSE / STANDARD / LIGHT |
 | NIVEAU_POTENTIEL | N1 / N2 / N3 / MULTI — dérivé des NIVEAU_ANGLE de l'item |
+| SIGNAL_RUNTIME | tag runtime optionnel (KNOWN_NAME / HIDDEN_ORIGIN / etc.) |
 | SOURCE_BIB | Référence ligne BIB originale |
 
 **RICHESSE** = combien de questions l'item peut générer.
 **NIVEAU_POTENTIEL** = à quel public — dérivé de l'agrégation des NIVEAU_ANGLE (voir FACTORY_RUNTIME_LEXICON.md).
+**CLUSTER** = section/catégorie thématique — remplace CATÉGORIE (C-013 : labels runtime en anglais).
+**SIGNAL_RUNTIME** = tag fermé depuis FACTORY_RUNTIME_LEXICON.md (RUNTIME_SIGNAL section).
 
 ⚠️ RICHESSE ≠ NIVEAU_POTENTIEL. Un item DENSE peut être N1, N3 ou MULTI selon ses angles.
 
@@ -85,10 +100,11 @@ Remplace ANGIPREGEN.txt.
 |---------|-------------|
 | ANGLE_ID | [ITEM_ID]-[A/B/C...] |
 | ITEM_ID | Référence feuille ITEMS |
-| ANGLE | Description de l'angle interrogeable |
+| ANGLE_COURT | Description courte de l'angle interrogeable |
+| MECANIQUE | Mécanique de question (IDENTIFY / COMPARE / LOCATE / DATE / CLASSIFY / ELIMINATE / LINK) |
 | NIVEAU_ANGLE | N1 / N2 / N3 — niveau de difficulté de cet angle (critères fermés dans FACTORY_RUNTIME_LEXICON.md) |
 | POOL_CIBLE | Pool auquel cet angle est assigné |
-| EXCLUSIONS | Angles incompatibles (anti-collision) |
+| COLLISION_WITH | ANGLE_ID incompatibles (anti-collision) |
 | QUOTA | Nombre de questions cibles depuis cet angle |
 | STATUT | DISPONIBLE / RÉSERVÉ / UTILISÉ / EXCLU |
 
@@ -103,11 +119,13 @@ Remplace POOLS.txt. Structure les 20 pools avec difficulté top-down.
 | POOL_ID | QV-01 à QV-15 / IF-01 à IF-05 |
 | TYPE | IF / QV |
 | POSITION_QUIZ | Q1 à Q20 |
-| THÈME_ÉDITORIAL | Intitulé du pool (peut être composite) |
+| THEME_LABEL | Intitulé contrôlé du pool (peut être composite) |
 | MODE | SIMPLE / AGRÉGÉ |
-| SOUS_THÈMES | Liste des sous-thèmes fusionnés (si MODE=AGRÉGÉ) |
-| ITEMS_ASSIGNÉS | Liste ITEM_ID (tous sous-thèmes confondus) |
+| SOUS_THEMES | Liste des sous-thèmes fusionnés (si MODE=AGRÉGÉ) |
+| ITEMS_ASSIGNES | Liste ITEM_ID (tous sous-thèmes confondus) |
 | COUVERTURE_NIVEAU | OK / WARN / FAIL — validé en A4 (voir RULE-ARCH-008) |
+| SIGNAL_RUNTIME | tag runtime optionnel |
+| FAISABILITE | OK / WARN / FAIL — stock cible atteignable |
 | STOCK_CIBLE | Nombre questions cibles |
 | STOCK_ACTUEL | Calculé automatiquement depuis QUESTIONS |
 

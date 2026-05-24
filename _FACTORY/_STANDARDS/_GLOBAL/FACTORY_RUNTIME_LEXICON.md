@@ -166,10 +166,16 @@ Colonnes clés partagées entre xlsx A4/B2/B3/B5. Format exact requis pour joint
 ```txt
 Q_ID              : Q-[THEME_3CHARS]-[POOL_ID]-[NNN]   ex: Q-MAY-IF01-001
 POOL_ID           : IF[NN] | QV[NN]                      ex: IF01, QV03
-NIVEAU_POTENTIEL  : N1 | N2 | N3 | MULTI                 — colonne ITEMS (assigné A3, dérivé de NIVEAU_ANGLE)
+CLUSTER           : section thématique d'origine         — colonne ITEMS (C-013)
+SIGNAL_RUNTIME    : tag fermé depuis RUNTIME_SIGNAL      — colonnes ITEMS / POOLS
+ANGLE_COURT       : description courte de l'angle        — colonne ANGLES
+MECANIQUE         : tag fermé depuis MECHANIC            — colonne ANGLES
+COLLISION_WITH    : ANGLE_ID incompatibles               — colonne ANGLES (C-013, remplace EXCLUSIONS)
+FAISABILITE       : OK | WARN | FAIL                     — colonne POOLS (stock cible atteignable)
+NIVEAU_POTENTIEL  : N1 | N2 | N3 | MULTI                 — colonne ITEMS (dérivé de NIVEAU_ANGLE)
 NIVEAU_ANGLE      : N1 | N2 | N3                         — colonne ANGLES (assigné A3)
-NIVEAU_QUESTION   : N1 | N2 | N3                         — colonne QUESTIONS (assigné B2 via NIVEAU_ANGLE)
-COUVERTURE_NIVEAU : OK | WARN | FAIL                     — colonne POOLS (calculé A4)
+NIVEAU_QUESTION   : N1 | N2 | N3                         — colonne QUESTIONS (assigné B2)
+COUVERTURE_NIVEAU : OK | WARN | FAIL                     — colonne POOLS (validé A4)
 QA_STATUS         : PASS | WARN | FAIL
 LENGTH_STATUS     : OK | ACCEPTABLE | FAIL
 STATUT_B2         : DRAFT | READY_B3 | REWRITE
@@ -179,7 +185,10 @@ SEVERITY          : HB | SW | OPT
 
 DEPRECATED:
 ```txt
-CIBLE_NIVEAU (POOLS) — remplacé par COUVERTURE_NIVEAU (validation) + NIVEAU_QUESTION (questions)
+CIBLE_NIVEAU  — remplacé par COUVERTURE_NIVEAU (POOLS) + NIVEAU_QUESTION (QUESTIONS)
+CATÉGORIE     — remplacé par CLUSTER (C-013)
+ANGLE         — remplacé par ANGLE_COURT (C-013)
+EXCLUSIONS    — remplacé par COLLISION_WITH (C-013)
 ```
 
 RÈGLE: toute colonne partagée entre ≥2 xlsx doit être listée ici avec format exact.
