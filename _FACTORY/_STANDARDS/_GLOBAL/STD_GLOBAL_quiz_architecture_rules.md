@@ -86,6 +86,12 @@ This rule overrides any legacy 40/40/20 distribution.
 RETEX_REF: RETEX_STD_GLOBAL_QUIZ_ARCHITECTURE_RULES_001
 RETEX_ROLE: JUSTIFICATION
 
+Application layer (updated v1.2):
+The engine applies this position mapping by filtering NIVEAU_QUESTION on questions.
+NIVEAU_QUESTION is a property of each question (assigned in B2), not of the pool.
+A pool is a thematic unit. It does not carry a fixed level.
+See RULE-ARCH-008.
+
 Do not confuse this with distractor distribution rules.
 
 [RULE-ARCH-007]
@@ -98,3 +104,27 @@ restent valides à travers les sous-thèmes agrégés.
 Un pool = unité de tirage runtime, pas nécessairement unité thématique unique.
 RETEX_REF: RETEX_STD_GLOBAL_QUIZ_ARCHITECTURE_RULES_002
 RETEX_ROLE: JUSTIFICATION
+
+[RULE-ARCH-008]
+**Décorrélation thème / niveau**
+
+```txt
+POOL_PHYSIQUE   = thematic unit
+NIVEAU_QUESTION = property of each question (assigned B2 via NIVEAU_ANGLE)
+```
+
+Constraints:
+- A pool has no fixed CIBLE_NIVEAU
+- A pool has a NIVEAU_REQUIS computed from POSITION_QUIZ (for validation only, not stored)
+- A pool must satisfy COUVERTURE_NIVEAU = OK for its NIVEAU_REQUIS before B2
+- The engine filters by (POOL_ID, NIVEAU_QUESTION) at assembly runtime
+
+COUVERTURE_NIVEAU thresholds:
+```txt
+OK   : items with NIVEAU_POTENTIEL = NIVEAU_REQUIS or MULTI ≥ 30% of pool's items
+WARN : same condition, 1–29%
+FAIL : same condition, 0% → human gate required before B2
+```
+
+NOTE: 30% threshold = initial calibration value. To be confirmed on MAYENNE prototype (RULE-GOV-002).
+Parent: HIERARCHIE_REGLEMENTAIRE.md L-003 + C-010 + C-011

@@ -7,9 +7,9 @@ RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 # MDE A3 — TRAITEMENT BIB → XLSX (ITEMS + ANGLES)
 
-Version : 3.0 (PIPELINE V2)
-Date : 2026-05-18
-Remplace : MDE_A3 v2.0 (pipeline V1 — BIPREGEN.txt + ANGIPREGEN.txt)
+Version : 4.0 (PIPELINE V2.1)
+Date : 2026-05-24
+Remplace : MDE_A3 v3.0 (pipeline V2 — sans NIVEAU_ANGLE)
 
 DEPENDENCY:
 - PIPELINE_V2.md
@@ -44,8 +44,12 @@ ACCEPTANCE_CRITERIA:
 - ITEMS_WITH_CATEGORY_RATE = 100%
 - ITEMS_WITH_RICHESSE_RATE = 100%
 - RICHESSE ∈ {DENSE, STANDARD, LIGHT}
+- ITEMS_WITH_NIVEAU_POTENTIEL_RATE = 100%
+- NIVEAU_POTENTIEL ∈ {N1, N2, N3, MULTI}
 - ANGLE_ID_UNIQUE_RATE = 100%
 - ANGLES_WITH_ITEM_ID_RATE = 100%
+- ANGLES_WITH_NIVEAU_ANGLE_RATE = 100%
+- NIVEAU_ANGLE ∈ {N1, N2, N3}
 - SECTION_ITEM_COUNT computed for 100% sections
 - EXPORT_BLOCKER_COUNT = 0
 
@@ -54,7 +58,9 @@ FAILURE_CASES:
 - duplicate ITEM_ID or ANGLE_ID
 - item without category
 - item without measurable RICHESSE
+- item without NIVEAU_POTENTIEL
 - angle without linked ITEM_ID
+- angle without NIVEAU_ANGLE
 
 ---
 # PRINCIPE GÉNÉRAL
@@ -65,10 +71,12 @@ A3 extrait sélectivement du BIB pour alimenter deux feuilles xlsx opérationnel
 
 A3 crée également le fichier QUIZ_[THEME].xlsx et le peuple jusqu'à HUMAN_GATE.
 
-**Changement V2 fondamental :**
-Les items ne reçoivent plus de niveau de difficulté (N1/N2/N3).
-Ils reçoivent une **RICHESSE** (DENSE / STANDARD / LIGHT).
-La difficulté des questions sera déterminée en A4 (pool) + B2 (question) + B3 (distracteurs).
+**Changement V2.1 fondamental :**
+Les items reçoivent une **RICHESSE** (DENSE / STANDARD / LIGHT) = combien de questions.
+Les angles reçoivent un **NIVEAU_ANGLE** (N1 / N2 / N3) = à quel public.
+Les items reçoivent un **NIVEAU_POTENTIEL** dérivé de l'agrégation de leurs NIVEAU_ANGLE.
+La difficulté est évaluée à l'angle (A3), assignée à la question en B2 (NIVEAU_QUESTION).
+Le pool n'est plus le porteur du niveau — voir RULE-ARCH-008.
 
 ---
 
@@ -166,6 +174,7 @@ RETEX_REF: RETEX_MDE_A3_TRAITEMENT_005
 | CATÉGORIE | section thématique d'origine |
 | RICHESSE | DENSE / STANDARD / LIGHT (voir critères ci-dessous) |
 RETEX_REF: RETEX_MDE_A3_TRAITEMENT_006
+| NIVEAU_POTENTIEL | dérivé en Étape 7b — ne pas remplir manuellement |
 
 ## Critères RICHESSE
 
@@ -185,7 +194,8 @@ RETEX_REF: RETEX_MDE_A3_TRAITEMENT_006
 - souvent candidat à un pool AGRÉGÉ
 - exemple : un joueur n'ayant qu'une seule donnée factuelle notable
 
-⚠️ RICHESSE ≠ difficulté. Un item DENSE peut générer des questions N1 comme N3 selon l'angle choisi et les distracteurs. La difficulté sera définie en A4 par le pool.
+⚠️ RICHESSE ≠ NIVEAU_POTENTIEL. Un item DENSE peut être N1, N3 ou MULTI selon ses angles.
+La difficulté est évaluée à l'angle (NIVEAU_ANGLE), assignée à la question en B2 (NIVEAU_QUESTION). Le pool ne porte plus de niveau fixe.
 
 ---
 
@@ -227,17 +237,50 @@ Un angle = un aspect précis et non ambigu d'un item = une seule question possib
 | ANGLE_ID | [ITEM_ID]-[A/B/C...] |
 | ITEM_ID | référence feuille ITEMS |
 | ANGLE | description courte de l'angle (ex: "année du titre", "nombre de buts en finale") |
+| NIVEAU_ANGLE | N1 / N2 / N3 — critères fermés ci-dessous |
 | POOL_CIBLE | laisser vide à ce stade — rempli en A4 |
 | EXCLUSIONS | angles incompatibles avec celui-ci (anti-collision préventive) |
 | QUOTA | nombre de questions cibles depuis cet angle (indicatif) |
 | STATUT | DISPONIBLE par défaut |
+
+## Critères NIVEAU_ANGLE (machine-applicable — source : FACTORY_RUNTIME_LEXICON.md)
+
+```
+N1 : answer is the most salient and widely known fact about the item
+     (primary record, most cited statistic, headline event)
+     recognizable without thematic prerequisite
+
+N2 : answer requires documented thematic knowledge
+     (secondary stat, supporting event, non-headline figure)
+     accessible to informed audience
+
+N3 : answer is precise, rare, or counter-intuitive
+     (exact coefficient, internal detail, non-publicized fact)
+     inaccessible without immersion in the subject
+
+DEFAULT_RULE : if N1/N2 ambiguous → N2 / if N2/N3 ambiguous → N2
+```
+
+## Étape 7b — Dérivation NIVEAU_POTENTIEL par item
+
+Après avoir rempli tous les NIVEAU_ANGLE de la feuille ANGLES, calculer par item :
+
+```
+NIVEAU_POTENTIEL = N1    if all NIVEAU_ANGLE of item = N1
+NIVEAU_POTENTIEL = N2    if all NIVEAU_ANGLE of item = N2
+NIVEAU_POTENTIEL = N3    if all NIVEAU_ANGLE of item = N3
+NIVEAU_POTENTIEL = MULTI if NIVEAU_ANGLE spans ≥2 distinct values among {N1, N2, N3}
+```
+
+Remplir la colonne NIVEAU_POTENTIEL de la feuille ITEMS depuis ce calcul.
+Ne pas remplir NIVEAU_POTENTIEL manuellement — toujours dériver depuis NIVEAU_ANGLE.
 
 ## Règles de cartographie des angles
 
 - Un angle doit pointer un fait unique et vérifiable
 - Éviter les micro-variantes artificielles (reformulations différentes du même fait)
 - Signaler les angles à risque de collision inter-items
-- Ne pas assigner de niveau de difficulté à l'angle — ce sera fait en B2 selon le pool
+- Assigner NIVEAU_ANGLE selon les critères fermés ci-dessus — pas d'estimation prose
 
 ## Suppressions d'angles motivées par
 
@@ -251,13 +294,14 @@ Un angle = un aspect précis et non ambigu d'un item = une seule question possib
 
 Avant de passer à A4, soumettre à validation :
 
-- [ ] Feuille ITEMS : codes uniques, RICHESSE ∈ {DENSE, STANDARD, LIGHT}, libellés non vides
-- [ ] Feuille ANGLES : angles distincts, exclusions documentées, quotas indicatifs
+- [ ] Feuille ITEMS : codes uniques, RICHESSE ∈ {DENSE, STANDARD, LIGHT}, NIVEAU_POTENTIEL dérivé, libellés non vides
+- [ ] Feuille ANGLES : angles distincts, NIVEAU_ANGLE ∈ {N1, N2, N3}, exclusions documentées, quotas indicatifs
 - [ ] Sections LIGHT identifiées et candidates AGRÉGÉ notées
 - [ ] Aucun angle fictif ou non vérifiable
 
 Décisions humaines attendues :
 - Validation RICHESSE (ou reclassement)
+- Validation NIVEAU_ANGLE (ou reclassement)
 - Confirmation des candidats AGRÉGÉ
 - Suppression d'angles discutables
 
@@ -295,7 +339,9 @@ RETEX_REF: RETEX_MDE_A3_TRAITEMENT_007
 
 A3 est valide si :
 - tous les items sont codés de façon unique
-- la RICHESSE est assignée pour chaque item
+- RICHESSE assignée pour chaque item ∈ {DENSE, STANDARD, LIGHT}
+- NIVEAU_ANGLE assigné pour chaque angle ∈ {N1, N2, N3}
+- NIVEAU_POTENTIEL dérivé pour chaque item ∈ {N1, N2, N3, MULTI}
 - les angles sont distincts et non ambigus
 - les sections LIGHT candidates à AGRÉGÉ sont identifiées
 - le BIB original reste intact
@@ -304,7 +350,7 @@ A3 est valide si :
 ---
 
 *MDE_A3_traitement.md*
-*Version 3.0 — 2026-05-18 — Pipeline V2*
-*Remplace : v2.0 (BIPREGEN.txt + ANGIPREGEN.txt)*
+*Version 4.0 — 2026-05-24 — Pipeline V2.1*
+*Remplace : v3.0 — ajout NIVEAU_ANGLE (Étape 7) + NIVEAU_POTENTIEL dérivé (Étape 7b)*
 
 

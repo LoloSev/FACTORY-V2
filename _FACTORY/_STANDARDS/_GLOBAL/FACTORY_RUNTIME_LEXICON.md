@@ -32,6 +32,53 @@ STANDARD
 LIGHT
 ```
 
+## NIVEAU_POTENTIEL
+
+```txt
+N1
+N2
+N3
+MULTI
+```
+
+Derivation rule (machine-first):
+```
+NIVEAU_POTENTIEL = N1    if all NIVEAU_ANGLE of item = N1
+NIVEAU_POTENTIEL = N2    if all NIVEAU_ANGLE of item = N2
+NIVEAU_POTENTIEL = N3    if all NIVEAU_ANGLE of item = N3
+NIVEAU_POTENTIEL = MULTI if NIVEAU_ANGLE spans ≥2 distinct values
+```
+
+Source : HIERARCHIE_REGLEMENTAIRE.md L-006 / MDE_A3_traitement.md v4.0
+
+## NIVEAU_ANGLE
+
+```txt
+N1
+N2
+N3
+```
+
+Classification criteria (closed, machine-applicable):
+```
+N1 : answer is the most salient and widely known fact about the item
+     (primary record, most cited statistic, headline event)
+     recognizable without thematic prerequisite
+
+N2 : answer requires documented thematic knowledge
+     (secondary stat, supporting event, non-headline figure)
+     accessible to informed audience
+
+N3 : answer is precise, rare, or counter-intuitive
+     (exact coefficient, internal detail, non-publicized fact)
+     inaccessible without immersion in the subject
+
+DEFAULT_RULE : if N1/N2 ambiguous → N2 / if N2/N3 ambiguous → N2
+N1 and N3 are unambiguous positions, not defaults.
+```
+
+Source : MDE_A3_traitement.md v4.0 / HIERARCHIE_REGLEMENTAIRE.md L-006
+
 ## MODE POOL
 
 ```txt
@@ -117,14 +164,22 @@ HIGH
 Colonnes clés partagées entre xlsx A4/B2/B3/B5. Format exact requis pour jointure IA sans contexte implicite.
 
 ```txt
-Q_ID            : Q-[THEME_3CHARS]-[POOL_ID]-[NNN]   ex: Q-MAY-IF01-001
-POOL_ID         : IF[NN] | QV[NN]                      ex: IF01, QV03
-CIBLE_NIVEAU    : N1 | N2 | N3
-QA_STATUS       : PASS | WARN | FAIL
-LENGTH_STATUS   : OK | ACCEPTABLE | FAIL
-STATUT_B2       : DRAFT | READY_B3 | REWRITE
-DECISION_RUNTIME: READY_EXPORT | REWRITE | DROP
-SEVERITY        : HB | SW | OPT
+Q_ID              : Q-[THEME_3CHARS]-[POOL_ID]-[NNN]   ex: Q-MAY-IF01-001
+POOL_ID           : IF[NN] | QV[NN]                      ex: IF01, QV03
+NIVEAU_POTENTIEL  : N1 | N2 | N3 | MULTI                 — colonne ITEMS (assigné A3, dérivé de NIVEAU_ANGLE)
+NIVEAU_ANGLE      : N1 | N2 | N3                         — colonne ANGLES (assigné A3)
+NIVEAU_QUESTION   : N1 | N2 | N3                         — colonne QUESTIONS (assigné B2 via NIVEAU_ANGLE)
+COUVERTURE_NIVEAU : OK | WARN | FAIL                     — colonne POOLS (calculé A4)
+QA_STATUS         : PASS | WARN | FAIL
+LENGTH_STATUS     : OK | ACCEPTABLE | FAIL
+STATUT_B2         : DRAFT | READY_B3 | REWRITE
+DECISION_RUNTIME  : READY_EXPORT | REWRITE | DROP
+SEVERITY          : HB | SW | OPT
+```
+
+DEPRECATED:
+```txt
+CIBLE_NIVEAU (POOLS) — remplacé par COUVERTURE_NIVEAU (validation) + NIVEAU_QUESTION (questions)
 ```
 
 RÈGLE: toute colonne partagée entre ≥2 xlsx doit être listée ici avec format exact.

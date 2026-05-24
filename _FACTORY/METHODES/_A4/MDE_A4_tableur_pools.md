@@ -7,9 +7,9 @@ RETEX_NORMATIVE_STATUS: NON_NORMATIVE
 
 # MDE A4 — CONSTITUTION DES POOLS → FEUILLE POOLS
 
-Version : 2.0 (PIPELINE V2)
-Date : 2026-05-18
-Remplace : MDE_A4 v1.2 (pipeline V1 — POOLS_[THEME].txt + A5 tableur séparé)
+Version : 3.0 (PIPELINE V2.1)
+Date : 2026-05-24
+Remplace : MDE_A4 v2.0 (pipeline V2 — CIBLE_NIVEAU fixe par pool)
 
 DEPENDENCY:
 - PIPELINE_V2.md
@@ -27,11 +27,11 @@ INPUT:
 - 20 positions quiz disponibles
 
 PROCESS:
-1. lire sections, items, angles et RICHESSE
-2. affecter exactement 20 pools
-3. calculer CIBLE_NIVEAU depuis POSITION_QUIZ
+1. lire sections, items, angles, RICHESSE et NIVEAU_POTENTIEL
+2. affecter exactement 20 pools (thématique uniquement)
+3. calculer COUVERTURE_NIVEAU par pool (RULE-ARCH-008)
 4. affecter les angles aux pools
-5. VALIDER stocks et collisions
+5. VALIDER stocks, couverture et collisions
 
 OUTPUT:
 - feuille POOLS peuplée
@@ -43,28 +43,29 @@ ACCEPTANCE_CRITERIA:
 - IF_COUNT = 5
 - QV_COUNT = 15
 - POSITION_QUIZ_UNIQUE_RATE = 100%
-- CIBLE_NIVEAU_POSITION_MATCH_RATE = 100%
 - STOCK_CIBLE ∈ {8,12,15}
 - IF_STOCK_Q1Q2 = 8
 - IF_STOCK_Q3Q5 = 12
 - QV_STOCK = 15
 - POOLS_WITH_ASSIGNED_ITEMS_RATE = 100%
 - POOLS_WITH_ASSIGNED_ANGLES_RATE = 100%
+- NIVEAU_COVERAGE_FAIL_COUNT = 0
 - HARD_COLLISION_COUNT = 0
 - EXPORT_BLOCKER_COUNT = 0
 
 FAILURE_CASES:
-- pool count != 20
+- POOL_COUNT != 20
 - duplicate POSITION_QUIZ
-- CIBLE_NIVEAU not derived from POSITION_QUIZ
 - pool without item or angle
+- COUVERTURE_NIVEAU = FAIL without human decision
 - hard collision detected
 
 ---
 # PRINCIPE GÉNÉRAL
 
 A4 constitue les 20 pools du quiz et peuple la feuille POOLS du xlsx.
-C'est à cette étape que la difficulté est assignée — top-down, par position dans le quiz.
+Les pools sont purement thématiques — la difficulté n'est plus assignée au pool.
+A4 valide que chaque pool peut servir le niveau qu'exigera le moteur (COUVERTURE_NIVEAU).
 
 **Entrée :** QUIZ_[THEME].xlsx avec feuilles ITEMS + ANGLES validées (gate A3)
 **Sortie :** feuille POOLS peuplée, prête pour B2
@@ -78,6 +79,7 @@ A4 produit aussi une feuille SOMMAIRE dans le xlsx pour le suivi d'avancement.
 Avant de constituer les pools :
 - Lister toutes les sections depuis feuille ITEMS (par CATÉGORIE)
 - Identifier les sections DENSE, STANDARD, LIGHT
+- Lire NIVEAU_POTENTIEL par item (N1/N2/N3/MULTI)
 - Repérer les sections signalées candidats AGRÉGÉ par A3
 - Estimer le potentiel de questions par section (QUOTA × angles)
 
@@ -124,22 +126,32 @@ Si une section LIGHT ou STANDARD ne peut pas atteindre seule le stock cible d'un
 
 ---
 
-# ÉTAPE 3 — ASSIGNATION CIBLE_NIVEAU (TOP-DOWN)
+# ÉTAPE 3 — VÉRIFICATION COUVERTURE NIVEAU (RULE-ARCH-008)
 
-La difficulté est assignée par la position du pool dans le quiz.
-Elle n'est pas négociable — elle découle de RULE-ARCH-004.
+Le pool est purement thématique. La position dans le quiz définit le niveau que le moteur lui demandera (NIVEAU_REQUIS — calculé, non stocké) :
 
-| Position quiz | CIBLE_NIVEAU |
-|---------------|--------------|
+| Position quiz | NIVEAU_REQUIS (moteur) |
+|---------------|------------------------|
 | Q1 à Q5 | N1 |
 | Q6 à Q15 | N2 |
 | Q16 à Q20 | N3 |
 
-L'IA assigne automatiquement CIBLE_NIVEAU selon la POSITION_QUIZ.
-HUMAN_GATE: POSITION_QUIZ peut être validée ou modifiée ; CIBLE_NIVEAU reste calculé automatiquement.
+Pour chaque pool, calculer COUVERTURE_NIVEAU :
 
-⚠️ Conséquence descriptife : un pool en position Q16-Q20 devra générer des questions N3.
-Si le pool contient <3 angles N3-valides, revoir la position du pool, pas le niveau.
+```
+NIVEAU_REQUIS = dérivé de POSITION_QUIZ (non stocké dans POOLS)
+ITEMS_COMPATIBLES = items du pool avec NIVEAU_POTENTIEL = NIVEAU_REQUIS ou MULTI
+RATIO = ITEMS_COMPATIBLES / TOTAL_ITEMS_POOL
+
+COUVERTURE_NIVEAU = OK   si RATIO ≥ 0.30
+COUVERTURE_NIVEAU = WARN si RATIO ∈ [0.01, 0.30[
+COUVERTURE_NIVEAU = FAIL si RATIO = 0
+```
+
+COUVERTURE_NIVEAU = FAIL → HUMAN_GATE obligatoire avant B2.
+Options : réassigner des items au pool / modifier POSITION_QUIZ / enrichir le BIB.
+
+NOTE : seuil 0.30 = valeur initiale à calibrer sur MAYENNE (RULE-GOV-002).
 
 ---
 
@@ -152,11 +164,11 @@ RETEX_REF: RETEX_MDE_A4_TABLEUR_POOLS_001
 | POOL_ID | IF-01/IF-02 (Q1-Q2) / IF-03/IF-04/IF-05 (Q3-Q5) / QV-01 à QV-15 (Q6-Q20) |
 | TYPE | IF / QV |
 | POSITION_QUIZ | Q1 à Q20 |
-| CIBLE_NIVEAU | N1 / N2 / N3 (automatique via position) |
 | THEME_LABEL | label contrôlé du pool |
 | MODE | SIMPLE / AGRÉGÉ |
 | SOUS_THÈMES | liste des sous-thèmes (si AGRÉGÉ) |
 | ITEMS_ASSIGNÉS | liste des ITEM_ID assignés à ce pool |
+| COUVERTURE_NIVEAU | OK / WARN / FAIL — calculé en Étape 3 |
 | STOCK_CIBLE | 8 (IF Q1-Q2) / 12 (IF Q3-Q5) / 15 (QV) |
 | STOCK_ACTUEL | formule =COUNTIF(QUESTIONS[POOL_ID], POOL_ID) |
 
@@ -214,8 +226,8 @@ Le SOMMAIRE est le cockpit de pilotage du quiz. Il se met à jour automatiquemen
 
 Avant de passer à B2 :
 
-- [ ] 20 pools constitués
-- [ ] CIBLE_NIVEAU correct pour chaque position
+- [ ] 20 pools constitués (thématiques)
+- [ ] COUVERTURE_NIVEAU ≠ FAIL pour chaque pool
 - [ ] Pools AGRÉGÉ validés (conformité sous-thèmes confirmée)
 - [ ] Angles assignés pour chaque pool
 - [ ] Stocks cibles atteignables
@@ -225,7 +237,7 @@ Avant de passer à B2 :
 Décisions humaines attendues :
 - Validation des 20 pools (ou reconfiguration)
 - Validation des pools AGRÉGÉ
-- Confirmation des positions (qui détermine CIBLE_NIVEAU)
+- Décision sur tout pool COUVERTURE_NIVEAU = FAIL (réassignation / repositionnement / enrichissement BIB)
 
 ---
 
@@ -233,7 +245,7 @@ Décisions humaines attendues :
 
 A4 est valide si :
 - exactement 20 pools définis
-- CIBLE_NIVEAU conforme à RULE-ARCH-004 pour chaque position
+- COUVERTURE_NIVEAU ∈ {OK, WARN} pour chaque pool (FAIL = bloquant)
 - chaque pool a assez d'angles pour atteindre son stock cible
 - aucun angle assigné à deux pools
 - les pools AGRÉGÉ ont une conformité documentaire vérifiée
@@ -241,7 +253,7 @@ A4 est valide si :
 ---
 
 *MDE_A4_tableur_pools.md*
-*Version 2.0 — 2026-05-18 — Pipeline V2*
-*Remplace : v1.2 (POOLS_[THEME].txt + A5 tableur séparé)*
+*Version 3.0 — 2026-05-24 — Pipeline V2.1*
+*Remplace : v2.0 — CIBLE_NIVEAU pool → COUVERTURE_NIVEAU / pools purement thématiques*
 
 

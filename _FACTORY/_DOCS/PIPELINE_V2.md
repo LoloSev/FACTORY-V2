@@ -11,7 +11,8 @@ IA_COMPATIBLE: TRUE
 
 PRINCIPE: Légèreté + Discipline
 — Un seul artefact vivant (le xlsx) enrichi progressivement
-— La difficulté descend du pool, elle ne remonte pas de l'item
+— La difficulté est évaluée à l'angle (A3), assignée à la question (B2), filtrée par le moteur (runtime)
+— Le pool est une unité thématique — il ne porte plus de niveau fixe
 — Chaque étape a une entrée claire et une sortie claire
 
 ---
@@ -20,8 +21,9 @@ PRINCIPE: Légèreté + Discipline
 
 | Concept V1 | Concept V2 |
 |------------|------------|
-| Items classés N1/N2/N3 en A3 | Items classés par RICHESSE (Dense/Standard/Light) |
-| Difficulté montante (item → question) | Difficulté descendante (pool → question → distracteurs) |
+| Items classés N1/N2/N3 en A3 | Items classés par RICHESSE + NIVEAU_POTENTIEL dérivé des angles |
+| Difficulté montante (item → question) | Difficulté évaluée à l'angle (NIVEAU_ANGLE), assignée à la question (NIVEAU_QUESTION) |
+| Pool = thème + niveau fixe (CIBLE_NIVEAU) | Pool = thème pur — niveau porté par chaque question |
 | BIPREGEN.txt + ANGIPREGEN.txt + POOLS.txt | Feuilles du xlsx unique |
 | A5 = étape autonome (TABLEUR_INIT) | xlsx créé en A3, enrichi à chaque étape |
 | B4 = étape autonome (implantation) | Disparaît — le xlsx EST l'artefact en continu |
@@ -65,14 +67,13 @@ Remplace BIPREGEN.txt.
 | LIBELLÉ | Texte de l'item (ligne unique) |
 | CATÉGORIE | Section thématique |
 | RICHESSE | DENSE / STANDARD / LIGHT |
+| NIVEAU_POTENTIEL | N1 / N2 / N3 / MULTI — dérivé des NIVEAU_ANGLE de l'item |
 | SOURCE_BIB | Référence ligne BIB originale |
 
-**RICHESSE** — définitions :
-- **DENSE** : item à plusieurs angles exploitables, fort potentiel de questions distinctes
-- **STANDARD** : item à 1-3 angles, potentiel normal
-- **LIGHT** : item faiblement interrogeable, 1 angle au maximum
+**RICHESSE** = combien de questions l'item peut générer.
+**NIVEAU_POTENTIEL** = à quel public — dérivé de l'agrégation des NIVEAU_ANGLE (voir FACTORY_RUNTIME_LEXICON.md).
 
-⚠️ RICHESSE ≠ difficulté. Un item DENSE peut générer des questions N1 comme N3 selon l'angle.
+⚠️ RICHESSE ≠ NIVEAU_POTENTIEL. Un item DENSE peut être N1, N3 ou MULTI selon ses angles.
 
 ---
 
@@ -85,6 +86,7 @@ Remplace ANGIPREGEN.txt.
 | ANGLE_ID | [ITEM_ID]-[A/B/C...] |
 | ITEM_ID | Référence feuille ITEMS |
 | ANGLE | Description de l'angle interrogeable |
+| NIVEAU_ANGLE | N1 / N2 / N3 — niveau de difficulté de cet angle (critères fermés dans FACTORY_RUNTIME_LEXICON.md) |
 | POOL_CIBLE | Pool auquel cet angle est assigné |
 | EXCLUSIONS | Angles incompatibles (anti-collision) |
 | QUOTA | Nombre de questions cibles depuis cet angle |
@@ -98,18 +100,18 @@ Remplace POOLS.txt. Structure les 20 pools avec difficulté top-down.
 
 | Colonne | Description |
 |---------|-------------|
-| POOL_ID | QV-01 à QV-15 / IF-SF-01/02 / IF-ROT-01/02/03 |
-| TYPE | IF-SF / IF-ROT / QV |
+| POOL_ID | QV-01 à QV-15 / IF-01 à IF-05 |
+| TYPE | IF / QV |
 | POSITION_QUIZ | Q1 à Q20 |
-| CIBLE_NIVEAU | N1 (Q1-5) / N2 (Q6-15) / N3 (Q16-20) |
 | THÈME_ÉDITORIAL | Intitulé du pool (peut être composite) |
 | MODE | SIMPLE / AGRÉGÉ |
 | SOUS_THÈMES | Liste des sous-thèmes fusionnés (si MODE=AGRÉGÉ) |
 | ITEMS_ASSIGNÉS | Liste ITEM_ID (tous sous-thèmes confondus) |
+| COUVERTURE_NIVEAU | OK / WARN / FAIL — validé en A4 (voir RULE-ARCH-008) |
 | STOCK_CIBLE | Nombre questions cibles |
 | STOCK_ACTUEL | Calculé automatiquement depuis QUESTIONS |
 
-**CIBLE_NIVEAU est immuable** — défini par RULE-ARCH-004, non modifiable par l'éditeur.
+Le pool n'a plus de CIBLE_NIVEAU fixe. La progression de difficulté est assurée par NIVEAU_QUESTION sur chaque question et filtrée par le moteur à l'assemblage (RULE-ARCH-006 + RULE-ARCH-008).
 
 **MODE AGRÉGÉ** (RULE-ARCH-005) : un pool peut regrouper plusieurs sous-thèmes dont aucun n'atteint seul le stock cible. Les questions restent CONSISTENCY_VALIDATED entre elles et les distracteurs valides à travers les sous-thèmes. Un pool agrégé = une seule unité de tirage au sort — le joueur ne voit pas la distinction.
 
@@ -126,7 +128,7 @@ Remplace les fichiers B2_GENERATION/.
 | ANGLE_ID | Référence feuille ANGLES |
 | LIBELLÉ | Texte de la question |
 | RÉPONSE | Réponse correcte |
-| CIBLE_NIVEAU | Hérité du pool (N1/N2/N3) |
+| NIVEAU_QUESTION | N1 / N2 / N3 — assigné en B2 depuis NIVEAU_ANGLE (non hérité du pool) |
 | TYPE_Q | 1-Identification / 2-Nombre / 3-Année / 4-Lieu / 5-Correspondance |
 | STATUT_B2 | EN_COURS / SOUMIS / VALIDÉ / REJETÉ |
 
@@ -146,7 +148,7 @@ Remplace les fichiers B3/.
 | ÉCART_CIBLE | OK / SURQUALIFIÉ / SOUS-QUALIFIÉ |
 | STATUT_B3 | EN_COURS / PASS / WARNING / FAIL |
 
-**NIVEAU_CONFIRMÉ vs CIBLE_NIVEAU :** si écart → signaler, corriger distracteurs ou reformuler question. Ne jamais modifier CIBLE_NIVEAU du pool.
+**NIVEAU_CONFIRMÉ vs NIVEAU_QUESTION :** si écart → signaler, corriger distracteurs ou reformuler question. NIVEAU_QUESTION peut être ajusté sur décision humaine (contrairement à l'ancien CIBLE_NIVEAU de pool qui était immuable).
 
 ---
 
@@ -204,9 +206,11 @@ Actions :
 3. Coder chaque item [THEME]-[CAT]-[N°] → feuille ITEMS
 4. Assigner RICHESSE (Dense/Standard/Light) par item → feuille ITEMS
 5. Cartographier les angles par item → feuille ANGLES
-6. Définir exclusions et quotas indicatifs → feuille ANGLES
+6. Assigner NIVEAU_ANGLE (N1/N2/N3) par angle → feuille ANGLES (critères fermés — FACTORY_RUNTIME_LEXICON.md)
+7. Dériver NIVEAU_POTENTIEL par item depuis agrégation NIVEAU_ANGLE → feuille ITEMS
+8. Définir exclusions et quotas indicatifs → feuille ANGLES
 
-**Gate humaine :** validation RICHESSE + angles avant A4
+**Gate humaine :** validation RICHESSE + NIVEAU_ANGLE + angles avant A4
 
 ---
 
@@ -215,15 +219,15 @@ Actions :
 **Sortie :** feuille POOLS peuplée
 
 Actions :
-1. Définir les 20 pools (éditorial)
-2. Assigner CIBLE_NIVEAU par pool (automatique via RULE-ARCH-004)
-3. Identifier les sous-thèmes trop faibles pour tenir un pool seul
-4. Fusionner ces sous-thèmes en pool AGRÉGÉ si CONSISTENCY garantie (RULE-ARCH-005)
-5. Assigner items/angles aux pools (simples ou agrégés)
+1. Définir les 20 pools (éditorial — thématique uniquement)
+2. Identifier les sous-thèmes trop faibles pour tenir un pool seul
+3. Fusionner ces sous-thèmes en pool AGRÉGÉ si CONSISTENCY garantie (RULE-ARCH-005)
+4. Assigner items/angles aux pools (simples ou agrégés)
+5. Calculer COUVERTURE_NIVEAU par pool (RULE-ARCH-008) — FAIL bloque B2
 6. VALIDER stock cible atteignable pour chaque pool
 7. VALIDATION anti-collision inter-pools
 
-**Gate humaine :** validation structure pools avant B2
+**Gate humaine :** validation structure pools + COUVERTURE_NIVEAU avant B2
 
 ---
 
@@ -232,11 +236,12 @@ Actions :
 **Sortie :** feuille QUESTIONS peuplée
 
 Actions :
-1. Pour chaque pool, générer questions en ciblant CIBLE_NIVEAU du pool
+1. Pour chaque angle assigné au pool, lire NIVEAU_ANGLE et générer la question à ce niveau
 2. Appliquer checklist 8 filtres (RULE-B2-HB-002)
 3. Appliquer VALIDATION recevabilité pédagogique (STD_B2_recevabilite_pedagogique.md)
 4. Anti-collision avant soumission humaine
-5. Remplir Q_ID / POOL_ID / ANGLE_ID / LIBELLÉ / RÉPONSE / CIBLE_NIVEAU / TYPE_Q
+5. Remplir Q_ID / POOL_ID / ANGLE_ID / LIBELLÉ / RÉPONSE / NIVEAU_QUESTION / TYPE_Q
+6. Vérifier distribution NIVEAU_QUESTION par pool — WARNING si stock N_REQUIS < 5 questions
 
 **Gate humaine :** validation par pool (pas question par question au stade B2)
 
@@ -322,5 +327,6 @@ Blocages export :
 
 ---
 
-*PIPELINE_V2.md — Version 2.0 — 2026-05-18*
+*PIPELINE_V2.md — Version 2.1 — 2026-05-24*
+*Évolution : décorrélation thème/niveau — CIBLE_NIVEAU pool → NIVEAU_QUESTION par question*
 *Principe : légèreté + discipline — un artefact, une source de vérité*

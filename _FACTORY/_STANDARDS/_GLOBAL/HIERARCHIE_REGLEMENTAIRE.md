@@ -1,7 +1,7 @@
 # HIÉRARCHIE RÉGLEMENTAIRE — QUIZZZ FACTORY
 
-VERSION: 1.0
-DATE: 2026-05-18
+VERSION: 1.1
+DATE: 2026-05-24
 STATUS: ACTIVE_REFERENCE
 PIPELINE_SCOPE: GLOBAL
 IA_COMPATIBLE: TRUE
@@ -83,6 +83,34 @@ Aucune question n'est recevable sans avoir passé l'intégralité des BLOCKERs m
 S'applique sans exception à toute question générée, importée, récupérée, copiée, reformulée ou déplacée.
 Source : SKILL.md RULE-UNIV-Q-001
 
+[C-010]
+**IA Compatibility**
+The factory is designed to be executed by any AI without implicit human context.
+All rules, acceptance criteria, and execution contracts must be machine-interpretable without supplementary explanation.
+A rule that requires human interpretation to be applied is not a valid factory rule.
+
+[C-011]
+**Machine First**
+Runtime execution contracts use closed taxonomies, measurable thresholds, and machine states.
+Prose judgment inside execution contracts is forbidden.
+Every decision point must map to a closed value set or a calculable threshold.
+Source : FACTORY_RUNTIME_LEXICON.md / TOKEN_ECONOMY_RUNTIME_PROTOCOL.md
+
+[C-012]
+**Token Economy**
+No concept is defined in more than one location.
+No column is stored if computable from existing data.
+No file carries more than one runtime responsibility.
+Load the minimum tokens sufficient to execute the active task.
+Source : TOKEN_ECONOMY_RUNTIME_PROTOCOL.md
+
+[C-013]
+**Runtime Language**
+Runtime execution uses canonical English labels (RULE, INPUT, OUTPUT, PROCESS, CONDITION, VALIDATION, FAILURE_CASE, ACCEPTED, REJECTED).
+Player-visible quiz content is native French, generated directly — never translated from English.
+Deprecated French execution synonyms are forbidden in runtime fields.
+Source : RUNTIME_EN_FR_OUTPUT_POLICY.md
+
 ---
 
 # NIVEAU 2 — LOIS ORGANIQUES
@@ -100,12 +128,14 @@ réduits (8/12) car leur rôle est ancré (Q1-Q5 fixes) et leur volumétrie néc
 
 [L-002] **Crescendo N1/N2/N3** → C-005
 Q1-Q5 = N1 / Q6-Q15 = N2 / Q16-Q20 = N3. Ordre immuable.
-Source : STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-004
+Source : STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-006
+NOTE: référence corrigée — RULE-ARCH-004 concerne la fusion de pools, pas le crescendo.
 
-[L-003] **Difficulté top-down** → C-005 + C-006
-La difficulté descend du pool vers la question et les distracteurs.
-Elle n'est jamais assignée bottom-up depuis l'item.
-Source : PIPELINE_V2.md
+[L-003] **Difficulté par angle → question → moteur** → C-005 + C-006 + C-010 + C-011
+La difficulté est évaluée à l'angle (A3 — NIVEAU_ANGLE), assignée à la question (B2 — NIVEAU_QUESTION), filtrée par le moteur à l'assemblage (runtime).
+Le pool est une unité thématique. Il n'est pas le porteur du niveau.
+Source : STD_GLOBAL_quiz_architecture_rules.md RULE-ARCH-008
+REMPLACE : "La difficulté descend du pool vers la question" (PIPELINE_V2.md — invalidé par RULE-ARCH-008)
 
 [L-004] **Pool agrégé possible** → C-002 + C-003
 Un pool peut regrouper plusieurs sous-thèmes faibles pour atteindre son stock cible.
@@ -117,10 +147,11 @@ Un seul artefact vivant (xlsx) progressivement enrichi.
 Les fichiers intermédiaires (.txt) sont éliminés au profit des feuilles xlsx.
 Source : PIPELINE_V2.md
 
-[L-006] **Richesse des items, pas difficulté** → L-003
-Les items ont une RICHESSE documentaire (DENSE/STANDARD/LIGHT).
-La difficulté appartient au pool, pas à l'item.
-Source : MDE_A3_traitement.md v3.0
+[L-006] **Richesse et niveau potentiel des items** → L-003 + C-011
+Les items ont une RICHESSE documentaire (DENSE/STANDARD/LIGHT) = combien de questions.
+Les items ont un NIVEAU_POTENTIEL (N1/N2/N3/MULTI) = dérivé de l'agrégation de leurs NIVEAU_ANGLE.
+La difficulté appartient à la question (NIVEAU_QUESTION), pas au pool.
+Source : MDE_A3_traitement.md v4.0
 
 [L-007] **Gouvernance législative — anti-explosion** → C-006
 Avant toute nouvelle règle : déjà couverte ? généralisable ? remplace une règle non mesurable ? observée sur ≥2 cobayes ?
@@ -139,6 +170,16 @@ Source : STD_GLOBAL_pool_collision_rules.md
 Le stock cible est une cible de QA_STATUS, pas de quantité.
 Atteindre le stock par des questions sans valeur de jeu est interdit.
 Source : STD_B2_generation_rules.md RULE-B2-HB-001
+
+[L-011] **Lexique central — anti-duplication** → C-012
+Toute taxonomie partagée entre ≥2 fichiers vit exclusivement dans FACTORY_RUNTIME_LEXICON.md.
+Les autres fichiers référencent sans redéfinir. Toute colonne partagée entre ≥2 xlsx est listée dans COLUMN_CONTRACT.
+Source : TOKEN_ECONOMY_RUNTIME_PROTOCOL.md RÈGLE 05
+
+[L-012] **Labels runtime en anglais** → C-013
+Les champs d'exécution utilisent l'anglais canonique machine-first.
+Le contenu joueur est produit en français natif sans étape de traduction intermédiaire.
+Source : RUNTIME_EN_FR_OUTPUT_POLICY.md
 
 ---
 
@@ -161,9 +202,9 @@ RETEX_REF: RETEX_HIERARCHIE_REGLEMENTAIRE_001
 | Règle | Énoncé condensé | Parent N2 |
 |-------|-----------------|-----------|
 | RULE-ARCH-001 | 20 pools obligatoires | L-001 |
-| RULE-ARCH-006 | 5 IF (table dérivation positionnelle) + 15 QV | L-001 |
+| RULE-ARCH-006 | 5 IF (table dérivation positionnelle) + 15 QV + crescendo N1/N2/N3 | L-001 + L-002 |
 | RULE-ARCH-003 | Stock cible 277 questions | C-003 |
-| RULE-ARCH-004 | Q1-5=N1 / Q6-15=N2 / Q16-20=N3 | L-002 |
+| RULE-ARCH-004 | Fusion pools physiques — transfert coverage/angles/collisions | L-004 |
 | RULE-ARCH-005 | Pool peut agréger sous-thèmes faibles | L-004 |
 
 ## STD_GLOBAL_pool_collision_rules.md
@@ -236,6 +277,27 @@ RETEX_REF: RETEX_HIERARCHIE_REGLEMENTAIRE_004
 | RULE-OBS-010/011 | Format et moment FICHE_VEILLE | C-006 + C-007 |
 | RULE-OBS-cas source-001/002 | Vérifications post-cas source 2026 | RULE-OBS-004 (TYPE-2) |
 RETEX_REF: RETEX_HIERARCHIE_REGLEMENTAIRE_005
+
+## TOKEN_ECONOMY_RUNTIME_PROTOCOL.md
+
+| Règle | Énoncé condensé | Parent N2 |
+|-------|-----------------|-----------|
+| RÈGLE 01 | Responsabilité unique par fichier | L-011 |
+| RÈGLE 02 | XLSX = runtime tables uniquement | C-011 + C-012 |
+| RÈGLE 03 | Markdown = règles et arbitrages uniquement | C-011 |
+| RÈGLE 04 | Taxonomies fermées — tags/IDs/états machine | C-011 |
+| RÈGLE 05 | Lexique central — pas de redéfinition externe | L-011 |
+| RÈGLE 06 | Migration progressive — ne pas casser les lignes existantes | L-008 |
+| L0–L4 | Couches de chargement runtime — minimum suffisant | C-012 |
+
+## RUNTIME_EN_FR_OUTPUT_POLICY.md
+
+| Règle | Énoncé condensé | Parent N2 |
+|-------|-----------------|-----------|
+| RULE | Runtime EN / output joueur FR natif | L-012 |
+| SCOPE_RUNTIME_EN | Champs d'exécution en anglais canonique | L-012 + C-013 |
+| SCOPE_OUTPUT_FR | Contenu joueur en français natif | C-013 |
+| FORBIDDEN_PATTERN | Pas de génération EN puis traduction FR | C-013 |
 
 ## MASTER_ARCHITECTURE.md (lois organiques formalisées)
 
@@ -314,7 +376,9 @@ Toute règle opérationnelle dans le glossaire est mal placée → migrer vers S
 ---
 
 *HIERARCHIE_REGLEMENTAIRE.md*
-*Version 1.0 — 2026-05-18*
+*Version 1.1 — 2026-05-24*
+*Ajouts : C-010/C-011/C-012/C-013 (IA Compatibility, Machine First, Token Economy, Runtime Language) + L-011/L-012*
+*Corrections : L-002 source RULE-ARCH-004→RULE-ARCH-006 / RULE-ARCH-004 libellé corrigé dans N3*
 *Principe : toute règle répond à une règle hiérarchiquement supérieure*
 
 
